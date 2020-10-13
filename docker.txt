@@ -2,3 +2,6 @@ docker system prune -a
 
 docker build -t native-server .
 docker run -p 8080:8080 native-server
+
+docker run -it native-server sh
+docker exec -it ab8b35833e56 sh

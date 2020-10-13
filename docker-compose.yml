@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  server:
+    container_name: native-server
+    build: ./server
+    ports:
+      - 8080:8080
+    volumes:
+      - ./server:/data
+    depends_on:
+      - server-database
+    environment:
+      - DATABASE_URL=server-database:27017
+  server-database:
+    container_name: native-db
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./db:/data/db

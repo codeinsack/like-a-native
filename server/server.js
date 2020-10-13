@@ -12,9 +12,6 @@ dotenv.config({ path: './config/config.env' });
 // Connect to database
 connectDB();
 
-// const DATABASE_URL = process.env.DATABASE_URL || 'localhost:27017'
-// mongoose.connect(`mongodb://${DATABASE_URL}/native`, { useNewUrlParser: true });
-
 // Route files
 const words = require('./routes/words');
 
