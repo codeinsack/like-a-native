@@ -14,8 +14,7 @@ export default Vue.extend({
     msg: String
   },
   async mounted() {
-    const response = await axios.get('/api/v1/words');
-    console.log('response', response);
+    await axios.get('/api/v1/words');
   }
 });
 </script>

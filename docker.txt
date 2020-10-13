@@ -1,0 +1,4 @@
+docker system prune -a
+
+docker build -t native-server .
+docker run -p 8080:8080 native-server
