@@ -1,13 +1,8 @@
 require('colors');
 const express = require('express');
 const morgan = require('morgan');
-const dotenv = require('dotenv');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
-const mongoose = require('mongoose');
-
-// Load env vars
-dotenv.config({ path: './config/config.env' });
 
 // Connect to database
 connectDB();
@@ -30,7 +25,7 @@ app.use('/api/v1/words', words);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT | 8080;
+const PORT = process.env.PORT | 5000;
 
 const server = app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.red.bold));
 

@@ -1,17 +1,28 @@
 version: "3"
 
 services:
-  server:
+  nginx:
+    container_name: native-nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - 3050:80
+    depends_on:
+      - api
+      - client
+  api:
     container_name: native-server
     build: ./server
     ports:
-      - 8080:8080
+      - 5000:5000
     volumes:
-      - ./server:/data
+      - /app/node_modules
+      - ./server:/app
     depends_on:
       - server-database
     environment:
       - DATABASE_URL=server-database:27017
+      - PORT=5000
   server-database:
     container_name: native-db
     image: mongo
@@ -19,3 +30,11 @@ services:
       - 27017:27017
     volumes:
       - ./db:/data/db
+  client:
+    container_name: native-client
+    build: ./client
+    ports:
+      - 8080:8080
+    volumes:
+    - /app/node_modules
+    - ./client:/app
