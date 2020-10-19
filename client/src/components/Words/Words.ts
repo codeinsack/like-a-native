@@ -1,3 +1,6 @@
+import { onMounted } from '@vue/composition-api';
+import { fetchWords } from '@/api/words';
+
 const words = [
   {
     name: 'man',
@@ -14,6 +17,11 @@ const words = [
 ];
 
 export function useWords() {
+  onMounted(async () => {
+    const { data } = await fetchWords();
+    console.log('data', data);
+  });
+
   return {
     words,
   };
