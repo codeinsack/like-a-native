@@ -1,29 +1,31 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
+  <VApp>
+    <Words />
+    <VContainer>
+      <VRow>
+        <VCol>
+          <VTextField placeholder="Please enter a word" outlined dense/>
+        </VCol>
+        <VCol>
+          <VBtn color="primary" outlined>Add new word</VBtn>
+        </VCol>
+      </VRow>
+    </VContainer>
+  </VApp>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+<script>
+import Words from './components/Words/Words.vue';
 
-export default Vue.extend({
-  name: "App",
+export default {
+  name: 'App',
+
   components: {
-    HelloWorld
-  }
-});
-</script>
+    Words,
+  },
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  data: () => ({
+    //
+  }),
+};
+</script>

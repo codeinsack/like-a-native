@@ -1,4 +1,3 @@
-require('colors');
 const express = require('express');
 const morgan = require('morgan');
 const errorHandler = require('./middleware/error');
@@ -25,13 +24,13 @@ app.use('/api/v1/words', words);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT | 5000;
+const PORT = process.env.SERVER_PORT;
 
-const server = app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.red.bold));
+const server = app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
-  console.log(`Error: ${err}`.red);
+  console.log(`Error: ${err}`);
   // Close server & exit process
   server.close(() => process.exit(1));
 });
