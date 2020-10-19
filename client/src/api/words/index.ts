@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AxiosResponse } from '../../types/axios';
+import { AxiosResponse } from '@/types/axios';
 
 const baseUrl = `/api/v1/words`;
 

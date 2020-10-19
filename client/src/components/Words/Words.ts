@@ -13,7 +13,7 @@ const words = [
   },
 ];
 
-export const useWords = () => {
+export function useWords() {
   return {
     words,
   };
