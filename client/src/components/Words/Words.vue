@@ -24,7 +24,7 @@
     </VRow>
     <VRow>
       <VCol>
-        <VDataTable :headers="headers" :items="words" :items-per-page="5" />
+        <VDataTable :options.sync="options" :headers="headers" :items="words" :loading="loading" />
       </VCol>
     </VRow>
   </VContainer>
@@ -36,7 +36,16 @@ import { useWords } from './Words';
 
 export default defineComponent({
   setup() {
-    const { headers, words, wordEnglish, wordGerman, definition, addNewWord } = useWords();
+    const {
+      headers,
+      words,
+      wordEnglish,
+      wordGerman,
+      definition,
+      addNewWord,
+      loading,
+      options,
+    } = useWords();
     return {
       headers,
       words,
@@ -44,6 +53,8 @@ export default defineComponent({
       wordGerman,
       definition,
       addNewWord,
+      loading,
+      options,
     };
   },
 });

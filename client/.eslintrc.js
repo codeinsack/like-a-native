@@ -38,6 +38,8 @@ module.exports = {
     'vue/attribute-hyphenation': 'off',
     'vue/html-self-closing': 'off',
     'vue/no-v-html': 'off',
+    'import/no-unresolved': 'off',
+    'import/extensions': 'off'
   },
   overrides: [
     {
