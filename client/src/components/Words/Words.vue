@@ -2,16 +2,6 @@
   <VContainer class="mt-12">
     <VRow>
       <VCol cols="6">
-        <VList>
-          <VListItem v-for="(word, index) in words" :key="index">
-            <VListItemContent>
-              <VListItemTitle v-text="word.name" />
-              <VListItemSubtitle v-text="word.translation" />
-            </VListItemContent>
-          </VListItem>
-        </VList>
-      </VCol>
-      <VCol cols="6">
         <VTextField
           v-model="wordEnglish"
           label="Name"
@@ -28,6 +18,14 @@
         />
         <VBtn color="primary" outlined @click="addNewWord">Add new word</VBtn>
       </VCol>
+      <VCol cols="6">
+        <VTextarea v-model="definition" outlined label="Definition" />
+      </VCol>
+    </VRow>
+    <VRow>
+      <VCol>
+        <VDataTable :headers="headers" :items="words" :items-per-page="5" />
+      </VCol>
     </VRow>
   </VContainer>
 </template>
@@ -38,11 +36,13 @@ import { useWords } from './Words';
 
 export default defineComponent({
   setup() {
-    const { words, wordEnglish, wordGerman, addNewWord } = useWords();
+    const { headers, words, wordEnglish, wordGerman, definition, addNewWord } = useWords();
     return {
+      headers,
       words,
       wordEnglish,
       wordGerman,
+      definition,
       addNewWord,
     };
   },

@@ -13,6 +13,11 @@ const WordSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
+  definition: {
+    type: String,
+    required: [true, 'Please add a definition'],
+    trim: true,
+  },
 })
 
 module.exports = mongoose.model('Word', WordSchema);
