@@ -13,8 +13,5 @@ exports.getWords = asyncHandler(async (req, res, next) => {
 // @access Public
 exports.addWord = asyncHandler(async (req, res, next) => {
   const word = await Word.create(req.body);
-  res.status(201).json({
-    success: true,
-    data: word,
-  })
+  res.status(201).json(word)
 });

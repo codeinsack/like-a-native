@@ -1,5 +1,5 @@
 export interface Word {
-  name: string;
+  word: string;
   translation: string;
   definition: string;
 }

@@ -3,14 +3,14 @@
     <VRow>
       <VCol cols="6">
         <VTextField
-          v-model="wordEnglish"
+          v-model="word.word"
           label="Name"
           placeholder="Please enter a word"
           outlined
           dense
         />
         <VTextField
-          v-model="wordGerman"
+          v-model="word.translation"
           label="Translation"
           placeholder="Please enter a translation"
           outlined
@@ -19,7 +19,7 @@
         <VBtn color="primary" outlined @click="addNewWord">Add new word</VBtn>
       </VCol>
       <VCol cols="6">
-        <VTextarea v-model="definition" outlined label="Definition" />
+        <VTextarea v-model="word.definition" outlined label="Definition" />
       </VCol>
     </VRow>
     <VRow>
@@ -43,23 +43,11 @@ import { useWords } from './Words';
 
 export default defineComponent({
   setup() {
-    const {
-      headers,
-      words,
-      wordEnglish,
-      wordGerman,
-      definition,
-      addNewWord,
-      loading,
-      options,
-      totalWords,
-    } = useWords();
+    const { headers, words, word, addNewWord, loading, options, totalWords } = useWords();
     return {
       headers,
       words,
-      wordEnglish,
-      wordGerman,
-      definition,
+      word,
       addNewWord,
       loading,
       options,

@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { AxiosResponse } from '@/types/axios';
+import axios, { AxiosResponse } from 'axios';
 import { PaginatedResult } from '@/types/paginatedResult';
 import { Word } from '@/types/words';
 
@@ -11,27 +10,13 @@ export const fetchWords = async ({
 }: {
   page: number;
   limit: number;
-}): Promise<AxiosResponse<PaginatedResult<Word>>> => {
-  const url = `${baseUrl}`;
+}): Promise<AxiosResponse<PaginatedResult<Word>>> =>
+  axios.get(baseUrl, {
+    params: {
+      page,
+      limit,
+    },
+  });
 
-  try {
-    return axios.get(url, {
-      params: {
-        page,
-        limit,
-      },
-    });
-  } catch (error) {
-    return { error };
-  }
-};
-
-export const addWord = async (body: Word): Promise<AxiosResponse<unknown>> => {
-  const url = `${baseUrl}`;
-
-  try {
-    return axios.post(url, body);
-  } catch (error) {
-    return { error };
-  }
-};
+export const addWord = async (body: Word): Promise<AxiosResponse<Word>> =>
+  axios.post(baseUrl, body);

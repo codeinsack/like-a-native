@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const WordSchema = new mongoose.Schema({
-  name: {
+  word: {
     type: String,
-    required: [true, 'Please add a name'],
+    required: [true, 'Please add a word'],
     unique: true,
     trim: true,
   },

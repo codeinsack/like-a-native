@@ -39,7 +39,8 @@ module.exports = {
     'vue/html-self-closing': 'off',
     'vue/no-v-html': 'off',
     'import/no-unresolved': 'off',
-    'import/extensions': 'off'
+    'import/extensions': 'off',
+    'no-use-before-define': 'off'
   },
   overrides: [
     {
