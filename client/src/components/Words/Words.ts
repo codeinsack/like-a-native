@@ -12,6 +12,7 @@ const headers = [
 export function useWords() {
   const loading: Ref<boolean> = ref(false);
   const options: Ref<DataOptions | null> = ref(null);
+  const totalWords: Ref<number> = ref(0);
   const wordEnglish: Ref<string> = ref('');
   const wordGerman: Ref<string> = ref('');
   const definition: Ref<string> = ref('');
@@ -20,16 +21,20 @@ export function useWords() {
   watch(
     options,
     async (value) => {
+      if (!value) return;
       loading.value = true;
-      const { data } = await fetchWords();
-      loading.value = false;
-      words.value = data.data;
+      const { data } = await fetchWords({ page: value.page, limit: value.itemsPerPage });
+      if (data) {
+        loading.value = false;
+        words.value = data.resultList;
+        totalWords.value = data.totalCount;
+      }
       console.log('options', value);
     },
     { deep: true }
   );
 
-  const addNewWord = async () => {
+  const addNewWord = async (): Promise<void> => {
     const newWord: Word = {
       name: wordEnglish.value,
       translation: wordGerman.value,
@@ -51,5 +56,6 @@ export function useWords() {
     definition,
     loading,
     options,
+    totalWords,
   };
 }

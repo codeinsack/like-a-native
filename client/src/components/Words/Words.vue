@@ -24,7 +24,14 @@
     </VRow>
     <VRow>
       <VCol>
-        <VDataTable :options.sync="options" :headers="headers" :items="words" :loading="loading" />
+        <VDataTable
+          :headers="headers"
+          :items="words"
+          :options.sync="options"
+          :server-items-length="totalWords"
+          :loading="loading"
+          :footer-props="{ showFirstLastPage: true, itemsPerPageOptions: [5, 10, 25, 50] }"
+        />
       </VCol>
     </VRow>
   </VContainer>
@@ -45,6 +52,7 @@ export default defineComponent({
       addNewWord,
       loading,
       options,
+      totalWords,
     } = useWords();
     return {
       headers,
@@ -55,6 +63,7 @@ export default defineComponent({
       addNewWord,
       loading,
       options,
+      totalWords,
     };
   },
 });
