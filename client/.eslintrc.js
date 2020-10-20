@@ -40,7 +40,8 @@ module.exports = {
     'vue/no-v-html': 'off',
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
-    'no-use-before-define': 'off'
+    'no-use-before-define': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   },
   overrides: [
     {
