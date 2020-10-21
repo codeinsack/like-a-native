@@ -1,21 +1,20 @@
 <template>
   <VApp>
-    <Words />
+    <VAppBar app clipped-right>
+      <Tabs />
+    </VAppBar>
+    <VContent>
+      <RouterView />
+    </VContent>
   </VApp>
 </template>
 
 <script>
-import Words from './components/Words/Words.vue';
+import Tabs from '@/components/Tabs/Tabs.vue';
 
 export default {
-  name: 'App',
-
   components: {
-    Words,
+    Tabs,
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>
