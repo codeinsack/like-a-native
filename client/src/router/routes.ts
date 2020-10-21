@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Words from '@/components/Words/Words.vue';
-import Training from '@/components/Training/Training.vue';
+import Words from '@/views/Words/Words.vue';
+import Training from '@/views/Training/Training.vue';
 
 Vue.use(VueRouter);
 
