@@ -19,7 +19,7 @@ const initialWord = {
 export function useWords() {
   const loading: Ref<boolean> = ref(false);
   const options: Ref<DataOptions | null> = ref(null);
-  const search: Ref<string> = ref('');
+  const search: Ref<string | null> = ref(null);
   const totalWords: Ref<number> = ref(0);
   const words: Ref<Word[]> = ref([]);
   const word: Word = reactive({ ...initialWord });

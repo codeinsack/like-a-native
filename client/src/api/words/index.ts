@@ -11,7 +11,7 @@ export const fetchWords = async ({
 }: {
   page: number;
   limit: number;
-  search: string;
+  search: string | null;
 }): Promise<AxiosResponse<PaginatedResult<Word>>> =>
   axios.get(baseUrl, {
     params: {
