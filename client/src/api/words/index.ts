@@ -7,16 +7,19 @@ const baseUrl = `/api/v1/words`;
 export const fetchWords = async ({
   page,
   limit,
+  sort,
   search,
 }: {
   page: number;
   limit: number;
+  sort: string | null;
   search: string | null;
 }): Promise<AxiosResponse<PaginatedResult<Word>>> =>
   axios.get(baseUrl, {
     params: {
       page,
       limit,
+      sort,
       search,
     },
   });

@@ -38,10 +38,14 @@ export function useWords() {
 
   const loadWords = debounce(async () => {
     if (!options.value) return;
+    const [desc] = options.value.sortDesc;
+    const [by] = options.value.sortBy;
+    const sort = by ? `${desc ? '-' : ''}${by}` : null;
     loading.value = true;
     const { data } = await fetchWords({
       page: options.value.page,
       limit: options.value.itemsPerPage,
+      sort,
       search: search.value,
     });
     if (data) {
