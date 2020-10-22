@@ -1,3 +1,4 @@
+import { debounce } from 'lodash';
 import { reactive, Ref, ref, watch } from '@vue/composition-api';
 import { fetchWords, addWord } from '@/api/words';
 import { Word } from '@/types/words';
@@ -18,6 +19,7 @@ const initialWord = {
 export function useWords() {
   const loading: Ref<boolean> = ref(false);
   const options: Ref<DataOptions | null> = ref(null);
+  const search: Ref<string> = ref('');
   const totalWords: Ref<number> = ref(0);
   const words: Ref<Word[]> = ref([]);
   const word: Word = reactive({ ...initialWord });
@@ -30,19 +32,24 @@ export function useWords() {
     { deep: true }
   );
 
-  const loadWords = async () => {
+  watch(search, async () => {
+    await loadWords();
+  });
+
+  const loadWords = debounce(async () => {
     if (!options.value) return;
     loading.value = true;
     const { data } = await fetchWords({
       page: options.value.page,
       limit: options.value.itemsPerPage,
+      search: search.value,
     });
     if (data) {
       loading.value = false;
       words.value = data.resultList;
       totalWords.value = data.totalCount;
     }
-  };
+  }, 300);
 
   const addNewWord = async (): Promise<void> => {
     await addWord({ ...word });
@@ -58,5 +65,6 @@ export function useWords() {
     loading,
     options,
     totalWords,
+    search,
   };
 }

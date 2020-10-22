@@ -35,7 +35,13 @@
           <template #top>
             <VRow class="d-flex justify-end align-center">
               <VCol cols="4">
-                <VTextField class="mx-4" label="Search" append-icon="mdi-magnify" clearable />
+                <VTextField
+                  v-model="search"
+                  class="mx-4"
+                  label="Search"
+                  append-icon="mdi-magnify"
+                  clearable
+                />
               </VCol>
             </VRow>
           </template>
@@ -51,7 +57,7 @@ import { useWords } from './Words';
 
 export default defineComponent({
   setup() {
-    const { headers, words, word, addNewWord, loading, options, totalWords } = useWords();
+    const { headers, words, word, addNewWord, loading, options, totalWords, search } = useWords();
     return {
       headers,
       words,
@@ -60,6 +66,7 @@ export default defineComponent({
       loading,
       options,
       totalWords,
+      search,
     };
   },
 });

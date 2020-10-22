@@ -9,15 +9,9 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   // Loop over removeFields and delete them from reqQuery
   removeFields.forEach(param => delete reqQuery[param]);
 
-  // Create query string
-  let queryStr = JSON.stringify(reqQuery);
-
-
-  // Create operators ($gt, $tge, etc)
-  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
-
-  // Finding resource
-  query = model.find(JSON.parse(queryStr));
+  // Search
+  const regex = new RegExp(req.query.search, 'i')
+  query = model.find({ word: { $regex: regex } });
 
   // Select Fields
   if (req.query.select) {
