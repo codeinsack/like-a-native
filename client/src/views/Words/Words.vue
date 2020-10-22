@@ -31,7 +31,15 @@
           :server-items-length="totalWords"
           :loading="loading"
           :footer-props="{ showFirstLastPage: true, itemsPerPageOptions: [5, 10, 25, 50] }"
-        />
+        >
+          <template #top>
+            <VRow class="d-flex justify-end align-center">
+              <VCol cols="4">
+                <VTextField class="mx-4" label="Search" append-icon="mdi-magnify" clearable />
+              </VCol>
+            </VRow>
+          </template>
+        </VDataTable>
       </VCol>
     </VRow>
   </VContainer>
