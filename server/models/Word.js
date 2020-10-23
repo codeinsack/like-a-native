@@ -18,6 +18,21 @@ const WordSchema = new mongoose.Schema({
     required: [true, 'Please add a definition'],
     trim: true,
   },
+  partOfSpeech: {
+    type: String,
+    required: [true, 'Please add a part of speech'],
+    enum: [
+      'noun',
+      'article',
+      'adjective',
+      'pronoun',
+      'numeral',
+      'verb',
+      'preposition',
+      'conjunction',
+      'interjection',
+    ]
+  },
 })
 
 module.exports = mongoose.model('Word', WordSchema);
