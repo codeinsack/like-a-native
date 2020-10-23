@@ -40,12 +40,10 @@ import { useWords } from './Words';
 
 export default defineComponent({
   setup() {
-    const { headers, words, word, addNewWord, loading, options, totalWords, search } = useWords();
+    const { headers, words, loading, options, totalWords, search } = useWords();
     return {
       headers,
       words,
-      word,
-      addNewWord,
       loading,
       options,
       totalWords,
