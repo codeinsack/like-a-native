@@ -16,6 +16,14 @@
           outlined
           dense
         />
+        <VSelect
+          v-model="word.partOfSpeech"
+          :items="partsOfSpeech"
+          label="Part of speech"
+          placeholder="Please select a part of speech"
+          outlined
+          dense
+        />
         <VBtn color="primary" outlined @click="addNewWord">Add new word</VBtn>
       </VCol>
       <VCol cols="6">
@@ -31,10 +39,11 @@ import { useAddWord } from './AddWord';
 
 export default defineComponent({
   setup() {
-    const { word, addNewWord } = useAddWord();
+    const { word, addNewWord, partsOfSpeech } = useAddWord();
     return {
       word,
       addNewWord,
+      partsOfSpeech,
     };
   },
 });
