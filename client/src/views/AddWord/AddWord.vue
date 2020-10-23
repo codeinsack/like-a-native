@@ -4,7 +4,7 @@
       <VCol cols="6">
         <VTextField
           v-model="word.word"
-          label="Name"
+          label="Word"
           placeholder="Please enter a word"
           outlined
           dense

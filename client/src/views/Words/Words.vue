@@ -29,9 +29,7 @@
             </VRow>
           </template>
           <template #item.partOfSpeech="{ item }">
-            <VChip color="green" dark>
-              {{ capitalizeUnderscore(item.partOfSpeech) }}
-            </VChip>
+            <PartOfSpeechChip :type="item.partOfSpeech" />
           </template>
         </VDataTable>
       </VCol>
@@ -41,19 +39,15 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import PartOfSpeechChip from '@/components/PartOfSpeechChip/PartOfSpeechChip.vue';
 import { useWords } from './Words';
 
 export default defineComponent({
+  components: {
+    PartOfSpeechChip,
+  },
   setup() {
-    const {
-      headers,
-      words,
-      loading,
-      options,
-      totalWords,
-      search,
-      capitalizeUnderscore,
-    } = useWords();
+    const { headers, words, loading, options, totalWords, search } = useWords();
     return {
       headers,
       words,
@@ -61,7 +55,6 @@ export default defineComponent({
       options,
       totalWords,
       search,
-      capitalizeUnderscore,
     };
   },
 });
