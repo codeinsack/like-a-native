@@ -31,16 +31,10 @@ import { useAddWord } from './AddWord';
 
 export default defineComponent({
   setup() {
-    const { headers, words, word, addNewWord, loading, options, totalWords, search } = useAddWord();
+    const { word, addNewWord } = useAddWord();
     return {
-      headers,
-      words,
       word,
       addNewWord,
-      loading,
-      options,
-      totalWords,
-      search,
     };
   },
 });
