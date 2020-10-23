@@ -1,8 +1,9 @@
 import { debounce } from 'lodash';
 import { Ref, ref, watch } from '@vue/composition-api';
 import { fetchWords } from '@/api/words';
-import { Word } from '@/types/words';
+import { PartOfSpeech, Word } from '@/types/words';
 import { DataOptions } from 'vuetify/types';
+import { useFormatter } from '@/uses/useFormatter';
 
 const headers = [
   { text: 'Word', value: 'word' },
@@ -11,10 +12,20 @@ const headers = [
   { text: 'Definition', value: 'definition' },
 ];
 
+const { capitalizeUnderscore } = useFormatter();
+
+const partsOfSpeech = (Object.keys(PartOfSpeech) as Array<keyof typeof PartOfSpeech>).map(
+  (key) => ({
+    value: key,
+    text: capitalizeUnderscore(PartOfSpeech[key]),
+  })
+);
+
 export function useWords() {
   const loading: Ref<boolean> = ref(false);
   const options: Ref<DataOptions | null> = ref(null);
   const search: Ref<string | null> = ref(null);
+  const partOfSpeech: Ref<PartOfSpeech | null> = ref(null);
   const totalWords: Ref<number> = ref(0);
   const words: Ref<Word[]> = ref([]);
 
@@ -30,6 +41,10 @@ export function useWords() {
     await loadWords();
   });
 
+  watch(partOfSpeech, async () => {
+    await loadWords();
+  });
+
   const loadWords = debounce(async () => {
     if (!options.value) return;
     const [desc] = options.value.sortDesc;
@@ -41,6 +56,7 @@ export function useWords() {
       limit: options.value.itemsPerPage,
       sort,
       search: search.value,
+      partOfSpeech: partOfSpeech.value,
     });
     if (data) {
       loading.value = false;
@@ -56,5 +72,7 @@ export function useWords() {
     options,
     totalWords,
     search,
+    partOfSpeech,
+    partsOfSpeech,
   };
 }

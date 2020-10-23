@@ -12,6 +12,14 @@
         >
           <template #top>
             <VRow class="d-flex justify-end align-center">
+              <VCol cols="3">
+                <VSelect
+                  v-model="partOfSpeech"
+                  :items="partsOfSpeech"
+                  placeholder="Filter by part of speech"
+                  clearable
+                />
+              </VCol>
               <VCol cols="4">
                 <VTextField
                   v-model="search"
@@ -47,7 +55,16 @@ export default defineComponent({
     PartOfSpeechChip,
   },
   setup() {
-    const { headers, words, loading, options, totalWords, search } = useWords();
+    const {
+      headers,
+      words,
+      loading,
+      options,
+      totalWords,
+      search,
+      partOfSpeech,
+      partsOfSpeech,
+    } = useWords();
     return {
       headers,
       words,
@@ -55,6 +72,8 @@ export default defineComponent({
       options,
       totalWords,
       search,
+      partOfSpeech,
+      partsOfSpeech,
     };
   },
 });
