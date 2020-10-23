@@ -41,7 +41,8 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'no-use-before-define': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off'
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'no-shadow': 'off'
   },
   overrides: [
     {

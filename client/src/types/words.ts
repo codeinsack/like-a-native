@@ -1,9 +1,3 @@
-export interface Word {
-  word: string;
-  translation: string;
-  definition: string;
-}
-
 export enum PartOfSpeech {
   NOUN = 'NOUN',
   ARTICLE = 'ARTICLE',
@@ -15,4 +9,11 @@ export enum PartOfSpeech {
   PREPOSITION = 'PREPOSITION',
   CONJUNCTION = 'CONJUNCTION',
   INTERJECTION = 'INTERJECTION',
+}
+
+export interface Word {
+  word: string;
+  translation: string;
+  definition: string;
+  partOfSpeech: PartOfSpeech;
 }

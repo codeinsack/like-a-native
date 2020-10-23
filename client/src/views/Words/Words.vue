@@ -28,6 +28,11 @@
               </VCol>
             </VRow>
           </template>
+          <template #item.partOfSpeech="{ item }">
+            <VChip color="green" dark>
+              {{ capitalizeUnderscore(item.partOfSpeech) }}
+            </VChip>
+          </template>
         </VDataTable>
       </VCol>
     </VRow>
@@ -40,7 +45,15 @@ import { useWords } from './Words';
 
 export default defineComponent({
   setup() {
-    const { headers, words, loading, options, totalWords, search } = useWords();
+    const {
+      headers,
+      words,
+      loading,
+      options,
+      totalWords,
+      search,
+      capitalizeUnderscore,
+    } = useWords();
     return {
       headers,
       words,
@@ -48,6 +61,7 @@ export default defineComponent({
       options,
       totalWords,
       search,
+      capitalizeUnderscore,
     };
   },
 });

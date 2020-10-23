@@ -20,7 +20,7 @@ const partsOfSpeech = (Object.keys(PartOfSpeech) as Array<keyof typeof PartOfSpe
 );
 
 export function useAddWord() {
-  const word: Word = reactive({ ...initialWord });
+  const word: Word = reactive({ ...(initialWord as Word) });
 
   const addNewWord = async (): Promise<void> => {
     await addWord({ ...word });

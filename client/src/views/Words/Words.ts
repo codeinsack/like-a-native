@@ -3,12 +3,16 @@ import { Ref, ref, watch } from '@vue/composition-api';
 import { fetchWords } from '@/api/words';
 import { Word } from '@/types/words';
 import { DataOptions } from 'vuetify/types';
+import { useFormatter } from '@/uses/useFormatter';
 
 const headers = [
   { text: 'Word', value: 'word' },
   { text: 'Translation', value: 'translation' },
+  { text: 'Part of speech', value: 'partOfSpeech' },
   { text: 'Definition', value: 'definition' },
 ];
+
+const { capitalizeUnderscore } = useFormatter();
 
 export function useWords() {
   const loading: Ref<boolean> = ref(false);
@@ -55,5 +59,6 @@ export function useWords() {
     options,
     totalWords,
     search,
+    capitalizeUnderscore,
   };
 }
