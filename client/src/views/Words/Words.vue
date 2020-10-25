@@ -39,6 +39,11 @@
           <template #item.partOfSpeech="{ item }">
             <PartOfSpeechChip :type="item.partOfSpeech" />
           </template>
+          <template #item.image="{ item }">
+            <VAvatar width="80" height="65" tile>
+              <img :src="`images/${item.image}`" alt="" />
+            </VAvatar>
+          </template>
         </VDataTable>
       </VCol>
     </VRow>

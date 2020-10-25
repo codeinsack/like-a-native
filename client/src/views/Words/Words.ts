@@ -10,6 +10,7 @@ const headers = [
   { text: 'Translation', value: 'translation' },
   { text: 'Part of speech', value: 'partOfSpeech' },
   { text: 'Definition', value: 'definition' },
+  { text: 'Image', value: 'image' },
 ];
 
 const { capitalizeUnderscore } = useFormatter();
