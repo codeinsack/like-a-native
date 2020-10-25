@@ -29,3 +29,20 @@ export const fetchWords = async ({
 
 export const addWord = async (body: Word): Promise<AxiosResponse<Word>> =>
   axios.post(baseUrl, body);
+
+export const uploadWordImage = async ({
+  wordId,
+  image,
+}: {
+  wordId: string;
+  image: File;
+}): Promise<AxiosResponse<Word>> => {
+  const url = `${baseUrl}/${wordId}/image`;
+  const formData = new FormData();
+  formData.append('file', image);
+  return axios.put(url, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
