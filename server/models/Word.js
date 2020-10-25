@@ -34,6 +34,10 @@ const WordSchema = new mongoose.Schema({
       'INTERJECTION',
     ]
   },
+  image: {
+    type: String,
+    default: 'no-image.png',
+  },
 })
 
 module.exports = mongoose.model('Word', WordSchema);
