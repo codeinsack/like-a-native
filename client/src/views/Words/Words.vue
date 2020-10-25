@@ -1,5 +1,5 @@
 <template>
-  <VContainer class="mt-12">
+  <VContainer>
     <VRow>
       <VCol>
         <VDataTable
