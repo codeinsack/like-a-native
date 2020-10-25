@@ -43,11 +43,14 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import { useAddWord } from './UpdateWord';
+import { useUpdateWord } from './UpdateWord';
 
 export default defineComponent({
   setup(props, { root }) {
-    const { word, saveWord, partsOfSpeech, uploadedImage } = useAddWord(root.$route, root.$router);
+    const { word, saveWord, partsOfSpeech, uploadedImage } = useUpdateWord(
+      root.$route,
+      root.$router
+    );
     return {
       word,
       saveWord,

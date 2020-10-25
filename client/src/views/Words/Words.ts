@@ -77,8 +77,8 @@ export function useWords(router: VueRouter) {
     }
   };
 
-  const viewWordDetails = (word: Word) => {
-    console.log('word', word);
+  const viewWordDetails = async (word: Word) => {
+    await router.push(`/words/details/${word._id}`);
   };
 
   const editWord = async (word: Word) => {

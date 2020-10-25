@@ -20,7 +20,7 @@ const partsOfSpeech = (Object.keys(PartOfSpeech) as Array<keyof typeof PartOfSpe
   })
 );
 
-export function useAddWord(route: Route, router: VueRouter) {
+export function useUpdateWord(route: Route, router: VueRouter) {
   const word: Word = reactive({ ...(initialWord as Word) });
   const uploadedImage: Ref<File | null> = ref(null);
 

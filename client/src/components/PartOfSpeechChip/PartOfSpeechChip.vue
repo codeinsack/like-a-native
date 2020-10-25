@@ -1,5 +1,5 @@
 <template>
-  <VChip :color="colors[type]" dark>
+  <VChip :color="colors[type]" small dark>
     {{ capitalizeUnderscore(type) }}
   </VChip>
 </template>

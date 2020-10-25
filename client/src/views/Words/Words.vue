@@ -45,9 +45,9 @@
             <PartOfSpeechChip :type="item.partOfSpeech" />
           </template>
           <template #item.image="{ item }">
-            <VAvatar width="80" height="65" tile>
+            <VAvatar class="rounded-lg ma-1" width="80" height="60" tile>
               <img
-                :src="item.image ? `images/${item.image}` : require('@/assets/no-image.png')"
+                :src="item.image ? `/images/${item.image}` : require('@/assets/no-image.png')"
                 alt=""
               />
             </VAvatar>
