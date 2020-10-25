@@ -17,20 +17,24 @@ const WordSchema = new mongoose.Schema({
   partOfSpeech: {
     type: String,
     enum: [
-      'NOUN',
-      'ARTICLE',
-      'ADJECTIVE',
-      'PRONOUN',
-      'NUMERAL',
-      'VERB',
-      'ADVERB',
-      'PREPOSITION',
-      'CONJUNCTION',
-      'INTERJECTION',
+      'noun',
+      'article',
+      'adjective',
+      'pronoun',
+      'numeral',
+      'verb',
+      'adverb',
+      'preposition',
+      'conjunction',
+      'interjection',
     ]
   },
-  image: {
-    type: String,
+  form: {
+    type: {
+      thirdPerson: String,
+      pastSimple: String,
+      pastParticiple: String,
+    }
   },
 })
 

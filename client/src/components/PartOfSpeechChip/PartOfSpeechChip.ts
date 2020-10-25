@@ -4,9 +4,9 @@ import { PartOfSpeech } from '@/types/words';
 const { capitalizeUnderscore } = useFormatter();
 
 const colors = {
-  [PartOfSpeech.NOUN]: 'green',
-  [PartOfSpeech.VERB]: 'red',
-  [PartOfSpeech.ADJECTIVE]: 'purple',
+  [PartOfSpeech.noun]: 'green',
+  [PartOfSpeech.verb]: 'red',
+  [PartOfSpeech.adjective]: 'purple',
 };
 
 export function usePartOfSpeechChip() {

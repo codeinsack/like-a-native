@@ -9,6 +9,11 @@ const initialWord = {
   translation: '',
   partOfSpeech: '',
   definition: '',
+  form: {
+    thirdPerson: '',
+    pastSimple: '',
+    pastParticiple: '',
+  },
 };
 
 const { capitalizeUnderscore } = useFormatter();

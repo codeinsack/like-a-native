@@ -2,32 +2,18 @@
   <VContainer class="mt-12">
     <VRow>
       <VCol cols="6">
-        <VTextField
-          v-model="word.word"
-          label="Word"
-          placeholder="Please enter a word"
-          outlined
-          dense
-        />
-        <VTextField
-          v-model="word.translation"
-          label="Translation"
-          placeholder="Please enter a translation"
-          outlined
-          dense
-        />
+        <VTextField v-model="word.word" label="Word" outlined dense />
+        <VTextField v-model="word.translation" label="Translation" outlined dense />
         <VSelect
           v-model="word.partOfSpeech"
           :items="partsOfSpeech"
           label="Part of speech"
-          placeholder="Please select a part of speech"
           outlined
           dense
         />
         <VFileInput
           v-model="uploadedImage"
           accept="image/jpeg, image/png"
-          placeholder="Upload associated image"
           label="Image"
           outlined
           dense
@@ -35,6 +21,14 @@
         <VBtn color="primary" outlined @click="saveWord">Update word</VBtn>
       </VCol>
       <VCol cols="6">
+        <VTextField v-model="word.form.thirdPerson" label="Third person singular" outlined dense />
+        <VTextField v-model="word.form.pastSimple" label="Simple past tense" outlined dense />
+        <VTextField
+          v-model="word.form.pastParticiple"
+          label="Helping verb plus Past participle"
+          outlined
+          dense
+        />
         <VTextarea v-model="word.definition" outlined label="Definition" />
       </VCol>
     </VRow>

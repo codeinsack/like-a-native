@@ -1,14 +1,20 @@
 export enum PartOfSpeech {
-  NOUN = 'NOUN',
-  ARTICLE = 'ARTICLE',
-  ADJECTIVE = 'ADJECTIVE',
-  PRONOUN = 'PRONOUN',
-  NUMERAL = 'NUMERAL',
-  VERB = 'VERB',
-  ADVERB = 'ADVERB',
-  PREPOSITION = 'PREPOSITION',
-  CONJUNCTION = 'CONJUNCTION',
-  INTERJECTION = 'INTERJECTION',
+  noun = 'noun',
+  article = 'article',
+  adjective = 'adjective',
+  pronoun = 'pronoun',
+  numeral = 'numeral',
+  verb = 'verb',
+  adverb = 'adverb',
+  preposition = 'preposition',
+  conjunction = 'conjunction',
+  interjection = 'interjection',
+}
+
+interface VerbForm {
+  thirdPerson: string;
+  pastSimple: string;
+  pastParticiple: string;
 }
 
 export interface Word {
@@ -17,4 +23,5 @@ export interface Word {
   translation: string;
   definition: string;
   partOfSpeech: PartOfSpeech;
+  form: VerbForm;
 }
