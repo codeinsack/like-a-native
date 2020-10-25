@@ -24,6 +24,14 @@
           outlined
           dense
         />
+        <VFileInput
+          v-model="uploadedImage"
+          accept="image/jpeg, image/png"
+          placeholder="Upload associated image"
+          label="Image"
+          outlined
+          dense
+        />
         <VBtn color="primary" outlined @click="saveWord">Update word</VBtn>
       </VCol>
       <VCol cols="6">
@@ -39,11 +47,12 @@ import { useAddWord } from './UpdateWord';
 
 export default defineComponent({
   setup(props, { root }) {
-    const { word, saveWord, partsOfSpeech } = useAddWord(root.$route);
+    const { word, saveWord, partsOfSpeech, uploadedImage } = useAddWord(root.$route, root.$router);
     return {
       word,
       saveWord,
       partsOfSpeech,
+      uploadedImage,
     };
   },
 });

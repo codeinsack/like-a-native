@@ -30,7 +30,12 @@
                 />
               </VCol>
               <VCol cols="2">
-                <VBtn :disabled="!search" color="primary" outlined @click="addNewWord">
+                <VBtn
+                  :disabled="!search || (search && words.length > 0)"
+                  color="primary"
+                  outlined
+                  @click="addNewWord"
+                >
                   Add new word
                 </VBtn>
               </VCol>

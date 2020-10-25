@@ -1,7 +1,7 @@
-import { Route } from 'vue-router';
-import { reactive, onMounted } from '@vue/composition-api';
+import VueRouter, { Route } from 'vue-router';
+import { reactive, onMounted, Ref, ref } from '@vue/composition-api';
 import { Word, PartOfSpeech } from '@/types/words';
-import { updateWord, fetchWordDetails } from '@/api/words';
+import { updateWord, fetchWordDetails, uploadWordImage } from '@/api/words';
 import { useFormatter } from '@/uses/useFormatter';
 
 const initialWord = {
@@ -20,8 +20,9 @@ const partsOfSpeech = (Object.keys(PartOfSpeech) as Array<keyof typeof PartOfSpe
   })
 );
 
-export function useAddWord(route: Route) {
+export function useAddWord(route: Route, router: VueRouter) {
   const word: Word = reactive({ ...(initialWord as Word) });
+  const uploadedImage: Ref<File | null> = ref(null);
 
   onMounted(async () => {
     const {
@@ -35,11 +36,16 @@ export function useAddWord(route: Route) {
 
   const saveWord = async (): Promise<void> => {
     await updateWord({ ...word });
+    if (uploadedImage.value) {
+      await uploadWordImage({ wordId: word._id, image: uploadedImage.value });
+    }
+    await router.push('/words');
   };
 
   return {
     word,
     saveWord,
     partsOfSpeech,
+    uploadedImage,
   };
 }
