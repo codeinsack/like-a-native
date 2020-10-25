@@ -1,7 +1,9 @@
 const express = require('express');
 const {
   getWords,
+  getWordDetails,
   addWord,
+  updateWord,
   wordImageUpload,
 } = require('../controllers/words');
 
@@ -13,7 +15,11 @@ const advancedResults = require("../middleware/advancedResults");
 
 router.route('/')
   .get(advancedResults(Word), getWords)
-  .post(addWord);
+  .post(addWord)
+  .put(updateWord);
+
+router.route('/:id')
+  .get(getWordDetails)
 
 router.route('/:id/image').put(wordImageUpload);
 

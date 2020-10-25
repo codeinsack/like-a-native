@@ -24,7 +24,7 @@
           outlined
           dense
         />
-        <VBtn color="primary" outlined @click="addNewWord">Add new word</VBtn>
+        <VBtn color="primary" outlined @click="saveWord">Update word</VBtn>
       </VCol>
       <VCol cols="6">
         <VTextarea v-model="word.definition" outlined label="Definition" />
@@ -35,14 +35,14 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import { useAddWord } from './AddWord';
+import { useAddWord } from './UpdateWord';
 
 export default defineComponent({
-  setup() {
-    const { word, addNewWord, partsOfSpeech } = useAddWord();
+  setup(props, { root }) {
+    const { word, saveWord, partsOfSpeech } = useAddWord(root.$route);
     return {
       word,
-      addNewWord,
+      saveWord,
       partsOfSpeech,
     };
   },

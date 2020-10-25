@@ -1,6 +1,7 @@
+import VueRouter from 'vue-router';
 import { debounce } from 'lodash';
 import { Ref, ref, watch } from '@vue/composition-api';
-import { fetchWords } from '@/api/words';
+import { fetchWords, createNewWord } from '@/api/words';
 import { PartOfSpeech, Word } from '@/types/words';
 import { DataOptions } from 'vuetify/types';
 import { useFormatter } from '@/uses/useFormatter';
@@ -11,6 +12,7 @@ const headers = [
   { text: 'Part of speech', value: 'partOfSpeech' },
   { text: 'Definition', value: 'definition' },
   { text: 'Image', value: 'image' },
+  { text: '', value: 'actions' },
 ];
 
 const { capitalizeUnderscore } = useFormatter();
@@ -22,7 +24,7 @@ const partsOfSpeech = (Object.keys(PartOfSpeech) as Array<keyof typeof PartOfSpe
   })
 );
 
-export function useWords() {
+export function useWords(router: VueRouter) {
   const loading: Ref<boolean> = ref(false);
   const options: Ref<DataOptions | null> = ref(null);
   const search: Ref<string | null> = ref(null);
@@ -66,6 +68,27 @@ export function useWords() {
     }
   }, 300);
 
+  const addNewWord = async () => {
+    const { data } = await createNewWord({
+      word: search.value,
+    } as Word);
+    if (data) {
+      await router.push(`/words/update/${data._id}`);
+    }
+  };
+
+  const viewWordDetails = (word: Word) => {
+    console.log('word', word);
+  };
+
+  const editWord = async (word: Word) => {
+    await router.push(`/words/update/${word._id}`);
+  };
+
+  const deleteWord = (word: Word) => {
+    console.log('word', word);
+  };
+
   return {
     words,
     headers,
@@ -75,5 +98,9 @@ export function useWords() {
     search,
     partOfSpeech,
     partsOfSpeech,
+    addNewWord,
+    viewWordDetails,
+    editWord,
+    deleteWord,
   };
 }

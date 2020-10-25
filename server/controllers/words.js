@@ -10,12 +10,40 @@ exports.getWords = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
 
+// @desc   Get single word
+// @route  GET /api/v1/words/:id
+// @access Public
+exports.getWordDetails = asyncHandler(async (req, res, next) => {
+  const word = await Word.findById(req.params.id);
+  if (!word) {
+    return next(new ErrorResponse(`Word not found with id of ${req.params.id}`, 404));
+  }
+  res.status(200).json(word);
+});
+
 // @desc   Add new word
 // @route  POST /api/v1/words
 // @access Public
 exports.addWord = asyncHandler(async (req, res, next) => {
   const word = await Word.create(req.body);
   res.status(201).json(word)
+});
+
+// @desc   Update word
+// @route  PUT /api/v1/words
+// @access Private
+exports.updateWord = asyncHandler(async (req, res, next) => {
+  let word = await Word.findById(req.body._id);
+  if (!word) {
+    return next(new ErrorResponse(`Word not found with id of ${req.params.id}`, 404));
+  }
+
+  word = await Word.findByIdAndUpdate(req.body._id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json(word);
 });
 
 // @desc   Upload image for word

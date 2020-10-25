@@ -1,6 +1,7 @@
-import { reactive } from '@vue/composition-api';
+import { Route } from 'vue-router';
+import { reactive, onMounted } from '@vue/composition-api';
 import { Word, PartOfSpeech } from '@/types/words';
-import { addWord } from '@/api/words';
+import { updateWord, fetchWordDetails } from '@/api/words';
 import { useFormatter } from '@/uses/useFormatter';
 
 const initialWord = {
@@ -19,17 +20,26 @@ const partsOfSpeech = (Object.keys(PartOfSpeech) as Array<keyof typeof PartOfSpe
   })
 );
 
-export function useAddWord() {
+export function useAddWord(route: Route) {
   const word: Word = reactive({ ...(initialWord as Word) });
 
-  const addNewWord = async (): Promise<void> => {
-    await addWord({ ...word });
-    Object.assign(word, initialWord);
+  onMounted(async () => {
+    const {
+      params: { id },
+    } = route;
+    const { data } = await fetchWordDetails(id);
+    if (data) {
+      Object.assign(word, data);
+    }
+  });
+
+  const saveWord = async (): Promise<void> => {
+    await updateWord({ ...word });
   };
 
   return {
     word,
-    addNewWord,
+    saveWord,
     partsOfSpeech,
   };
 }

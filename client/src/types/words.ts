@@ -12,6 +12,7 @@ export enum PartOfSpeech {
 }
 
 export interface Word {
+  _id: string;
   word: string;
   translation: string;
   definition: string;

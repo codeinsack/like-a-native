@@ -27,8 +27,16 @@ export const fetchWords = async ({
     },
   });
 
-export const addWord = async (body: Word): Promise<AxiosResponse<Word>> =>
+export const fetchWordDetails = async (wordId: string): Promise<AxiosResponse<Word>> => {
+  const url = `${baseUrl}/${wordId}`;
+  return axios.get(url);
+};
+
+export const createNewWord = async (body: Word): Promise<AxiosResponse<Word>> =>
   axios.post(baseUrl, body);
+
+export const updateWord = async (body: Word): Promise<AxiosResponse<Word>> =>
+  axios.put(baseUrl, body);
 
 export const uploadWordImage = async ({
   wordId,

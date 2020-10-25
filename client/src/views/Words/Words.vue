@@ -30,7 +30,7 @@
                 />
               </VCol>
               <VCol cols="2">
-                <VBtn color="primary" outlined @click="$router.push('/words/add')">
+                <VBtn :disabled="!search" color="primary" outlined @click="addNewWord">
                   Add new word
                 </VBtn>
               </VCol>
@@ -41,8 +41,16 @@
           </template>
           <template #item.image="{ item }">
             <VAvatar width="80" height="65" tile>
-              <img :src="`images/${item.image}`" alt="" />
+              <img
+                :src="item.image ? `images/${item.image}` : require('@/assets/no-image.png')"
+                alt=""
+              />
             </VAvatar>
+          </template>
+          <template #item.actions="{ item }">
+            <VIcon small class="mr-2" @click="viewWordDetails(item)">mdi-eye</VIcon>
+            <VIcon small class="mr-2" @click="editWord(item)">mdi-pencil</VIcon>
+            <VIcon small @click="deleteWord(item)">mdi-delete</VIcon>
           </template>
         </VDataTable>
       </VCol>
@@ -59,7 +67,7 @@ export default defineComponent({
   components: {
     PartOfSpeechChip,
   },
-  setup() {
+  setup(props, { root }) {
     const {
       headers,
       words,
@@ -69,7 +77,11 @@ export default defineComponent({
       search,
       partOfSpeech,
       partsOfSpeech,
-    } = useWords();
+      addNewWord,
+      viewWordDetails,
+      editWord,
+      deleteWord,
+    } = useWords(root.$router);
     return {
       headers,
       words,
@@ -79,6 +91,10 @@ export default defineComponent({
       search,
       partOfSpeech,
       partsOfSpeech,
+      addNewWord,
+      viewWordDetails,
+      editWord,
+      deleteWord,
     };
   },
 });
