@@ -1,7 +1,11 @@
 <template>
   <VContainer class="mt-12">
     <VRow>
-      <VCol v-if="word">
+      <VCol v-if="word" cols="6">
+        <div class="d-flex align-center flex-column">
+          <div class="display-1">{{ word.word }}</div>
+          <div class="headline grey--text text--darken-2">{{ word.translation }}</div>
+        </div>
         <VAvatar class="rounded-lg ma-1" width="600" height="400" tile>
           <img
             :src="word.image ? `/images/${word.image}` : require('@/assets/no-image.png')"
