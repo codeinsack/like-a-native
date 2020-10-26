@@ -9,10 +9,15 @@ export const login = async ({
 }: {
   email: string;
   password: string;
-}): Promise<AxiosResponse<PaginatedResult<any>>> => {
+}): Promise<AxiosResponse<PaginatedResult<string>>> => {
   const url = `${baseUrl}/login`;
   return axios.post(url, {
     email,
     password,
   });
+};
+
+export const logout = async (): Promise<AxiosResponse<PaginatedResult<string>>> => {
+  const url = `${baseUrl}/logout`;
+  return axios.get(url);
 };

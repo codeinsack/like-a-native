@@ -6,8 +6,7 @@ export function useLogin() {
   const password: Ref<string> = ref('');
 
   const fetchToken = async () => {
-    const { data } = await login({ email: email.value, password: password.value });
-    console.log('data', data);
+    await login({ email: email.value, password: password.value });
   };
 
   return {
