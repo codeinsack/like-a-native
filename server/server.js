@@ -10,6 +10,7 @@ connectDB();
 
 // Route files
 const words = require('./routes/words');
+const auth = require('./routes/auth');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routers
 app.use('/api/v1/words', words);
+app.use('/api/v1/auth', auth);
 
 app.use(errorHandler);
 

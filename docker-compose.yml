@@ -23,6 +23,9 @@ services:
       - SERVER_PORT=5000
       - IMAGE_UPLOAD_PATH=./public/images
       - MAX_FILE_UPLOAD=1000000
+      - JWT_EXPIRE=30d
+      - JWT_SECRET=eklwnfererwer
+      - JWT_COOKIE_EXPIRE=30
   db:
     container_name: native-db
     image: mongo
