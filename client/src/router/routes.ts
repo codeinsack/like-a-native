@@ -5,6 +5,7 @@ import Words from '@/views/Words/Words.vue';
 import WordDetails from '@/views/WordDetails/WordDetails.vue';
 import UpdateWord from '@/views/UpdateWord/UpdateWord.vue';
 import Training from '@/views/Training/Training.vue';
+import Login from '@/views/Login/Login.vue';
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,10 @@ const routes = [
   {
     path: '/training',
     component: Training,
+  },
+  {
+    path: '/login',
+    component: Login,
   },
 ];
 

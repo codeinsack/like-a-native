@@ -6,6 +6,7 @@ const {
   updateWord,
   wordImageUpload,
 } = require('../controllers/words');
+const { protect, authorize } = require('../middleware/auth');
 
 const Word = require('../models/Word');
 
@@ -15,8 +16,8 @@ const advancedResults = require("../middleware/advancedResults");
 
 router.route('/')
   .get(advancedResults(Word), getWords)
-  .post(addWord)
-  .put(updateWord);
+  .post(protect, authorize('moderator', 'admin'), addWord)
+  .put(protect, authorize('moderator', 'admin'), updateWord);
 
 router.route('/:id')
   .get(getWordDetails)
