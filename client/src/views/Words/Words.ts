@@ -2,7 +2,7 @@ import VueRouter from 'vue-router';
 import { debounce } from 'lodash';
 import { Ref, ref, watch } from '@vue/composition-api';
 import { fetchWords, createNewWord } from '@/api/words';
-import { PartOfSpeech, Word } from '@/types/words';
+import { PartOfSpeech, Word } from '@/types/word';
 import { DataOptions } from 'vuetify/types';
 import { useFormatter } from '@/uses/useFormatter';
 

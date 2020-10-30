@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { PaginatedResult } from '@/types/paginatedResult';
-import { PartOfSpeech, Word } from '@/types/words';
+import { PartOfSpeech, Word } from '@/types/word';
 
 const baseUrl = `/api/v1/words`;
 

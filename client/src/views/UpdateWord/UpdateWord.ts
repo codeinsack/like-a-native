@@ -1,6 +1,6 @@
 import VueRouter, { Route } from 'vue-router';
 import { reactive, onMounted, Ref, ref } from '@vue/composition-api';
-import { Word, PartOfSpeech } from '@/types/words';
+import { Word, PartOfSpeech } from '@/types/word';
 import { updateWord, fetchWordDetails, uploadWordImage } from '@/api/words';
 import { useFormatter } from '@/uses/useFormatter';
 

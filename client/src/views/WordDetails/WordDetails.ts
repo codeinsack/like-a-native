@@ -1,6 +1,6 @@
 import { Route } from 'vue-router';
 import { onMounted, Ref, ref } from '@vue/composition-api';
-import { Word } from '@/types/words';
+import { Word } from '@/types/word';
 import { fetchWordDetails } from '@/api/words';
 
 export function useWordDetails(route: Route) {

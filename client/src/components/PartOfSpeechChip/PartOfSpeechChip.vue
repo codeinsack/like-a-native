@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/composition-api';
-import { PartOfSpeech } from '@/types/words';
+import { PartOfSpeech } from '@/types/word';
 import { usePartOfSpeechChip } from './PartOfSpeechChip';
 
 export default defineComponent({

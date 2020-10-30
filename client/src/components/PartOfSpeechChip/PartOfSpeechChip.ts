@@ -1,5 +1,5 @@
 import { useFormatter } from '@/uses/useFormatter';
-import { PartOfSpeech } from '@/types/words';
+import { PartOfSpeech } from '@/types/word';
 
 const { capitalizeUnderscore } = useFormatter();
 
