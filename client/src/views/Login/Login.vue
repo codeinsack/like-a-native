@@ -1,16 +1,18 @@
 <template>
-  <VContainer class="mt-12">
-    <VRow>
-      <VCol cols="6">
-        <VTextField v-model="email" label="Please enter email" outlined dense />
-        <VTextField
-          v-model="password"
-          type="password"
-          label="Please enter password"
-          outlined
-          dense
-        />
-        <VBtn color="primary" outlined @click="fetchToken">Login</VBtn>
+  <VContainer fill-height fluid>
+    <VRow justify="center">
+      <VCol cols="4">
+        <form>
+          <VTextField v-model="email" label="Please enter email" outlined dense />
+          <VTextField
+            v-model="password"
+            type="password"
+            label="Please enter password"
+            outlined
+            dense
+          />
+          <VBtn color="primary" outlined @click="fetchToken">Login</VBtn>
+        </form>
       </VCol>
     </VRow>
   </VContainer>

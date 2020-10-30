@@ -1,16 +1,21 @@
 <template>
   <VApp>
-    <VAppBar app clipped-right>
-      <div v-if="user" class="d-flex">
-        <VIcon class="mr-3" large>mdi-account-circle</VIcon>
-        <div>{{ user.name }}</div>
-      </div>
-      <Tabs />
-      <VIcon @click="deleteToken"> mdi-logout </VIcon>
-    </VAppBar>
-    <VContent>
+    <template v-if="$route.name === 'login'">
       <RouterView />
-    </VContent>
+    </template>
+    <template v-else>
+      <VAppBar app clipped-right>
+        <div v-if="user" class="d-flex">
+          <VIcon class="mr-3" large>mdi-account-circle</VIcon>
+          <div>{{ user.name }}</div>
+        </div>
+        <Tabs />
+        <VIcon @click="deleteToken"> mdi-logout </VIcon>
+      </VAppBar>
+      <VContent>
+        <RouterView />
+      </VContent>
+    </template>
   </VApp>
 </template>
 
