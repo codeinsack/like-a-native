@@ -7,11 +7,11 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   const removeFields = ['select', 'sort', 'page', 'limit', 'search'];
 
   // Loop over removeFields and delete them from reqQuery
-  removeFields.forEach(param => delete reqQuery[param]);
+  removeFields.forEach((param) => delete reqQuery[param]);
 
   // Search
-  const regex = new RegExp(req.query.search, 'i')
-  query = model.find({ word: { $regex: regex }, ...reqQuery});
+  const regex = new RegExp(req.query.search, 'i');
+  query = model.find({ word: { $regex: regex }, ...reqQuery });
 
   // Select Fields
   if (req.query.select) {
@@ -44,9 +44,9 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   res.advancedResults = {
     totalCount: total,
     resultList: results,
-  }
+  };
 
   next();
-}
+};
 
 module.exports = advancedResults;

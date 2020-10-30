@@ -6,7 +6,7 @@ const Word = require('../models/Word');
 // @desc   Get all words
 // @route  GET /api/v1/words
 // @access Public
-exports.getWords = asyncHandler(async (req, res, next) => {
+exports.getWords = asyncHandler(async (req, res) => {
   res.status(200).json(res.advancedResults);
 });
 
@@ -24,9 +24,9 @@ exports.getWordDetails = asyncHandler(async (req, res, next) => {
 // @desc   Add new word
 // @route  POST /api/v1/words
 // @access Public
-exports.addWord = asyncHandler(async (req, res, next) => {
+exports.addWord = asyncHandler(async (req, res) => {
   const word = await Word.create(req.body);
-  res.status(201).json(word)
+  res.status(201).json(word);
 });
 
 // @desc   Update word
@@ -75,10 +75,10 @@ exports.wordImageUpload = asyncHandler(async (req, res, next) => {
   // Create custom filename
   file.name = `image_${word._id}${path.parse(file.name).ext}`;
 
-  file.mv(`${process.env.IMAGE_UPLOAD_PATH}/${file.name}`, async error => {
+  file.mv(`${process.env.IMAGE_UPLOAD_PATH}/${file.name}`, async (error) => {
     if (error) {
       console.error(error);
-      return next(new ErrorResponse(`Problem with file upload`, 500));
+      return next(new ErrorResponse('Problem with file upload', 500));
     }
 
     await Word.findByIdAndUpdate(req.params.id, { image: file.name });

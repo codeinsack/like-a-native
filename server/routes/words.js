@@ -12,7 +12,7 @@ const Word = require('../models/Word');
 
 const router = express.Router();
 
-const advancedResults = require("../middleware/advancedResults");
+const advancedResults = require('../middleware/advancedResults');
 
 router.route('/')
   .get(advancedResults(Word), getWords)
@@ -20,7 +20,7 @@ router.route('/')
   .put(protect, authorize('moderator', 'admin'), updateWord);
 
 router.route('/:id')
-  .get(getWordDetails)
+  .get(getWordDetails);
 
 router.route('/:id/image').put(wordImageUpload);
 

@@ -27,15 +27,15 @@ const WordSchema = new mongoose.Schema({
       'preposition',
       'conjunction',
       'interjection',
-    ]
+    ],
   },
   form: {
     type: {
       thirdPerson: String,
       pastSimple: String,
       pastParticiple: String,
-    }
+    },
   },
-})
+});
 
 module.exports = mongoose.model('Word', WordSchema);
