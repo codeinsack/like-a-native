@@ -1,22 +1,19 @@
 import { logout } from '@/api/auth';
-import { onMounted } from '@vue/composition-api';
-import { Actions, States } from './store/modules/user/types';
+import VueRouter from 'vue-router';
+import { Mutations, States } from './store/modules/user/types';
 import { Modules } from './store/types';
 import { useStore } from './uses/useStore';
 
-const { useState, useActions } = useStore(Modules.USER);
-
-const { LOAD_USER_DETAILS } = useActions([Actions.LOAD_USER_DETAILS]);
+const { useState, useMutations } = useStore(Modules.USER);
 
 const { user } = useState([States.user]);
+const { CLEAR_USER_DETAILS } = useMutations([Mutations.CLEAR_USER_DETAILS]);
 
-export function useApp() {
-  onMounted(() => {
-    LOAD_USER_DETAILS();
-  });
-
+export function useApp(router: VueRouter) {
   const deleteToken = async () => {
     await logout();
+    await router.push('/login');
+    CLEAR_USER_DETAILS();
   };
 
   return {

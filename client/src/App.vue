@@ -1,7 +1,10 @@
 <template>
   <VApp>
     <VAppBar app clipped-right>
-      <div v-if="user">{{ user.name }}</div>
+      <div v-if="user" class="d-flex">
+        <VIcon class="mr-3" large>mdi-account-circle</VIcon>
+        <div>{{ user.name }}</div>
+      </div>
       <Tabs />
       <VIcon @click="deleteToken"> mdi-logout </VIcon>
     </VAppBar>
@@ -19,8 +22,8 @@ export default {
   components: {
     Tabs,
   },
-  setup() {
-    const { deleteToken, user } = useApp();
+  setup(props, { root }) {
+    const { deleteToken, user } = useApp(root.$router);
     return {
       deleteToken,
       user,

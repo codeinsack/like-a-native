@@ -1,10 +1,13 @@
 import VueRouter from 'vue-router';
 import { debounce } from 'lodash';
-import { Ref, ref, watch } from '@vue/composition-api';
+import { onMounted, Ref, ref, watch } from '@vue/composition-api';
 import { fetchWords, createNewWord } from '@/api/words';
 import { PartOfSpeech, Word } from '@/types/word';
 import { DataOptions } from 'vuetify/types';
 import { useFormatter } from '@/uses/useFormatter';
+import { useStore } from '@/uses/useStore';
+import { Modules } from '@/store/types';
+import { Actions } from '@/store/modules/user/types';
 
 const headers = [
   { text: 'Word', value: 'word' },
@@ -14,6 +17,10 @@ const headers = [
   { text: 'Image', value: 'image' },
   { text: '', value: 'actions' },
 ];
+
+const { useActions } = useStore(Modules.USER);
+
+const { LOAD_USER_DETAILS } = useActions([Actions.LOAD_USER_DETAILS]);
 
 const { capitalizeUnderscore } = useFormatter();
 
@@ -31,6 +38,10 @@ export function useWords(router: VueRouter) {
   const partOfSpeech: Ref<PartOfSpeech | null> = ref(null);
   const totalWords: Ref<number> = ref(0);
   const words: Ref<Word[]> = ref([]);
+
+  onMounted(() => {
+    LOAD_USER_DETAILS();
+  });
 
   watch(
     options,

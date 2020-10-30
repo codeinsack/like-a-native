@@ -3,7 +3,13 @@
     <VRow>
       <VCol cols="6">
         <VTextField v-model="email" label="Please enter email" outlined dense />
-        <VTextField v-model="password" label="Please enter password" outlined dense />
+        <VTextField
+          v-model="password"
+          type="password"
+          label="Please enter password"
+          outlined
+          dense
+        />
         <VBtn color="primary" outlined @click="fetchToken">Login</VBtn>
       </VCol>
     </VRow>
@@ -15,8 +21,8 @@ import { defineComponent } from '@vue/composition-api';
 import { useLogin } from './Login';
 
 export default defineComponent({
-  setup() {
-    const { email, password, fetchToken } = useLogin();
+  setup(props, { root }) {
+    const { email, password, fetchToken } = useLogin(root.$router);
     return {
       email,
       password,

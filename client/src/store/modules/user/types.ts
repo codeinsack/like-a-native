@@ -14,4 +14,5 @@ export enum Actions {
 
 export enum Mutations {
   SET_USER_DETAILS = 'SET_USER_DETAILS',
+  CLEAR_USER_DETAILS = 'CLEAR_USER_DETAILS',
 }
