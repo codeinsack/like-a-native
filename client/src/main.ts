@@ -1,10 +1,10 @@
+import '@/plugins/installCompositionApi';
 import Vue from 'vue';
-import VueCompositionAPI from '@vue/composition-api';
 import axios from 'axios';
 
 import router from '@/router/routes';
+import { store } from '@/store/store';
 import vuetify from './plugins/vuetify';
-
 import App from './App.vue';
 
 axios.interceptors.response.use(
@@ -17,11 +17,9 @@ axios.interceptors.response.use(
   }
 );
 
-Vue.config.productionTip = false;
-Vue.use(VueCompositionAPI);
-
 new Vue({
   vuetify,
   router,
+  store,
   render: (h) => h(App),
 }).$mount('#app');

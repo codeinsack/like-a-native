@@ -1,6 +1,7 @@
 <template>
   <VApp>
     <VAppBar app clipped-right>
+      <div v-if="user">{{ user.name }}</div>
       <Tabs />
       <VIcon @click="deleteToken"> mdi-logout </VIcon>
     </VAppBar>
@@ -19,9 +20,10 @@ export default {
     Tabs,
   },
   setup() {
-    const { deleteToken } = useApp();
+    const { deleteToken, user } = useApp();
     return {
       deleteToken,
+      user,
     };
   },
 };

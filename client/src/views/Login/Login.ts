@@ -1,5 +1,5 @@
 import { Ref, ref } from '@vue/composition-api';
-import { login, fetchMe } from '@/api/auth';
+import { login } from '@/api/auth';
 
 export function useLogin() {
   const email: Ref<string> = ref('');
@@ -7,7 +7,6 @@ export function useLogin() {
 
   const fetchToken = async () => {
     await login({ email: email.value, password: password.value });
-    await fetchMe();
   };
 
   return {
