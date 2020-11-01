@@ -13,6 +13,7 @@ export default {
       tabs: [
         { tab: 'Words', link: '/words' },
         { tab: 'Training', link: '/training' },
+        { tab: 'Chat', link: '/chat' },
       ],
     };
   },

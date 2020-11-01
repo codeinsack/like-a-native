@@ -6,6 +6,7 @@ import WordDetails from '@/views/WordDetails/WordDetails.vue';
 import UpdateWord from '@/views/UpdateWord/UpdateWord.vue';
 import Training from '@/views/Training/Training.vue';
 import Login from '@/views/Login/Login.vue';
+import Chat from '@/views/Chat/Chat.vue';
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,10 @@ const routes = [
   {
     path: '/training',
     component: Training,
+  },
+  {
+    path: '/chat',
+    component: Chat,
   },
   {
     path: '/login',
