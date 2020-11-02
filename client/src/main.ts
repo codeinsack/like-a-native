@@ -1,11 +1,24 @@
 import '@/plugins/installCompositionApi';
 import Vue from 'vue';
 import axios from 'axios';
+import VueSocketIO from 'vue-socket.io';
 
 import router from '@/router/routes';
 import { store } from '@/store/store';
 import vuetify from './plugins/vuetify';
 import App from './App.vue';
+
+Vue.use(
+  new VueSocketIO({
+    debug: true,
+    connection: 'http://localhost:8000',
+    vuex: {
+      store,
+      actionPrefix: 'SOCKET_',
+      mutationPrefix: 'SOCKET_',
+    },
+  })
+);
 
 axios.interceptors.response.use(
   (response) => response,
