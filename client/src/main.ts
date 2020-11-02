@@ -10,11 +10,10 @@ import App from './App.vue';
 
 Vue.use(
   new VueSocketIO({
-    debug: true,
+    debug: false,
     connection: 'http://localhost:8000',
     vuex: {
       store,
-      actionPrefix: 'SOCKET_',
       mutationPrefix: 'SOCKET_',
     },
   })

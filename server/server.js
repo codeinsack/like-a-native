@@ -49,5 +49,16 @@ const io = socketio(server);
 
 // Run when client connects
 io.on('connection', (socket) => {
-  console.log('New WS Connection');
+  socket.emit('SERVER_MESSAGE', {
+    text: 'Welcome to chat',
+    time: Date.now(),
+  });
+
+  // Listen for chatMessage
+  socket.on('CLIENT_MESSAGE', (text) => {
+    io.emit('SERVER_MESSAGE', {
+      text,
+      time: Date.now(),
+    });
+  });
 });

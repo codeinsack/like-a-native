@@ -5,4 +5,5 @@ export interface RootState {
 export enum Modules {
   WORD = 'WORD',
   USER = 'USER',
+  MESSAGES = 'MESSAGES',
 }

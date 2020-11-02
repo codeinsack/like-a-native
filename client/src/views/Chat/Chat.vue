@@ -25,30 +25,26 @@
         </VList>
       </VCol>
       <VCol cols="8">
-        <VCard class="pa-3 mb-2" color="purple lighten-4">
+        <VCard
+          v-for="(message, index) in messages"
+          :key="index"
+          class="pa-3 mb-2"
+          color="purple lighten-4"
+        >
           <div>
             <span class="subtitle-2 mr-2">Brad</span>
-            <span class="body-2 font-italic">9:12pm</span>
+            <span class="body-2 font-italic">{{ formatDate(message.time) }}</span>
           </div>
           <div class="caption">
-            It is a long established fact that a reader will be distracted by the readable content
-          </div>
-        </VCard>
-        <VCard class="pa-3" color="purple lighten-4">
-          <div>
-            <span class="subtitle-2 mr-2">Martin</span>
-            <span class="body-2 font-italic">9:19pm</span>
-          </div>
-          <div class="caption">
-            It is a long established fact that a reader will be distracted by the readable content
+            {{ message.text }}
           </div>
         </VCard>
       </VCol>
     </VRow>
     <VRow justify="center">
       <VCol class="d-flex align-center mb-0" cols="12">
-        <VTextField placeholder="Enter a message" outlined dense hide-details />
-        <VBtn class="ml-2" color="primary" outlined>
+        <VTextField v-model="message" placeholder="Enter a message" outlined dense hide-details />
+        <VBtn class="ml-2" color="primary" outlined @click="sendMessage">
           <VIcon class="mr-2"> mdi-cloud-upload </VIcon>
           Send
         </VBtn>
@@ -62,10 +58,13 @@ import { defineComponent } from '@vue/composition-api';
 import { useChat } from './Chat';
 
 export default defineComponent({
-  setup() {
-    const { message } = useChat();
+  setup(props, { root }) {
+    const { message, messages, sendMessage, formatDate } = useChat(root.$socket);
     return {
       message,
+      messages,
+      sendMessage,
+      formatDate,
     };
   },
 });
