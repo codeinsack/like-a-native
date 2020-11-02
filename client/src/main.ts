@@ -9,7 +9,7 @@ import { store } from '@/store/store';
 import vuetify from './plugins/vuetify';
 import App from './App.vue';
 
-const socket = io('http://localhost:8000');
+const socket = io();
 Vue.use(VueSocketIOExt, socket, { store });
 
 axios.interceptors.response.use(
