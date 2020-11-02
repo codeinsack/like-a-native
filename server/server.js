@@ -55,10 +55,11 @@ io.on('connection', (socket) => {
   });
 
   // Listen for chatMessage
-  socket.on('CLIENT_MESSAGE', (text) => {
+  socket.on('CLIENT_MESSAGE', (message) => {
     io.emit('SERVER_MESSAGE', {
-      text,
-      time: Date.now(),
+      text: message.text,
+      time: message.time,
+      userName: message.userName,
     });
   });
 });

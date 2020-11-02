@@ -32,7 +32,7 @@
           color="purple lighten-4"
         >
           <div>
-            <span class="subtitle-2 mr-2">Brad</span>
+            <span class="subtitle-2 mr-2">{{ message.userName || 'Admin' }}</span>
             <span class="body-2 font-italic">{{ formatDate(message.time) }}</span>
           </div>
           <div class="caption">
