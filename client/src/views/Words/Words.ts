@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router';
-import { debounce } from 'lodash';
+import { debounce, map } from 'lodash';
 import { onMounted, Ref, ref, watch } from '@vue/composition-api';
 import { fetchWords, createNewWord } from '@/api/words';
 import { PartOfSpeech, Word } from '@/types/word';
@@ -24,12 +24,10 @@ const { LOAD_USER_DETAILS } = useActions([Actions.LOAD_USER_DETAILS]);
 
 const { capitalizeUnderscore } = useFormatter();
 
-const partsOfSpeech = (Object.keys(PartOfSpeech) as Array<keyof typeof PartOfSpeech>).map(
-  (key) => ({
-    value: key,
-    text: capitalizeUnderscore(PartOfSpeech[key]),
-  })
-);
+const partsOfSpeech = map(PartOfSpeech, (key) => ({
+  value: key,
+  text: capitalizeUnderscore(key),
+}));
 
 export function useWords(router: VueRouter) {
   const loading: Ref<boolean> = ref(false);
