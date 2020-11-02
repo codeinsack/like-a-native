@@ -59,7 +59,7 @@ import { useChat } from './Chat';
 
 export default defineComponent({
   setup(props, { root }) {
-    const { message, messages, sendMessage, formatDate } = useChat(root.$socket);
+    const { message, messages, sendMessage, formatDate } = useChat(root.$socket.client);
     return {
       message,
       messages,

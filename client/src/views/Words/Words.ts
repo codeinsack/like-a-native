@@ -96,8 +96,8 @@ export function useWords(router: VueRouter) {
     await router.push(`/words/update/${word._id}`);
   };
 
-  const deleteWord = (word: Word) => {
-    console.log('word', word);
+  const deleteWord = () => {
+    // delete
   };
 
   return {

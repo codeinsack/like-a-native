@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
     time: Date.now(),
   });
 
-  // Listen for chatMessage
+  // Listen for chat message
   socket.on('CLIENT_MESSAGE', (message) => {
     io.emit('SERVER_MESSAGE', {
       text: message.text,
