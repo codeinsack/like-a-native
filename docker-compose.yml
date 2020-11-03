@@ -14,7 +14,6 @@ services:
     container_name: native-server
     build: ./server
     volumes:
-      - /app/node_modules
       - ./server:/app
     depends_on:
       - db
@@ -26,6 +25,7 @@ services:
       - JWT_EXPIRE=30d
       - JWT_SECRET=eklwnfererwer
       - JWT_COOKIE_EXPIRE=30
+    command: /app/entrypoint.sh
   db:
     container_name: native-db
     image: mongo
@@ -37,5 +37,5 @@ services:
     container_name: native-client
     build: ./client
     volumes:
-    - /app/node_modules
     - ./client:/app
+    command: /app/entrypoint.sh

@@ -1,3 +1,5 @@
 docker system prune -a
 
 docker exec -it ab8b35833e56 sh
+
+chmod +x entrypoint.sh

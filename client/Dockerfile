@@ -1,9 +1,11 @@
 FROM node:14
 
-WORKDIR "/app"
+RUN mkdir /cache
+WORKDIR /cache
 
-COPY ./package.json ./
+COPY package.json ./
+COPY package-lock.json ./
 RUN npm install
-COPY ./ ./
 
-CMD ["npm", "run", "serve"]
+RUN mkdir /app
+WORKDIR /app
