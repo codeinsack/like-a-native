@@ -1,19 +1,23 @@
-import VueRouter from 'vue-router';
 import { Ref, ref } from '@vue/composition-api';
-import { login } from '@/api/auth';
+import { useStore } from '@/uses/useStore';
+import { Modules } from '@/store/types';
+import { Actions } from '@/store/modules/user/types';
 
-export function useLogin(router: VueRouter) {
+const { useActions } = useStore(Modules.USER);
+
+const { LOGIN } = useActions([Actions.LOGIN]);
+
+export function useLogin() {
   const email: Ref<string> = ref('');
   const password: Ref<string> = ref('');
 
-  const fetchToken = async () => {
-    await login({ email: email.value, password: password.value });
-    await router.push('/words');
+  const login = async () => {
+    LOGIN({ email: email.value, password: password.value });
   };
 
   return {
     email,
     password,
-    fetchToken,
+    login,
   };
 }

@@ -10,7 +10,7 @@
           <div>{{ user.name }}</div>
         </div>
         <Tabs />
-        <VIcon @click="deleteToken"> mdi-logout </VIcon>
+        <VIcon @click="logout"> mdi-logout </VIcon>
       </VAppBar>
       <VContent>
         <RouterView />
@@ -27,10 +27,10 @@ export default {
   components: {
     Tabs,
   },
-  setup(props, { root }) {
-    const { deleteToken, user } = useApp(root.$router);
+  setup() {
+    const { logout, user } = useApp();
     return {
-      deleteToken,
+      logout,
       user,
     };
   },

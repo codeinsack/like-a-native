@@ -15,7 +15,7 @@ const router = express.Router();
 const advancedResults = require('../middleware/advancedResults');
 
 router.route('/')
-  .get(advancedResults(Word), getWords)
+  .get(protect, advancedResults(Word), getWords)
   .post(protect, authorize('moderator', 'admin'), addWord)
   .put(protect, authorize('moderator', 'admin'), updateWord);
 

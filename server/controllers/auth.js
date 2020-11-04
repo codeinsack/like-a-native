@@ -62,15 +62,12 @@ exports.getMe = asyncHandler(async (req, res) => {
 // @route  GET /api/v1/auth/logout
 // @access Private
 exports.logout = asyncHandler(async (req, res) => {
-  res.cookie('token', 'none', {
+  res.cookie('token', '', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   });
 
-  res.status(200).json({
-    success: true,
-    data: {},
-  });
+  res.status(200).json(null);
 });
 
 // Get token from model, create cookie and send response

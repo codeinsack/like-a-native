@@ -11,7 +11,7 @@
             outlined
             dense
           />
-          <VBtn color="primary" outlined @click="fetchToken">Login</VBtn>
+          <VBtn color="primary" outlined @click="login">Login</VBtn>
         </form>
       </VCol>
     </VRow>
@@ -24,11 +24,11 @@ import { useLogin } from './Login';
 
 export default defineComponent({
   setup(props, { root }) {
-    const { email, password, fetchToken } = useLogin(root.$router);
+    const { email, password, login } = useLogin(root.$router);
     return {
       email,
       password,
-      fetchToken,
+      login,
     };
   },
 });

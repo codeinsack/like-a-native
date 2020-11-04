@@ -9,7 +9,8 @@ export interface State {
 }
 
 export enum Actions {
-  LOAD_USER_DETAILS = 'LOAD_USER_DETAILS',
+  LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT',
 }
 
 export enum Mutations {
