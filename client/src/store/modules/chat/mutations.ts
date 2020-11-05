@@ -27,11 +27,7 @@ const mutations: MutationTree<State> = {
     state[States.messages].push(message);
   },
   [Mutations.SOCKET_ADD_USER]: (state: State, user: User) => {
-    const users = state[States.users];
-    const isUserExist = users.some((usr) => usr._id === user._id);
-    if (!isUserExist) {
-      users.push(user);
-    }
+    state[States.users].push(user);
   },
   [Mutations.SOCKET_REMOVE_USER]: (state: State, userId: string) => {
     const users = state[States.users];
