@@ -54,7 +54,7 @@ app.use(errorHandler);
 const PORT = process.env.SERVER_PORT;
 
 const server = http.createServer(app);
-server.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
+server.listen(PORT);
 
 const io = socketio(server);
 
