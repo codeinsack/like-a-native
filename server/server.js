@@ -92,4 +92,17 @@ io.on('connection', (socket) => {
       role: user.role,
     });
   });
+
+  const removeUser = (userId) => {
+    redisClient.hdel('users', userId);
+    io.emit('REMOVE_USER', userId);
+  };
+
+  socket.on('USER_LEFT', (userId) => {
+    removeUser(userId);
+  });
+
+  socket.on('disconnect', (userId) => {
+    removeUser(userId);
+  });
 });

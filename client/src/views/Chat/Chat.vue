@@ -4,22 +4,13 @@
       <VCol cols="4">
         <VList subheader two-line>
           <VSubheader inset>Users</VSubheader>
-          <VListItem>
+          <VListItem v-for="user in users" :key="user._id">
             <VListItemAvatar>
               <VIcon class="grey lighten-1" dark> mdi-account </VIcon>
             </VListItemAvatar>
             <VListItemContent>
-              <VListItemTitle>John Doe</VListItemTitle>
-              <VListItemSubtitle>admin</VListItemSubtitle>
-            </VListItemContent>
-          </VListItem>
-          <VListItem>
-            <VListItemAvatar>
-              <VIcon class="grey lighten-1" dark> mdi-account </VIcon>
-            </VListItemAvatar>
-            <VListItemContent>
-              <VListItemTitle>Martin Schmidt</VListItemTitle>
-              <VListItemSubtitle>moderator</VListItemSubtitle>
+              <VListItemTitle>{{ user.name }}</VListItemTitle>
+              <VListItemSubtitle>{{ user.role }}</VListItemSubtitle>
             </VListItemContent>
           </VListItem>
         </VList>
@@ -59,12 +50,13 @@ import { useChat } from './Chat';
 
 export default defineComponent({
   setup(props, { root }) {
-    const { message, messages, sendMessage, formatDate } = useChat(root.$socket.client);
+    const { message, messages, sendMessage, formatDate, users } = useChat(root.$socket.client);
     return {
       message,
       messages,
       sendMessage,
       formatDate,
+      users,
     };
   },
 });
