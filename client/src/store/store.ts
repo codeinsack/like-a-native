@@ -3,14 +3,14 @@ import Vuex, { StoreOptions } from 'vuex';
 
 import { Modules, RootState } from '@/store/types';
 import user from '@/store/modules/user';
-import messages from '@/store/modules/messages';
+import chat from '@/store/modules/chat';
 
 Vue.use(Vuex);
 
 const storeOptions: StoreOptions<RootState> = {
   modules: {
     [Modules.USER]: user,
-    [Modules.MESSAGES]: messages,
+    [Modules.CHAT]: chat,
   },
 };
 

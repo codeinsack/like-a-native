@@ -23,8 +23,8 @@ import { defineComponent } from '@vue/composition-api';
 import { useLogin } from './Login';
 
 export default defineComponent({
-  setup(props, { root }) {
-    const { email, password, login } = useLogin(root.$router);
+  setup() {
+    const { email, password, login } = useLogin();
     return {
       email,
       password,

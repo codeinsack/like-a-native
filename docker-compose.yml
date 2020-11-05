@@ -1,6 +1,9 @@
 version: "3"
 
 services:
+  redis:
+    container_name: native-redis
+    image: 'redis:latest'
   nginx:
     container_name: native-nginx
     restart: always
@@ -25,6 +28,8 @@ services:
       - JWT_EXPIRE=30d
       - JWT_SECRET=eklwnfererwer
       - JWT_COOKIE_EXPIRE=30
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     command: /app/entrypoint.sh
   db:
     container_name: native-db

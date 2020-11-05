@@ -5,8 +5,16 @@ const socketio = require('socket.io');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const http = require('http');
+const redis = require('redis');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
+
+// Redis Client Setup
+const redisClient = redis.createClient({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  retry_strategy: () => 1000,
+});
 
 // Connect to database
 connectDB();
@@ -49,17 +57,39 @@ const io = socketio(server);
 
 // Run when client connects
 io.on('connection', (socket) => {
-  socket.emit('SERVER_MESSAGE', {
+  socket.emit('RECEIVE_MESSAGE', {
     text: 'Welcome to chat',
     time: Date.now(),
   });
+  redisClient.hgetall('messages', (err, messages) => {
+    io.emit('RECEIVE_ALL_MESSAGES', messages);
+  });
+  redisClient.hgetall('users', (err, users) => {
+    io.emit('RECEIVE_ALL_USERS', users);
+  });
 
-  // Listen for chat message
-  socket.on('CLIENT_MESSAGE', (message) => {
-    io.emit('SERVER_MESSAGE', {
+  socket.on('SEND_MESSAGE', (message) => {
+    redisClient.hset('messages', message._id, JSON.stringify({
       text: message.text,
       time: message.time,
       userName: message.userName,
+    }));
+    io.emit('RECEIVE_MESSAGE', {
+      text: message.text,
+      time: message.time,
+      userName: message.userName,
+    });
+  });
+
+  socket.on('USER_JOINED', (user) => {
+    redisClient.hset('users', user._id, JSON.stringify({
+      name: user.name,
+      role: user.role,
+    }));
+    io.emit('ADD_USER', {
+      _id: user._id,
+      name: user.name,
+      role: user.role,
     });
   });
 });

@@ -5,6 +5,7 @@ import mutations from './mutations';
 
 export const state: State = {
   messages: [],
+  users: [],
 };
 
 const module: Module<State, RootState> = {

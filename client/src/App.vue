@@ -12,9 +12,9 @@
         <Tabs />
         <VIcon @click="logout"> mdi-logout </VIcon>
       </VAppBar>
-      <VContent>
+      <VMain>
         <RouterView />
-      </VContent>
+      </VMain>
     </template>
   </VApp>
 </template>
