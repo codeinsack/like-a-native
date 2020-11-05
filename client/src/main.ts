@@ -15,7 +15,9 @@ import App from './App.vue';
 const { useActions } = useStore(Modules.USER);
 const { LOGOUT } = useActions([Actions.LOGOUT]);
 
-const socket = io();
+const socket = io({
+  autoConnect: false,
+});
 Vue.use(VueSocketIOExt, socket, { store });
 
 axios.interceptors.response.use(

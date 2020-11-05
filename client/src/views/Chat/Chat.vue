@@ -39,6 +39,10 @@
           <VIcon class="mr-2"> mdi-cloud-upload </VIcon>
           Send
         </VBtn>
+        <VBtn class="ml-2" color="warning" outlined @click="clearAllMessages">
+          <VIcon class="mr-2"> mdi-delete-variant </VIcon>
+          Clear
+        </VBtn>
       </VCol>
     </VRow>
   </VContainer>
@@ -50,13 +54,16 @@ import { useChat } from './Chat';
 
 export default defineComponent({
   setup(props, { root }) {
-    const { message, messages, sendMessage, formatDate, users } = useChat(root.$socket.client);
+    const { message, messages, sendMessage, formatDate, users, clearAllMessages } = useChat(
+      root.$socket.client
+    );
     return {
       message,
       messages,
       sendMessage,
       formatDate,
       users,
+      clearAllMessages,
     };
   },
 });

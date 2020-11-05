@@ -1,13 +1,16 @@
+const jwt = require('jsonwebtoken');
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const socketio = require('socket.io');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
+const cookieSocketParser = require('socket.io-cookie-parser');
 const http = require('http');
 const redis = require('redis');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
+const User = require('./models/User');
 
 // Redis Client Setup
 const redisClient = redis.createClient({
@@ -55,17 +58,33 @@ server.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode 
 
 const io = socketio(server);
 
+io.use(cookieSocketParser());
+
+const fetchUser = async (token) => {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  return User.findById(decoded.id);
+};
+
 // Run when client connects
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
+  const { token } = socket.request.cookies;
+  const user = await fetchUser(token);
+  redisClient.hset('users', String(user._id), JSON.stringify({
+    name: user.name,
+    role: user.role,
+  }));
+  io.emit('ADD_USER', user);
+
+  redisClient.hgetall('messages', (err, messages) => {
+    socket.emit('RECEIVE_ALL_MESSAGES', messages);
+  });
+  redisClient.hgetall('users', (err, users) => {
+    socket.emit('RECEIVE_ALL_USERS', users);
+  });
+
   socket.emit('RECEIVE_MESSAGE', {
     text: 'Welcome to chat',
     time: Date.now(),
-  });
-  redisClient.hgetall('messages', (err, messages) => {
-    io.emit('RECEIVE_ALL_MESSAGES', messages);
-  });
-  redisClient.hgetall('users', (err, users) => {
-    io.emit('RECEIVE_ALL_USERS', users);
   });
 
   socket.on('SEND_MESSAGE', (message) => {
@@ -81,28 +100,15 @@ io.on('connection', (socket) => {
     });
   });
 
-  socket.on('USER_JOINED', (user) => {
-    redisClient.hset('users', user._id, JSON.stringify({
-      name: user.name,
-      role: user.role,
-    }));
-    io.emit('ADD_USER', {
-      _id: user._id,
-      name: user.name,
-      role: user.role,
-    });
+  socket.on('CLEAR_ALL_MESSAGES', () => {
+    if (user.role === 'admin') {
+      redisClient.del('messages');
+      io.emit('RECEIVE_ALL_MESSAGES', []);
+    }
   });
 
-  const removeUser = (userId) => {
-    redisClient.hdel('users', userId);
-    io.emit('REMOVE_USER', userId);
-  };
-
-  socket.on('USER_LEFT', (userId) => {
-    removeUser(userId);
-  });
-
-  socket.on('disconnect', (userId) => {
-    removeUser(userId);
+  socket.on('disconnect', async () => {
+    redisClient.hdel('users', String(user._id));
+    io.emit('REMOVE_USER', user._id);
   });
 });
