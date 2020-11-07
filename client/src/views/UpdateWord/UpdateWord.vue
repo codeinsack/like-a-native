@@ -12,12 +12,8 @@
           outlined
           dense
         />
-        <AddRow
-          :items="word.definitions"
-          label="Definition"
-          @itemsDataChanged="changeDefinitions"
-        />
-        <AddRow :items="word.examples" label="Example" @itemsDataChanged="changeExamples" />
+        <AddRow :items="word.definitions" label="Definition" @itemsUpdated="changeDefinitions" />
+        <AddRow :items="word.examples" label="Example" @itemsUpdated="changeExamples" />
         <VFileInput
           v-model="uploadedImage"
           accept="image/jpeg, image/png"

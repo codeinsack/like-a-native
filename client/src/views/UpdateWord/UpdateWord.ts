@@ -8,7 +8,8 @@ const initialWord = {
   word: '',
   translation: '',
   partOfSpeech: '',
-  definition: '',
+  definitions: [],
+  examples: [],
   form: {
     thirdPerson: '',
     pastSimple: '',
@@ -48,11 +49,11 @@ export function useUpdateWord(route: Route, router: VueRouter) {
   };
 
   const changeDefinitions = (updatedDefinitions: Array<string>) => {
-    console.log('updatedDefinitions', updatedDefinitions);
+    word.definitions = updatedDefinitions;
   };
 
-  const changeExamples = (updatedDefinitions: Array<string>) => {
-    console.log('updatedDefinitions', updatedDefinitions);
+  const changeExamples = (updatedExamples: Array<string>) => {
+    word.examples = updatedExamples;
   };
 
   return {

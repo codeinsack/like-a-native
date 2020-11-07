@@ -3,11 +3,12 @@
     <Row
       v-for="(item, index) in items"
       :key="index"
+      class="mb-5"
       :value="item"
       :label="label"
-      @rowValueChanged="changeItemsData($event, index)"
+      @valueChanged="updateItems($event, index)"
     />
-    <VBtn color="primary" text> Add </VBtn>
+    <VBtn color="primary" outlined @click="addItem"> Add </VBtn>
   </div>
 </template>
 
@@ -29,9 +30,10 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const { changeItemsData } = useAddRow(props, emit);
+    const { updateItems, addItem } = useAddRow(props, emit);
     return {
-      changeItemsData,
+      updateItems,
+      addItem,
     };
   },
 });

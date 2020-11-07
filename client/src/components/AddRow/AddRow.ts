@@ -1,12 +1,18 @@
 export function useAddRow(props: any, emit: any) {
-  const changeItemsData = (targetValue: string, targetIndex: number) => {
+  const updateItems = (targetValue: string, targetIndex: number) => {
     const updatedItemsData = props.items.map((value, index) =>
       index === targetIndex ? targetValue : value
     );
-    emit('itemsDataChanged', updatedItemsData);
+    emit('itemsUpdated', updatedItemsData);
+  };
+
+  const addItem = () => {
+    const updatedItemsData = props.items.concat('');
+    emit('itemsUpdated', updatedItemsData);
   };
 
   return {
-    changeItemsData,
+    updateItems,
+    addItem,
   };
 }
