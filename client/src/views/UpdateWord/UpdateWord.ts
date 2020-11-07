@@ -26,7 +26,7 @@ const partsOfSpeech = (Object.keys(PartOfSpeech) as Array<keyof typeof PartOfSpe
 );
 
 export function useUpdateWord(route: Route, router: VueRouter) {
-  const word: Word = reactive({ ...(initialWord as Word) });
+  const word: Word = reactive({ ...(initialWord as any) });
   const uploadedImage: Ref<File | null> = ref(null);
 
   onMounted(async () => {
@@ -47,10 +47,20 @@ export function useUpdateWord(route: Route, router: VueRouter) {
     await router.push('/words');
   };
 
+  const changeDefinitions = (updatedDefinitions: Array<string>) => {
+    console.log('updatedDefinitions', updatedDefinitions);
+  };
+
+  const changeExamples = (updatedDefinitions: Array<string>) => {
+    console.log('updatedDefinitions', updatedDefinitions);
+  };
+
   return {
     word,
     saveWord,
     partsOfSpeech,
     uploadedImage,
+    changeDefinitions,
+    changeExamples,
   };
 }

@@ -13,10 +13,12 @@ const WordSchema = new mongoose.Schema({
   definitions: {
     type: [String],
     trim: true,
+    default: [''],
   },
   examples: {
     type: [String],
     trim: true,
+    default: [''],
   },
   partOfSpeech: {
     type: String,

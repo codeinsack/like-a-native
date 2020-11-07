@@ -21,7 +21,8 @@ export interface Word {
   _id: string;
   word: string;
   translation: string;
-  definition: string;
+  definitions: Array<string>;
+  examples: Array<string>;
   partOfSpeech: PartOfSpeech;
   form: VerbForm;
 }
