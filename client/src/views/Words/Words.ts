@@ -1,12 +1,11 @@
 import VueRouter from 'vue-router';
 import { debounce, map } from 'lodash';
 import { Ref, ref, watch } from '@vue/composition-api';
-import { fetchWords, createNewWord } from '@/api/words';
-import { detachWord, attachWord } from '@/api/users';
+import { createNewWord, fetchWords } from '@/api/words';
 import { PartOfSpeech, Word } from '@/types/word';
 import { DataOptions } from 'vuetify/types';
 import { useFormatter } from '@/uses/useFormatter';
-import { States } from '@/store/modules/user/types';
+import { Actions, States } from '@/store/modules/user/types';
 import { useStore } from '@/uses/useStore';
 import { Modules } from '@/store/types';
 
@@ -26,9 +25,11 @@ const partsOfSpeech = map(PartOfSpeech, (key) => ({
   text: capitalizeUnderscore(key),
 }));
 
-const { useState } = useStore(Modules.USER);
+const { useState, useActions } = useStore(Modules.USER);
 
 const { user } = useState([States.user]);
+
+const { ATTACH_WORD, DETACH_WORD } = useActions([Actions.ATTACH_WORD, Actions.DETACH_WORD]);
 
 export function useWords(router: VueRouter) {
   const loading: Ref<boolean> = ref(false);
@@ -100,9 +101,9 @@ export function useWords(router: VueRouter) {
 
   const changeInTrainingStatus = async (wordId: string, value: boolean) => {
     if (value) {
-      await attachWord(wordId);
+      ATTACH_WORD(wordId);
     } else {
-      await detachWord(wordId);
+      DETACH_WORD(wordId);
     }
   };
 

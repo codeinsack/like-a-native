@@ -4,7 +4,8 @@ import Cookies from 'js-cookie';
 import { RootState } from '@/store/types';
 import { fetchMe, login, logout } from '@/api/auth';
 import router from '@/router/routes';
-import { Actions, Mutations, State } from './types';
+import { attachWord, detachWord } from '@/api/users';
+import { Actions, Mutations, State, States } from './types';
 
 const actions: ActionTree<State, RootState> = {
   [Actions.LOGIN]: async ({ commit }, payload) => {
@@ -22,6 +23,26 @@ const actions: ActionTree<State, RootState> = {
       await logout();
       await router.push(path);
     }
+  },
+  [Actions.ATTACH_WORD]: async ({ commit, state }, targetWordId: string) => {
+    const user = state[States.user];
+    const updatedUser = {
+      ...user,
+      attachedWords: user?.attachedWords.concat(targetWordId),
+    };
+    commit(Mutations.SET_USER_DETAILS, updatedUser);
+    Cookies.set('user', updatedUser);
+    await attachWord(targetWordId);
+  },
+  [Actions.DETACH_WORD]: async ({ commit, state }, targetWordId: string) => {
+    const user = state[States.user];
+    const updatedUser = {
+      ...user,
+      attachedWords: user?.attachedWords.filter((wordId) => wordId !== targetWordId),
+    };
+    commit(Mutations.SET_USER_DETAILS, updatedUser);
+    Cookies.set('user', updatedUser);
+    await detachWord(targetWordId);
   },
 };
 
