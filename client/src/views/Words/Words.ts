@@ -2,9 +2,13 @@ import VueRouter from 'vue-router';
 import { debounce, map } from 'lodash';
 import { Ref, ref, watch } from '@vue/composition-api';
 import { fetchWords, createNewWord } from '@/api/words';
+import { detachWord, attachWord } from '@/api/users';
 import { PartOfSpeech, Word } from '@/types/word';
 import { DataOptions } from 'vuetify/types';
 import { useFormatter } from '@/uses/useFormatter';
+import { States } from '@/store/modules/user/types';
+import { useStore } from '@/uses/useStore';
+import { Modules } from '@/store/types';
 
 const headers = [
   { text: 'Word', value: 'word' },
@@ -21,6 +25,10 @@ const partsOfSpeech = map(PartOfSpeech, (key) => ({
   value: key,
   text: capitalizeUnderscore(key),
 }));
+
+const { useState } = useStore(Modules.USER);
+
+const { user } = useState([States.user]);
 
 export function useWords(router: VueRouter) {
   const loading: Ref<boolean> = ref(false);
@@ -61,7 +69,10 @@ export function useWords(router: VueRouter) {
     });
     if (data) {
       loading.value = false;
-      words.value = data.resultList;
+      words.value = data.resultList.map((word) => ({
+        ...word,
+        inTraining: user.value.attachedWords.includes(word._id),
+      }));
       totalWords.value = data.totalCount;
     }
   }, 300);
@@ -87,6 +98,14 @@ export function useWords(router: VueRouter) {
     // delete
   };
 
+  const changeInTrainingStatus = async (wordId: string, value: boolean) => {
+    if (value) {
+      await attachWord(wordId);
+    } else {
+      await detachWord(wordId);
+    }
+  };
+
   return {
     words,
     headers,
@@ -100,5 +119,6 @@ export function useWords(router: VueRouter) {
     viewWordDetails,
     editWord,
     deleteWord,
+    changeInTrainingStatus,
   };
 }

@@ -53,7 +53,10 @@
             </VAvatar>
           </template>
           <template #item.inTraining="{ item }">
-            <VCheckbox :value="item.inTraining" />
+            <VCheckbox
+              v-model="item.inTraining"
+              @change="changeInTrainingStatus(item._id, $event)"
+            />
           </template>
           <template #item.actions="{ item }">
             <VIcon small class="mr-2" @click="viewWordDetails(item)">mdi-eye</VIcon>
@@ -89,6 +92,7 @@ export default defineComponent({
       viewWordDetails,
       editWord,
       deleteWord,
+      changeInTrainingStatus,
     } = useWords(root.$router);
     return {
       headers,
@@ -103,6 +107,7 @@ export default defineComponent({
       viewWordDetails,
       editWord,
       deleteWord,
+      changeInTrainingStatus,
     };
   },
 });

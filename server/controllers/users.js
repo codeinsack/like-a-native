@@ -10,7 +10,7 @@ exports.attachWord = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const updatedUser = await User.findByIdAndUpdate(
     userId,
-    { $push: { words: wordId } },
+    { $push: { attachedWords: wordId } },
     { new: true, useFindAndModify: false },
   );
   res.status(200).json(updatedUser);
@@ -24,7 +24,7 @@ exports.detachWord = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const updatedUser = await User.findByIdAndUpdate(
     userId,
-    { $pull: { words: wordId } },
+    { $pull: { attachedWords: wordId } },
     { new: true, useFindAndModify: false },
   );
   res.status(200).json(updatedUser);
@@ -34,7 +34,7 @@ exports.detachWord = asyncHandler(async (req, res) => {
 // @route  GET /api/v1/users/attachedwords
 // @access Private
 exports.getAttachedWords = asyncHandler(async (req, res) => {
-  const { words } = await User.findById(req.user.id)
+  const { attachedWords } = await User.findById(req.user.id)
     .populate('attachedWords');
-  res.status(200).json(words);
+  res.status(200).json(attachedWords);
 });
