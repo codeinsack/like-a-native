@@ -2,10 +2,10 @@ const asyncHandler = require('../middleware/async');
 
 const User = require('../models/User');
 
-// @desc   Assign word
-// @route  PUT /api/v1/users/:id/assignword
+// @desc   Attach word to user
+// @route  PUT /api/v1/users/:id/attachword
 // @access Private
-exports.assignWord = asyncHandler(async (req, res) => {
+exports.attachWord = asyncHandler(async (req, res) => {
   const wordId = req.params.id;
   const userId = req.user.id;
   const updatedUser = await User.findByIdAndUpdate(
@@ -16,10 +16,24 @@ exports.assignWord = asyncHandler(async (req, res) => {
   res.status(200).json(updatedUser);
 });
 
-// @desc   Get assigned words
-// @route  GET /api/v1/users/assignedwords
+// @desc   Detach word
+// @route  PUT /api/v1/users/:id/detachword
 // @access Private
-exports.getAssignedWords = asyncHandler(async (req, res) => {
+exports.detachWord = asyncHandler(async (req, res) => {
+  const wordId = req.params.id;
+  const userId = req.user.id;
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    { $pull: { words: wordId } },
+    { new: true, useFindAndModify: false },
+  );
+  res.status(200).json(updatedUser);
+});
+
+// @desc   Get attached words
+// @route  GET /api/v1/users/attachedwords
+// @access Private
+exports.getAttachedWords = asyncHandler(async (req, res) => {
   const { words } = await User.findById(req.user.id)
     .populate('words');
   res.status(200).json(words);
