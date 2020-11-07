@@ -52,6 +52,9 @@
               />
             </VAvatar>
           </template>
+          <template #item.inTraining="{ item }">
+            <VCheckbox :value="item.inTraining" />
+          </template>
           <template #item.actions="{ item }">
             <VIcon small class="mr-2" @click="viewWordDetails(item)">mdi-eye</VIcon>
             <VIcon small class="mr-2" @click="editWord(item)">mdi-pencil</VIcon>

@@ -35,6 +35,6 @@ exports.detachWord = asyncHandler(async (req, res) => {
 // @access Private
 exports.getAttachedWords = asyncHandler(async (req, res) => {
   const { words } = await User.findById(req.user.id)
-    .populate('words');
+    .populate('attachedWords');
   res.status(200).json(words);
 });

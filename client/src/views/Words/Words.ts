@@ -10,8 +10,8 @@ const headers = [
   { text: 'Word', value: 'word' },
   { text: 'Translation', value: 'translation' },
   { text: 'Part of speech', value: 'partOfSpeech' },
-  { text: 'Definition', value: 'definition' },
   { text: 'Image', value: 'image' },
+  { text: 'In training', value: 'inTraining' },
   { text: '', value: 'actions' },
 ];
 
