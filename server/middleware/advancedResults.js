@@ -1,4 +1,4 @@
-const advancedResults = (model, populate) => async (req, res, next) => {
+const advancedResults = (model, searchBy, populate) => async (req, res, next) => {
   let query;
   // Copy req.query
   const reqQuery = { ...req.query };
@@ -11,7 +11,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
 
   // Search
   const regex = new RegExp(req.query.search, 'i');
-  query = model.find({ word: { $regex: regex }, ...reqQuery });
+  query = model.find({ [searchBy]: { $regex: regex }, ...reqQuery });
 
   // Select Fields
   if (req.query.select) {
