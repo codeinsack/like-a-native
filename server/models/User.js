@@ -31,6 +31,12 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  words: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Word',
+    },
+  ],
 });
 
 // Encrypt password using bcrypt
