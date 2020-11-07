@@ -17,6 +17,12 @@ interface VerbForm {
   pastParticiple: string;
 }
 
+export enum Article {
+  der = 'der',
+  die = 'die',
+  das = 'das',
+}
+
 export interface Word {
   _id: string;
   word: string;
@@ -25,4 +31,6 @@ export interface Word {
   examples: Array<string>;
   partOfSpeech: PartOfSpeech;
   form: VerbForm;
+  article: Article;
+  pluralForm: string;
 }

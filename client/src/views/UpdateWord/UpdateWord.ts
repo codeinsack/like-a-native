@@ -1,8 +1,9 @@
 import VueRouter, { Route } from 'vue-router';
 import { reactive, onMounted, Ref, ref } from '@vue/composition-api';
-import { Word, PartOfSpeech } from '@/types/word';
+import { Word, PartOfSpeech, Article } from '@/types/word';
 import { updateWord, fetchWordDetails, uploadWordImage } from '@/api/words';
 import { useFormatter } from '@/uses/useFormatter';
+import { map } from 'lodash';
 
 const initialWord = {
   word: '',
@@ -10,11 +11,13 @@ const initialWord = {
   partOfSpeech: '',
   definitions: [],
   examples: [],
-  form: {
+  verbForm: {
     thirdPerson: '',
     pastSimple: '',
     pastParticiple: '',
   },
+  article: '',
+  pluralForm: '',
 };
 
 const { capitalizeUnderscore } = useFormatter();
@@ -25,6 +28,8 @@ const partsOfSpeech = (Object.keys(PartOfSpeech) as Array<keyof typeof PartOfSpe
     text: capitalizeUnderscore(PartOfSpeech[key]),
   })
 );
+
+const articles = map(Article, (article) => article);
 
 export function useUpdateWord(route: Route, router: VueRouter) {
   const word: Word = reactive({ ...(initialWord as any) });
@@ -63,5 +68,7 @@ export function useUpdateWord(route: Route, router: VueRouter) {
     uploadedImage,
     changeDefinitions,
     changeExamples,
+    PartOfSpeech,
+    articles,
   };
 }

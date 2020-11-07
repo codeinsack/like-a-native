@@ -23,6 +23,7 @@ const WordSchema = new mongoose.Schema({
   partOfSpeech: {
     type: String,
     enum: [
+      '',
       'noun',
       'article',
       'adjective',
@@ -35,12 +36,27 @@ const WordSchema = new mongoose.Schema({
       'interjection',
     ],
   },
-  form: {
+  // verb
+  verbForm: {
     type: {
       thirdPerson: String,
       pastSimple: String,
       pastParticiple: String,
     },
+  },
+  // noun
+  article: {
+    type: String,
+    enum: [
+      '',
+      'der',
+      'die',
+      'das',
+    ],
+    required: false,
+  },
+  pluralForm: {
+    type: String,
   },
 });
 

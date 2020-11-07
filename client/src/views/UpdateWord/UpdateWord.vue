@@ -23,19 +23,31 @@
         />
       </VCol>
       <VCol cols="6">
-        <div class="subtitle-1 mb-4">Verb forms</div>
-        <VTextField v-model="word.form.thirdPerson" label="Third person singular" outlined dense />
-        <VTextField v-model="word.form.pastSimple" label="Simple past tense" outlined dense />
-        <VTextField
-          v-model="word.form.pastParticiple"
-          label="Helping verb plus Past participle"
-          outlined
-          dense
-        />
-        <VBtn color="primary" fab bottom right fixed @click="saveWord">
-          <VIcon>mdi-content-save</VIcon>
-        </VBtn>
+        <template v-if="word.partOfSpeech === PartOfSpeech.verb">
+          <div class="subtitle-1 mb-4">Verb</div>
+          <VTextField
+            v-model="word.verbForm.thirdPerson"
+            label="Third person singular"
+            outlined
+            dense
+          />
+          <VTextField v-model="word.verbForm.pastSimple" label="Simple past tense" outlined dense />
+          <VTextField
+            v-model="word.verbForm.pastParticiple"
+            label="Helping verb plus Past participle"
+            outlined
+            dense
+          />
+        </template>
+        <template v-else-if="word.partOfSpeech === PartOfSpeech.noun">
+          <div class="subtitle-1 mb-4">Noun</div>
+          <VSelect v-model="word.article" :items="articles" label="Article" outlined dense />
+          <VTextField v-model="word.pluralForm" label="Plural form" outlined dense />
+        </template>
       </VCol>
+      <VBtn color="primary" fab bottom right fixed @click="saveWord">
+        <VIcon>mdi-content-save</VIcon>
+      </VBtn>
     </VRow>
   </VContainer>
 </template>
@@ -43,6 +55,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 import AddRow from '@/components/AddRow/AddRow.vue';
+import { PartOfSpeech } from '@/types/word';
 import { useUpdateWord } from './UpdateWord';
 
 export default defineComponent({
@@ -57,6 +70,8 @@ export default defineComponent({
       uploadedImage,
       changeDefinitions,
       changeExamples,
+      PartOfSpeech,
+      articles,
     } = useUpdateWord(root.$route, root.$router);
     return {
       word,
@@ -65,6 +80,8 @@ export default defineComponent({
       uploadedImage,
       changeDefinitions,
       changeExamples,
+      PartOfSpeech,
+      articles,
     };
   },
 });
