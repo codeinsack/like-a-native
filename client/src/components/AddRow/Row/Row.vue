@@ -10,7 +10,7 @@
       hide-details
       @input="changeValue"
     />
-    <VBtn color="primary" icon>
+    <VBtn :disabled="!index" color="primary" icon @click="$emit('itemDeleted')">
       <VIcon>mdi-close-circle-outline</VIcon>
     </VBtn>
   </div>
@@ -24,6 +24,9 @@ export default defineComponent({
   props: {
     value: {
       type: String,
+    },
+    index: {
+      type: Number,
     },
     label: {
       type: String,

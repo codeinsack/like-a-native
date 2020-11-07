@@ -11,8 +11,14 @@ export function useAddRow(props: any, emit: any) {
     emit('itemsUpdated', updatedItemsData);
   };
 
+  const deleteItem = (targetIndex: number) => {
+    const updatedItemsData = props.items.filter((value, index) => index !== targetIndex);
+    emit('itemsUpdated', updatedItemsData);
+  };
+
   return {
     updateItems,
     addItem,
+    deleteItem,
   };
 }
