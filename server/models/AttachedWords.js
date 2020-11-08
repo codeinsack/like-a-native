@@ -9,6 +9,7 @@ const AttachedWords = new mongoose.Schema({
   word: {
     type: mongoose.Schema.ObjectId,
     ref: 'Word',
+    unique: true,
   },
 });
 

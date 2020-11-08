@@ -11,8 +11,6 @@ export interface State {
 export enum Actions {
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
-  ATTACH_WORD = 'ATTACH_WORD',
-  DETACH_WORD = 'DETACH_WORD',
 }
 
 export enum Mutations {

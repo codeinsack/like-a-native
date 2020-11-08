@@ -34,3 +34,8 @@ export interface Word {
   article: Article;
   pluralForm: string;
 }
+
+export interface AttachedWord {
+  word: Word;
+  _id: string;
+}

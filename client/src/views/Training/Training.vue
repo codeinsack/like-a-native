@@ -2,9 +2,19 @@
   <VContainer>
     <VRow>
       <VCol>
-        <div v-for="word in words" :key="word._id">
-          {{ JSON.stringify(word) }}
-        </div>
+        <VList>
+          <VListItem v-for="attachedWord in words" :key="attachedWord._id">
+            <VListItemContent>
+              <VListItemTitle>{{ attachedWord.word.word }}</VListItemTitle>
+              <VListItemSubtitle>{{ attachedWord.word.word }}</VListItemSubtitle>
+            </VListItemContent>
+            <VListItemAction>
+              <VBtn @click="removeWordFromTraining(attachedWord._id)">
+                <VIcon>mdi-sword-cross</VIcon>
+              </VBtn>
+            </VListItemAction>
+          </VListItem>
+        </VList>
       </VCol>
     </VRow>
   </VContainer>
@@ -20,9 +30,10 @@ export default defineComponent({
     PartOfSpeechChip,
   },
   setup() {
-    const { words } = useTraining();
+    const { words, removeWordFromTraining } = useTraining();
     return {
       words,
+      removeWordFromTraining,
     };
   },
 });
