@@ -10,8 +10,12 @@ const advancedResults = (model, searchBy, populate) => async (req, res, next) =>
   removeFields.forEach((param) => delete reqQuery[param]);
 
   // Search
-  const regex = new RegExp(req.query.search, 'i');
-  query = model.find({ [searchBy]: { $regex: regex }, ...reqQuery });
+  if (searchBy) {
+    const regex = new RegExp(req.query.search, 'i');
+    query = model.find({ [searchBy]: { $regex: regex }, ...reqQuery });
+  } else {
+    query = model.find(reqQuery);
+  }
 
   // Select Fields
   if (req.query.select) {

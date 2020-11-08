@@ -70,10 +70,11 @@ export function useWords(router: VueRouter) {
     });
     if (data) {
       loading.value = false;
-      words.value = data.resultList.map((word) => ({
-        ...word,
-        inTraining: user.value.attachedWords.includes(word._id),
-      }));
+      // words.value = data.resultList.map((word) => ({
+      //   ...word,
+      //   inTraining: user.value.attachedWords.includes(word._id),
+      // }));
+      words.value = data.resultList;
       totalWords.value = data.totalCount;
     }
   }, 300);
