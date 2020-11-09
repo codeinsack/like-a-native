@@ -1,5 +1,6 @@
 <template>
   <VApp>
+    <Snackbar />
     <template v-if="$route.name === 'login'">
       <RouterView />
     </template>
@@ -21,11 +22,13 @@
 
 <script>
 import Tabs from '@/components/Tabs/Tabs.vue';
+import Snackbar from '@/components/Snackbar/Snackbar.vue';
 import { useApp } from './App';
 
 export default {
   components: {
     Tabs,
+    Snackbar,
   },
   setup() {
     const { logout, user } = useApp();

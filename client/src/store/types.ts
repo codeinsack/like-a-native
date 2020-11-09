@@ -3,7 +3,7 @@ export interface RootState {
 }
 
 export enum Modules {
-  WORD = 'WORD',
   USER = 'USER',
   CHAT = 'CHAT',
+  NOTIFICATION = 'NOTIFICATION',
 }
