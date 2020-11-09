@@ -44,7 +44,8 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'no-shadow': 'off',
     'no-underscore-dangle': 'off',
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "consistent-return": "off"
   },
   overrides: [
     {
