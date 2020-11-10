@@ -5,12 +5,15 @@ const AttachedWords = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     select: false,
+    required: true,
   },
   word: {
     type: mongoose.Schema.ObjectId,
     ref: 'Word',
-    unique: true,
+    required: true,
   },
 });
+
+AttachedWords.index({ user: 1, word: 1 }, { unique: true });
 
 module.exports = mongoose.model('AttachedWords', AttachedWords);
