@@ -1,4 +1,4 @@
-export function useTraining() {
+export function useCollectWord() {
   return {
     temp: 'temp',
   };

@@ -1,19 +1,16 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Cookies from 'js-cookie';
 
 import Words from '@/views/Words/Words.vue';
 import WordDetails from '@/views/WordDetails/WordDetails.vue';
 import UpdateWord from '@/views/UpdateWord/UpdateWord.vue';
 import Training from '@/views/Training/Training.vue';
+import MyWords from '@/views/Training/MyWords/MyWords.vue';
+import CollectWord from '@/views/Training/CollectWord/CollectWord.vue';
+import GuessWord from '@/views/Training/GuessWord/GuessWord.vue';
 import Login from '@/views/Login/Login.vue';
 import Chat from '@/views/Chat/Chat.vue';
-import { useStore } from '@/uses/useStore';
-import { Modules } from '@/store/types';
-import { States } from '@/store/modules/user/types';
-
-const { useState } = useStore(Modules.USER);
-
-const { user } = useState([States.user]);
 
 Vue.use(VueRouter);
 
@@ -46,6 +43,23 @@ const routes = [
     meta: {
       protected: true,
     },
+    children: [
+      {
+        path: 'my-words',
+        name: 'myWords',
+        component: MyWords,
+      },
+      {
+        path: 'collect-word',
+        name: 'collectWord',
+        component: CollectWord,
+      },
+      {
+        path: 'guess-word',
+        name: 'guessWord',
+        component: GuessWord,
+      },
+    ],
   },
   {
     path: '/chat',
@@ -65,7 +79,7 @@ const router = new VueRouter({ mode: 'history', routes });
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.protected)) {
-    if (user.value) {
+    if (Cookies.getJSON('user')) {
       next();
     } else {
       next('/login');
