@@ -44,7 +44,13 @@
             <VTextField v-model="userAnswer" placeholder="Enter your answer here" outlined dense />
           </div>
         </VCard>
-        <VBtn class="mr-4" color="primary" outlined @click="checkAnswer(attachedWord.word.word)">
+        <VBtn
+          class="mr-4"
+          :disabled="showResult"
+          color="primary"
+          outlined
+          @click="checkAnswer(attachedWord)"
+        >
           Check
         </VBtn>
         <VBtn :disabled="!showResult" color="primary" outlined @click="moveToNextWord">

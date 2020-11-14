@@ -4,6 +4,7 @@ const {
   getAttachedWords,
   attachWord,
   detachWord,
+  updateProgress,
 } = require('../controllers/attachedWords');
 const { protect } = require('../middleware/auth');
 const { addUserToQuery } = require('../middleware/addUserToQuery');
@@ -19,5 +20,8 @@ router.route('/')
 router.route('/:id')
   .post(protect, attachWord)
   .delete(protect, detachWord);
+
+router.route('/:id/progress')
+  .patch(protect, updateProgress);
 
 module.exports = router;

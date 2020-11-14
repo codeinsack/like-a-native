@@ -1,4 +1,4 @@
-import { fetchAttachedWords } from '@/api/attachedWords';
+import { fetchAttachedWords, updateProgress } from '@/api/attachedWords';
 import { ref, Ref } from '@vue/composition-api';
 import { AttachedWord } from '@/types/word';
 import { head } from 'lodash';
@@ -22,11 +22,13 @@ export function useCollectWord() {
     isTrainingStarted.value = true;
   };
 
-  const checkAnswer = (word: string) => {
+  const checkAnswer = async (attachedWord: AttachedWord) => {
+    const correct = userAnswer.value === attachedWord.word.word;
     showResult.value = true;
-    isCorrect.value = userAnswer.value === word;
-    answers.value.push(userAnswer.value === word);
+    isCorrect.value = correct;
+    answers.value.push(correct);
     userAnswer.value = '';
+    await updateProgress({ id: attachedWord._id, progress: correct ? 50 : 10 });
   };
 
   const moveToNextWord = () => {

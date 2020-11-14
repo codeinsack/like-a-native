@@ -40,3 +40,21 @@ export const fetchAttachedWords = async (
     return error;
   }
 };
+
+export const updateProgress = async ({
+  id,
+  progress,
+}: {
+  id: string;
+  progress: number;
+}): Promise<AxiosResponse<null>> => {
+  const url = `${baseUrl}/${id}/progress`;
+  try {
+    return await axios.patch(url, {
+      progress,
+    });
+  } catch (error) {
+    logError(error);
+    return error;
+  }
+};

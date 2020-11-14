@@ -37,3 +37,19 @@ exports.detachWord = asyncHandler(async (req, res, next) => {
 exports.getAttachedWords = asyncHandler(async (req, res) => {
   res.status(200).json(res.advancedResults);
 });
+
+// @desc   Update learning progress
+// @route  PATCH /api/v1/attachedwords/:id/progress
+// @access Private
+exports.updateProgress = asyncHandler(async (req, res, next) => {
+  let word = await AttachedWords.findById(req.params.id);
+  if (!word) {
+    return next(new ErrorResponse(`Attached word not found with id of ${req.params.id}`, 404));
+  }
+  word = await AttachedWords.findByIdAndUpdate(req.params.id,
+    { ...req.body, learningProgress: req.body.progress }, {
+      new: true,
+      runValidators: true,
+    });
+  res.status(200).json(null);
+});
