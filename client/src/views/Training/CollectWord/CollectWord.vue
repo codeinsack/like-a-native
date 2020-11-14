@@ -48,15 +48,32 @@
           Check
         </VBtn>
         <VBtn :disabled="!showResult" color="primary" outlined @click="moveToNextWord">
-          Next word
+          <span>{{ index + 1 === words.length ? 'Finish' : 'Next word' }}</span>
         </VBtn>
       </VStepperContent>
     </VStepperItems>
   </VStepper>
-  <VContainer v-else fill-height fluid>
+  <VContainer v-else-if="!isFinish" fill-height fluid>
     <VRow justify="center">
       <VCol cols="4">
         <VBtn color="primary" outlined @click="loadWords">Start training</VBtn>
+      </VCol>
+    </VRow>
+  </VContainer>
+  <VContainer v-else fill-height fluid>
+    <VRow justify="center">
+      <VCol cols="4">
+        <p class="text-h6 blue--text text-decoration-underline">Training is finished!</p>
+        <VList>
+          <VListItem v-for="(word, index) in words" :key="word._id">
+            <VListItemContent>
+              <VListItemTitle :class="`${answers[index] ? 'green--text' : 'red--text'}`">
+                {{ word.word.word }}
+              </VListItemTitle>
+              <VListItemSubtitle>{{ word.word.translation }}</VListItemSubtitle>
+            </VListItemContent>
+          </VListItem>
+        </VList>
       </VCol>
     </VRow>
   </VContainer>
@@ -80,6 +97,7 @@ export default defineComponent({
       moveToNextWord,
       currentStep,
       answers,
+      isFinish,
     } = useCollectWord();
     return {
       loadWords,
@@ -93,6 +111,7 @@ export default defineComponent({
       moveToNextWord,
       currentStep,
       answers,
+      isFinish,
     };
   },
 });
