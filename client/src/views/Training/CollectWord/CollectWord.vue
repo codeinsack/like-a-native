@@ -1,27 +1,33 @@
 <template>
-  <VStepper v-if="isTrainingStarted && words.length" v-model="e1" class="elevation-0 mr-12">
+  <VStepper
+    v-if="isTrainingStarted && words.length"
+    v-model="currentStep"
+    class="elevation-0 mr-12"
+  >
     <VStepperHeader class="elevation-0">
-      <VStepperStep :complete="e1 > 1" step="1"> Name of step 1 </VStepperStep>
-      <VDivider />
-      <VStepperStep :complete="e1 > 2" step="2"> Name of step 2 </VStepperStep>
-      <VDivider />
-      <VStepperStep step="3"> Name of step 3 </VStepperStep>
+      <template v-for="(attachedWord, index) in words">
+        <VStepperStep
+          :key="attachedWord.id"
+          :complete="currentStep > index + 1"
+          :step="index + 1"
+          editable
+        >
+          Step {{ index + 1 }}
+        </VStepperStep>
+        <VDivider v-if="index + 1 !== words.length" :key="attachedWord.id" />
+      </template>
     </VStepperHeader>
     <VStepperItems>
-      <VStepperContent class="pa-0" step="1">
-        <VCard class="mb-12" color="grey lighten-1" height="200px" />
-        <VBtn color="primary" @click="e1 = 2"> Continue </VBtn>
-        <VBtn text> Cancel </VBtn>
-      </VStepperContent>
-      <VStepperContent step="2">
-        <VCard class="mb-12" color="grey lighten-1" height="200px" />
-        <VBtn color="primary" @click="e1 = 3"> Continue </VBtn>
-        <VBtn text> Cancel </VBtn>
-      </VStepperContent>
-      <VStepperContent step="3">
-        <VCard class="mb-12" color="grey lighten-1" height="200px" />
-        <VBtn color="primary" @click="e1 = 1"> Continue </VBtn>
-        <VBtn text> Cancel </VBtn>
+      <VStepperContent
+        v-for="(attachedWord, index) in words"
+        :key="attachedWord.id"
+        :step="index + 1"
+      >
+        <VCard class="mb-12" color="grey lighten-1" height="600px">
+          {{ attachedWord.word.word }}
+        </VCard>
+        <VBtn class="mr-4" color="primary" outlined>Check</VBtn>
+        <VBtn color="primary" outlined>Next word</VBtn>
       </VStepperContent>
     </VStepperItems>
   </VStepper>
@@ -41,8 +47,25 @@ import { useCollectWord } from './CollectWord';
 export default defineComponent({
   data() {
     return {
-      e1: 1,
+      currentStep: 1,
     };
+  },
+  watch: {
+    steps(val) {
+      if (this.currentStep > val) {
+        this.currentStep = val;
+      }
+    },
+  },
+
+  methods: {
+    nextStep(n) {
+      if (n === this.steps) {
+        this.currentStep = 1;
+      } else {
+        this.currentStep = n + 1;
+      }
+    },
   },
   setup() {
     const { loadWords, isTrainingStarted, words } = useCollectWord();
