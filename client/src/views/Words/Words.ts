@@ -6,6 +6,7 @@ import { attachWord } from '@/api/attachedWords';
 import { PartOfSpeech, Word } from '@/types/word';
 import { DataOptions } from 'vuetify/types';
 import { useFormatter } from '@/uses/useFormatter';
+import { Params } from '@/types/params';
 
 const headers = [
   { text: 'Word', value: 'word' },
@@ -59,7 +60,7 @@ export function useWords(router: VueRouter) {
       sort,
       search: search.value,
       partOfSpeech: partOfSpeech.value,
-    });
+    } as Params);
     if (data) {
       loading.value = false;
       words.value = data.resultList;

@@ -3,8 +3,20 @@
     <VListItem v-for="attachedWord in words" :key="attachedWord._id">
       <VListItemContent>
         <VListItemTitle>{{ attachedWord.word.word }}</VListItemTitle>
-        <VListItemSubtitle>{{ attachedWord.word.word }}</VListItemSubtitle>
+        <VListItemSubtitle>{{ attachedWord.word.translation }}</VListItemSubtitle>
       </VListItemContent>
+      <VProgressLinear
+        style="width: 400px"
+        :value="attachedWord.learningProgress"
+        color="primary"
+        height="20"
+        rounded
+        striped
+      >
+        <template v-slot:default="{ value }">
+          <strong>{{ Math.ceil(value) }}%</strong>
+        </template>
+      </VProgressLinear>
       <VListItemAction>
         <VBtn @click="removeWordFromTraining(attachedWord._id)">
           <VIcon>mdi-sword-cross</VIcon>

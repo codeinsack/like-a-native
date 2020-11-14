@@ -1,32 +1,15 @@
 import axios, { AxiosResponse } from 'axios';
 import { PaginatedResult } from '@/types/paginatedResult';
-import { PartOfSpeech, Word } from '@/types/word';
+import { Word } from '@/types/word';
 import { logError } from '@/utils/logger';
+import { Params } from '@/types/params';
 
 const baseUrl = `/api/v1/words`;
 
-export const fetchWords = async ({
-  page,
-  limit,
-  sort,
-  search,
-  partOfSpeech,
-}: {
-  page: number;
-  limit: number;
-  sort: string | null;
-  search: string | null;
-  partOfSpeech: PartOfSpeech | null;
-}): Promise<AxiosResponse<PaginatedResult<Word>>> => {
+export const fetchWords = async (params: Params): Promise<AxiosResponse<PaginatedResult<Word>>> => {
   try {
     return await axios.get(baseUrl, {
-      params: {
-        page,
-        limit,
-        sort,
-        search,
-        partOfSpeech,
-      },
+      params,
     });
   } catch (error) {
     logError(error);

@@ -3,4 +3,5 @@ export interface Params {
   limit?: number;
   sort?: string;
   search?: string;
+  [key: string]: any;
 }
