@@ -9,6 +9,7 @@ export function useCollectWord() {
   const userAnswer: Ref<string> = ref('');
   const showResult: Ref<boolean> = ref(false);
   const isCorrect: Ref<boolean> = ref(false);
+  const currentStep: Ref<number> = ref(1);
 
   const loadWords = async () => {
     const { data } = await fetchAttachedWords({
@@ -25,6 +26,11 @@ export function useCollectWord() {
     userAnswer.value = '';
   };
 
+  const moveToNextWord = () => {
+    showResult.value = false;
+    currentStep.value += 1;
+  };
+
   return {
     loadWords,
     isTrainingStarted,
@@ -34,5 +40,7 @@ export function useCollectWord() {
     checkAnswer,
     showResult,
     isCorrect,
+    moveToNextWord,
+    currentStep,
   };
 }

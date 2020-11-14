@@ -6,12 +6,7 @@
   >
     <VStepperHeader class="elevation-0">
       <template v-for="(attachedWord, index) in words">
-        <VStepperStep
-          :key="attachedWord.id"
-          :complete="currentStep > index + 1"
-          :step="index + 1"
-          editable
-        >
+        <VStepperStep :key="attachedWord.id" :complete="currentStep > index + 1" :step="index + 1">
           Step {{ index + 1 }}
         </VStepperStep>
         <VDivider v-if="index + 1 !== words.length" :key="attachedWord.id" />
@@ -29,8 +24,10 @@
           height="600px"
         >
           <div class="d-flex flex-column">
-            <div class="mb-12 d-flex flex-column align-center">
-              <span class="blue--text title">{{ head(attachedWord.word.definitions) }}</span>
+            <div style="width: 300px" class="mb-12 d-flex flex-column align-center">
+              <span class="blue--text title text-center">{{
+                head(attachedWord.word.definitions)
+              }}</span>
               <span
                 v-show="showResult"
                 :class="`${isCorrect ? 'green--text' : 'red--text'}`"
@@ -45,7 +42,7 @@
         <VBtn class="mr-4" color="primary" outlined @click="checkAnswer(attachedWord.word.word)">
           Check
         </VBtn>
-        <VBtn color="primary" outlined>Next word</VBtn>
+        <VBtn color="primary" outlined @click="moveToNextWord">Next word</VBtn>
       </VStepperContent>
     </VStepperItems>
   </VStepper>
@@ -63,11 +60,6 @@ import { defineComponent } from '@vue/composition-api';
 import { useCollectWord } from './CollectWord';
 
 export default defineComponent({
-  data() {
-    return {
-      currentStep: 1,
-    };
-  },
   watch: {
     steps(val) {
       if (this.currentStep > val) {
@@ -75,7 +67,6 @@ export default defineComponent({
       }
     },
   },
-
   methods: {
     nextStep(n) {
       if (n === this.steps) {
@@ -95,6 +86,8 @@ export default defineComponent({
       checkAnswer,
       showResult,
       isCorrect,
+      moveToNextWord,
+      currentStep,
     } = useCollectWord();
     return {
       loadWords,
@@ -105,6 +98,8 @@ export default defineComponent({
       checkAnswer,
       showResult,
       isCorrect,
+      moveToNextWord,
+      currentStep,
     };
   },
 });
