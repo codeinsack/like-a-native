@@ -1,7 +1,7 @@
 <template>
   <VApp>
     <VRow>
-      <VCol cols="3">
+      <VCol class="pa-0" cols="3">
         <VNavigationDrawer
           absolute
           dark
@@ -21,7 +21,7 @@
           </VList>
         </VNavigationDrawer>
       </VCol>
-      <VCol cols="9">
+      <VCol class="pa-0" cols="9">
         <RouterView />
       </VCol>
     </VRow>
