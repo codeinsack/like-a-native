@@ -28,7 +28,11 @@ export function useCollectWord() {
     isCorrect.value = correct;
     answers.value.push(correct);
     userAnswer.value = '';
-    await updateProgress({ id: attachedWord._id, progress: correct ? 50 : 10 });
+    const updatedProgress = attachedWord.learningProgress + (correct ? 50 : 10);
+    await updateProgress({
+      id: attachedWord._id,
+      progress: updatedProgress > 100 ? 100 : updatedProgress,
+    });
   };
 
   const moveToNextWord = () => {

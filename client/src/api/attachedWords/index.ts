@@ -28,7 +28,7 @@ export const detachWord = async (relationId: string): Promise<AxiosResponse<User
 };
 
 export const fetchAttachedWords = async (
-  params: Params
+  params?: Params
 ): Promise<AxiosResponse<PaginatedResult<AttachedWord>>> => {
   const url = `${baseUrl}`;
   try {

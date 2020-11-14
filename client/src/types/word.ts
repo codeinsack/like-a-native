@@ -38,4 +38,5 @@ export interface Word {
 export interface AttachedWord {
   word: Word;
   _id: string;
+  learningProgress: number;
 }

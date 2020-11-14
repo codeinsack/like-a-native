@@ -8,13 +8,13 @@
       <VProgressLinear
         style="width: 400px"
         :value="attachedWord.learningProgress"
-        color="primary"
+        :color="attachedWord.learningProgress === 100 ? 'green' : 'primary'"
         height="20"
         rounded
         striped
       >
         <template v-slot:default="{ value }">
-          <strong>{{ Math.ceil(value) }}%</strong>
+          <strong>{{ value }}%</strong>
         </template>
       </VProgressLinear>
       <VListItemAction>
