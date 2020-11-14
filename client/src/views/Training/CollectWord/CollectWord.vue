@@ -23,10 +23,28 @@
         :key="attachedWord.id"
         :step="index + 1"
       >
-        <VCard class="mb-12" color="grey lighten-1" height="600px">
-          {{ attachedWord.word.word }}
+        <VCard
+          class="mb-12 d-flex justify-center align-center"
+          color="grey lighten-1"
+          height="600px"
+        >
+          <div class="d-flex flex-column">
+            <div class="mb-12 d-flex flex-column align-center">
+              <span class="blue--text title">{{ head(attachedWord.word.definitions) }}</span>
+              <span
+                v-show="showResult"
+                :class="`${isCorrect ? 'green--text' : 'red--text'}`"
+                class="headline mt-2"
+              >
+                {{ attachedWord.word.word }}
+              </span>
+            </div>
+            <VTextField v-model="userAnswer" placeholder="Enter your answer here" outlined dense />
+          </div>
         </VCard>
-        <VBtn class="mr-4" color="primary" outlined>Check</VBtn>
+        <VBtn class="mr-4" color="primary" outlined @click="checkAnswer(attachedWord.word.word)">
+          Check
+        </VBtn>
         <VBtn color="primary" outlined>Next word</VBtn>
       </VStepperContent>
     </VStepperItems>
@@ -68,11 +86,25 @@ export default defineComponent({
     },
   },
   setup() {
-    const { loadWords, isTrainingStarted, words } = useCollectWord();
+    const {
+      loadWords,
+      isTrainingStarted,
+      words,
+      head,
+      userAnswer,
+      checkAnswer,
+      showResult,
+      isCorrect,
+    } = useCollectWord();
     return {
       loadWords,
       isTrainingStarted,
       words,
+      head,
+      userAnswer,
+      checkAnswer,
+      showResult,
+      isCorrect,
     };
   },
 });
