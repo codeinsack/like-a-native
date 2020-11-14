@@ -3,6 +3,7 @@ import { AttachedWord } from '@/types/word';
 import { User } from '@/types/user';
 import { PaginatedResult } from '@/types/paginatedResult';
 import { logError } from '@/utils/logger';
+import { Params } from '@/types/params';
 
 const baseUrl = `/api/v1/attachedwords`;
 
@@ -26,12 +27,14 @@ export const detachWord = async (relationId: string): Promise<AxiosResponse<User
   }
 };
 
-export const fetchAttachedWords = async (): Promise<
-  AxiosResponse<PaginatedResult<AttachedWord>>
-> => {
+export const fetchAttachedWords = async (
+  params: Params
+): Promise<AxiosResponse<PaginatedResult<AttachedWord>>> => {
   const url = `${baseUrl}`;
   try {
-    return await axios.get(url);
+    return await axios.get(url, {
+      params,
+    });
   } catch (error) {
     logError(error);
     return error;

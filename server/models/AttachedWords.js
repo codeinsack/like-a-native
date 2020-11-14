@@ -12,6 +12,10 @@ const AttachedWords = new mongoose.Schema({
     ref: 'Word',
     required: true,
   },
+  learningProgress: {
+    type: Number,
+    default: 0,
+  },
 });
 
 AttachedWords.index({ user: 1, word: 1 }, { unique: true });

@@ -1,5 +1,11 @@
 <template>
-  <VContainer> COLLECT WORD </VContainer>
+  <VContainer fill-height fluid>
+    <VRow justify="center">
+      <VCol cols="4">
+        <VBtn color="primary" outlined @click="loadWords">Start training</VBtn>
+      </VCol>
+    </VRow>
+  </VContainer>
 </template>
 
 <script lang="ts">
@@ -8,9 +14,9 @@ import { useCollectWord } from './CollectWord';
 
 export default defineComponent({
   setup() {
-    const { temp } = useCollectWord();
+    const { loadWords } = useCollectWord();
     return {
-      temp,
+      loadWords,
     };
   },
 });
