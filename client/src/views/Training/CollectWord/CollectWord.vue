@@ -6,7 +6,12 @@
   >
     <VStepperHeader class="elevation-0">
       <template v-for="(attachedWord, index) in words">
-        <VStepperStep :key="attachedWord.id" :complete="currentStep > index + 1" :step="index + 1">
+        <VStepperStep
+          :key="attachedWord.id"
+          :step="index + 1"
+          :complete="currentStep > index + 1"
+          :rules="[() => !(currentStep > index + 1) || answers[index]]"
+        >
           Step {{ index + 1 }}
         </VStepperStep>
         <VDivider v-if="index + 1 !== words.length" :key="attachedWord.id" />
@@ -42,7 +47,9 @@
         <VBtn class="mr-4" color="primary" outlined @click="checkAnswer(attachedWord.word.word)">
           Check
         </VBtn>
-        <VBtn color="primary" outlined @click="moveToNextWord">Next word</VBtn>
+        <VBtn :disabled="!showResult" color="primary" outlined @click="moveToNextWord">
+          Next word
+        </VBtn>
       </VStepperContent>
     </VStepperItems>
   </VStepper>
@@ -60,22 +67,6 @@ import { defineComponent } from '@vue/composition-api';
 import { useCollectWord } from './CollectWord';
 
 export default defineComponent({
-  watch: {
-    steps(val) {
-      if (this.currentStep > val) {
-        this.currentStep = val;
-      }
-    },
-  },
-  methods: {
-    nextStep(n) {
-      if (n === this.steps) {
-        this.currentStep = 1;
-      } else {
-        this.currentStep = n + 1;
-      }
-    },
-  },
   setup() {
     const {
       loadWords,
@@ -88,6 +79,7 @@ export default defineComponent({
       isCorrect,
       moveToNextWord,
       currentStep,
+      answers,
     } = useCollectWord();
     return {
       loadWords,
@@ -100,6 +92,7 @@ export default defineComponent({
       isCorrect,
       moveToNextWord,
       currentStep,
+      answers,
     };
   },
 });

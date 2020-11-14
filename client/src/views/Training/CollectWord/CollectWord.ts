@@ -10,6 +10,7 @@ export function useCollectWord() {
   const showResult: Ref<boolean> = ref(false);
   const isCorrect: Ref<boolean> = ref(false);
   const currentStep: Ref<number> = ref(1);
+  const answers: Ref<Array<boolean>> = ref([]);
 
   const loadWords = async () => {
     const { data } = await fetchAttachedWords({
@@ -23,6 +24,7 @@ export function useCollectWord() {
   const checkAnswer = (word: string) => {
     showResult.value = true;
     isCorrect.value = userAnswer.value === word;
+    answers.value.push(userAnswer.value === word);
     userAnswer.value = '';
   };
 
@@ -42,5 +44,6 @@ export function useCollectWord() {
     isCorrect,
     moveToNextWord,
     currentStep,
+    answers,
   };
 }
