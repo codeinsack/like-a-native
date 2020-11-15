@@ -45,7 +45,8 @@ module.exports = {
     'no-shadow': 'off',
     'no-underscore-dangle': 'off',
     "import/no-cycle": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   },
   overrides: [
     {

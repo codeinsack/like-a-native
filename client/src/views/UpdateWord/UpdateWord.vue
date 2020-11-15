@@ -55,7 +55,6 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 import AddRow from '@/components/AddRow/AddRow.vue';
-import { PartOfSpeech } from '@/types/word';
 import { useUpdateWord } from './UpdateWord';
 
 export default defineComponent({
