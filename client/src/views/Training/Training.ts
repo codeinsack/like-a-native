@@ -1,7 +1,7 @@
 const tabs = [
-  ['mdi-email', 'My Words', 'myWords'],
-  ['mdi-account-supervisor-circle', 'Guess by description', 'guessByDescription'],
-  ['mdi-clock-start', 'Collect Word', 'collectWord'],
+  ['mdi-format-list-bulleted-type', 'My Words', 'myWords'],
+  ['mdi-comment-question-outline', 'Guess by description', 'guessByDescription'],
+  ['mdi-drag', 'Collect Word', 'collectWord'],
 ];
 
 export function useTraining() {
