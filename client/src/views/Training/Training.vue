@@ -10,7 +10,7 @@
           permanent
         >
           <VList>
-            <VListItem v-for="[icon, text, link] in items" :key="link" :to="{ name: link }" link>
+            <VListItem v-for="[icon, text, link] in tabs" :key="link" :to="{ name: link }" link>
               <VListItemIcon>
                 <VIcon>{{ icon }}</VIcon>
               </VListItemIcon>
@@ -34,20 +34,13 @@ import PartOfSpeechChip from '@/components/PartOfSpeechChip/PartOfSpeechChip.vue
 import { useTraining } from './Training';
 
 export default defineComponent({
-  data: () => ({
-    items: [
-      ['mdi-email', 'My Words', 'myWords'],
-      ['mdi-account-supervisor-circle', 'Collect Word', 'collectWord'],
-      ['mdi-clock-start', 'Guess Word', 'guessWord'],
-    ],
-  }),
   components: {
     PartOfSpeechChip,
   },
   setup() {
-    const { temp } = useTraining();
+    const { tabs } = useTraining();
     return {
-      temp,
+      tabs,
     };
   },
 });

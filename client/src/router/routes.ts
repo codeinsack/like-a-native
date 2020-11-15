@@ -7,8 +7,8 @@ import WordDetails from '@/views/WordDetails/WordDetails.vue';
 import UpdateWord from '@/views/UpdateWord/UpdateWord.vue';
 import Training from '@/views/Training/Training.vue';
 import MyWords from '@/views/Training/MyWords/MyWords.vue';
+import GuessByDescription from '@/views/Training/GuessByDescription/GuessByDescription.vue';
 import CollectWord from '@/views/Training/CollectWord/CollectWord.vue';
-import GuessWord from '@/views/Training/GuessWord/GuessWord.vue';
 import Login from '@/views/Login/Login.vue';
 import Chat from '@/views/Chat/Chat.vue';
 
@@ -50,14 +50,14 @@ const routes = [
         component: MyWords,
       },
       {
+        path: 'guess-by-description',
+        name: 'guessByDescription',
+        component: GuessByDescription,
+      },
+      {
         path: 'collect-word',
         name: 'collectWord',
         component: CollectWord,
-      },
-      {
-        path: 'guess-word',
-        name: 'guessWord',
-        component: GuessWord,
       },
     ],
   },
