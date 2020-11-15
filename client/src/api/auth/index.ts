@@ -13,15 +13,10 @@ export const login = async ({
   password: string;
 }): Promise<AxiosResponse<PaginatedResult<string>>> => {
   const url = `${baseUrl}/login`;
-  try {
-    return await axios.post(url, {
-      email,
-      password,
-    });
-  } catch (error) {
-    logError(error);
-    return error;
-  }
+  return axios.post(url, {
+    email,
+    password,
+  });
 };
 
 export const logout = async (): Promise<AxiosResponse<PaginatedResult<string>>> => {
