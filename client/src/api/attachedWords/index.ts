@@ -12,6 +12,7 @@ export const attachWord = async (wordId: string): Promise<AxiosResponse<User>> =
   try {
     return await axios.post(url);
   } catch (error) {
+    console.log('error', error);
     logError(error);
     return error;
   }

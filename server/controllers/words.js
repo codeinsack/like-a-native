@@ -18,7 +18,12 @@ exports.getWordDetails = asyncHandler(async (req, res, next) => {
   if (!word) {
     return next(new ErrorResponse(`Word not found with id of ${req.params.id}`, 404));
   }
-  res.status(200).json(word);
+  res.status(200).json({
+    content: {
+      word,
+    },
+    status: 'success',
+  });
 });
 
 // @desc   Add new word
@@ -27,7 +32,12 @@ exports.getWordDetails = asyncHandler(async (req, res, next) => {
 exports.addWord = asyncHandler(async (req, res, next) => {
   try {
     const word = await Word.create(req.body);
-    res.status(201).json(word);
+    res.status(201).json({
+      content: {
+        word,
+      },
+      status: 'success',
+    });
   } catch (error) {
     if (error.code === 11000) {
       next(new ErrorResponse('This word already exists', 400));
@@ -49,7 +59,12 @@ exports.updateWord = asyncHandler(async (req, res, next) => {
     runValidators: true,
   });
 
-  res.status(200).json(word);
+  res.status(200).json({
+    content: {
+      word,
+    },
+    status: 'success',
+  });
 });
 
 // @desc   Upload image for word
@@ -83,12 +98,16 @@ exports.wordImageUpload = asyncHandler(async (req, res, next) => {
 
   file.mv(`${process.env.IMAGE_UPLOAD_PATH}/${file.name}`, async (error) => {
     if (error) {
-      console.error(error);
       return next(new ErrorResponse('Problem with file upload', 500));
     }
 
     await Word.findByIdAndUpdate(req.params.id, { image: file.name });
 
-    res.status(200).json(file.name);
+    res.status(200).json({
+      content: {
+        fileName: file.name,
+      },
+      status: 'success',
+    });
   });
 });

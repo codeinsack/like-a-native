@@ -55,7 +55,12 @@ exports.login = asyncHandler(async (req, res, next) => {
 exports.getMe = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
 
-  res.status(200).json(user);
+  res.status(200).json({
+    content: {
+      user,
+    },
+    status: 'success',
+  });
 });
 
 // @desc   Log user out / clear cookie
@@ -67,7 +72,9 @@ exports.logout = asyncHandler(async (req, res) => {
     httpOnly: true,
   });
 
-  res.status(200).json(null);
+  res.status(200).json({
+    status: 'success',
+  });
 });
 
 // Get token from model, create cookie and send response
@@ -87,5 +94,10 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie('token', token, options)
-    .json(token);
+    .json({
+      content: {
+        token,
+      },
+      status: 'success',
+    });
 };

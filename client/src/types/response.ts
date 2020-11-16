@@ -1,6 +1,6 @@
 enum Status {
   success = 'success',
-  error = 'error',
+  failure = 'failure',
 }
 
 export interface Response<T> {

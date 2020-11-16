@@ -46,8 +46,11 @@ const advancedResults = (model, searchBy, populate) => async (req, res, next) =>
   const results = await query;
 
   res.advancedResults = {
-    totalCount: total,
-    resultList: results,
+    content: {
+      totalCount: total,
+      resultList: results,
+    },
+    status: 'success',
   };
 
   next();

@@ -11,7 +11,10 @@ exports.attachWord = asyncHandler(async (req, res, next) => {
       user: req.user.id,
       word: req.params.id,
     });
-    res.status(200).json(attachedWord);
+    res.status(200).json({
+      status: 'success',
+      content: attachedWord,
+    });
   } catch (error) {
     if (error.code === 11000) {
       next(new ErrorResponse('This word is already in training', 400));
@@ -28,7 +31,9 @@ exports.detachWord = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`No relationship with the id of ${req.params.id}`, 404));
   }
   await attachedWord.remove();
-  res.status(200).json(null);
+  res.status(200).json({
+    status: 'success',
+  });
 });
 
 // @desc   Get words attached to user
@@ -51,5 +56,7 @@ exports.updateProgress = asyncHandler(async (req, res, next) => {
       new: true,
       runValidators: true,
     });
-  res.status(200).json(null);
+  res.status(200).json({
+    status: 'success',
+  });
 });
