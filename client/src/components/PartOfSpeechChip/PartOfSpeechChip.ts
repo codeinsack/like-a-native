@@ -5,8 +5,9 @@ const { capitalizeUnderscore } = useFormatter();
 
 const colors = {
   [PartOfSpeech.noun]: 'green',
-  [PartOfSpeech.verb]: 'red',
+  [PartOfSpeech.verb]: 'blue',
   [PartOfSpeech.adjective]: 'purple',
+  [PartOfSpeech.adverb]: 'pink',
 };
 
 export function usePartOfSpeechChip() {

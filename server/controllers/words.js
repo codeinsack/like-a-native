@@ -19,9 +19,7 @@ exports.getWordDetails = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Word not found with id of ${req.params.id}`, 404));
   }
   res.status(200).json({
-    content: {
-      word,
-    },
+    content: word,
     status: 'success',
   });
 });
@@ -33,9 +31,7 @@ exports.addWord = asyncHandler(async (req, res, next) => {
   try {
     const word = await Word.create(req.body);
     res.status(201).json({
-      content: {
-        word,
-      },
+      content: word,
       status: 'success',
     });
   } catch (error) {
@@ -60,9 +56,7 @@ exports.updateWord = asyncHandler(async (req, res, next) => {
   });
 
   res.status(200).json({
-    content: {
-      word,
-    },
+    content: word,
     status: 'success',
   });
 });
@@ -104,9 +98,7 @@ exports.wordImageUpload = asyncHandler(async (req, res, next) => {
     await Word.findByIdAndUpdate(req.params.id, { image: file.name });
 
     res.status(200).json({
-      content: {
-        fileName: file.name,
-      },
+      content: file.name,
       status: 'success',
     });
   });
