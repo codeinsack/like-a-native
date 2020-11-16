@@ -11,8 +11,8 @@ export function useWordDetails(route: Route) {
       params: { id },
     } = route;
     const { data } = await fetchWordDetails(id);
-    if (data) {
-      word.value = data;
+    if (data.content) {
+      word.value = data.content;
     }
   });
 

@@ -1,8 +1,9 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { PaginatedResult } from '@/types/paginatedResult';
 import { Word } from '@/types/word';
 import { logError } from '@/utils/logger';
 import { Params } from '@/types/params';
+import { AxiosResponse } from '@/types/response';
 
 const baseUrl = `/api/v1/words`;
 

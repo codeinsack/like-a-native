@@ -61,10 +61,10 @@ export function useWords(router: VueRouter) {
       search: search.value,
       partOfSpeech: partOfSpeech.value,
     } as Params);
-    if (data) {
+    if (data.content) {
       loading.value = false;
-      words.value = data.resultList;
-      totalWords.value = data.totalCount;
+      words.value = data.content.resultList;
+      totalWords.value = data.content.totalCount;
     }
   }, 300);
 
@@ -73,8 +73,8 @@ export function useWords(router: VueRouter) {
       word: search.value,
       partOfSpeech: partOfSpeech.value,
     } as Word);
-    if (data) {
-      await router.push(`/words/update/${data._id}`);
+    if (data.content) {
+      await router.push(`/words/update/${data.content._id}`);
     }
   };
 

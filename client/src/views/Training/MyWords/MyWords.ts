@@ -11,7 +11,9 @@ export function useMyWords() {
 
   const loadAttachedWords = async () => {
     const { data } = await fetchAttachedWords();
-    words.value = data.resultList;
+    if (data.content) {
+      words.value = data.content.resultList;
+    }
   };
 
   const removeWordFromTraining = async (relationId: string) => {

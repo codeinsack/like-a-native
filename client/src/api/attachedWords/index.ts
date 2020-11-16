@@ -1,9 +1,10 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { AttachedWord } from '@/types/word';
 import { User } from '@/types/user';
 import { PaginatedResult } from '@/types/paginatedResult';
 import { logError } from '@/utils/logger';
 import { Params } from '@/types/params';
+import { AxiosResponse } from '@/types/response';
 
 const baseUrl = `/api/v1/attachedwords`;
 
@@ -12,7 +13,6 @@ export const attachWord = async (wordId: string): Promise<AxiosResponse<User>> =
   try {
     return await axios.post(url);
   } catch (error) {
-    console.log('error', error);
     logError(error);
     return error;
   }

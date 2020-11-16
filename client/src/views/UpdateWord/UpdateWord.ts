@@ -40,8 +40,8 @@ export function useUpdateWord(route: Route, router: VueRouter) {
       params: { id },
     } = route;
     const { data } = await fetchWordDetails(id);
-    if (data) {
-      Object.assign(word, data);
+    if (data.content) {
+      Object.assign(word, data.content);
     }
   });
 

@@ -18,8 +18,10 @@ export function useCollectWord() {
       sort: 'learningProgress',
       limit: 5,
     });
-    words.value = data.resultList;
-    isTrainingStarted.value = true;
+    if (data.content) {
+      words.value = data.content.resultList;
+      isTrainingStarted.value = true;
+    }
   };
 
   const checkAnswer = async (attachedWord: AttachedWord) => {

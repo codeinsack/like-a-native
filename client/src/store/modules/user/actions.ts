@@ -15,7 +15,7 @@ const actions: ActionTree<State, RootState> = {
     if (status === Status.success) {
       const { data } = await fetchMe();
       commit(Mutations.SET_USER_DETAILS, data.content);
-      Cookies.set('user', data);
+      Cookies.set('user', data.content);
       await router.push('/words');
     }
   },
