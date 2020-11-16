@@ -20,20 +20,28 @@ const WordSchema = new mongoose.Schema({
     trim: true,
     default: [''],
   },
+  synonyms: {
+    type: [String],
+    trim: true,
+    default: [''],
+  },
+  antonyms: {
+    type: [String],
+    trim: true,
+    default: [''],
+  },
+  topics: {
+    type: [String],
+    trim: true,
+    default: [''],
+  },
   partOfSpeech: {
     type: String,
     enum: [
-      '',
       'noun',
-      'article',
       'adjective',
-      'pronoun',
-      'numeral',
       'verb',
       'adverb',
-      'preposition',
-      'conjunction',
-      'interjection',
     ],
   },
   // verb
@@ -57,6 +65,16 @@ const WordSchema = new mongoose.Schema({
   },
   pluralForm: {
     type: String,
+  },
+  genitiveForm: {
+    type: String,
+  },
+  // adjective and adverb
+  comparativeForm: {
+    type: {
+      comparative: String,
+      superlative: String,
+    },
   },
 });
 
