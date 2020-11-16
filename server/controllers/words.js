@@ -24,9 +24,15 @@ exports.getWordDetails = asyncHandler(async (req, res, next) => {
 // @desc   Add new word
 // @route  POST /api/v1/words
 // @access Public
-exports.addWord = asyncHandler(async (req, res) => {
-  const word = await Word.create(req.body);
-  res.status(201).json(word);
+exports.addWord = asyncHandler(async (req, res, next) => {
+  try {
+    const word = await Word.create(req.body);
+    res.status(201).json(word);
+  } catch (error) {
+    if (error.code === 11000) {
+      next(new ErrorResponse('This word already exists', 400));
+    }
+  }
 });
 
 // @desc   Update word

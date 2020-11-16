@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const WordSchema = new mongoose.Schema({
   word: {
     type: String,
-    unique: true,
     trim: true,
   },
   translation: {
@@ -72,5 +71,7 @@ const WordSchema = new mongoose.Schema({
     },
   },
 });
+
+WordSchema.index({ word: 1, partOfSpeech: 1 }, { unique: true });
 
 module.exports = mongoose.model('Word', WordSchema);
