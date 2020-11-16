@@ -56,9 +56,7 @@ exports.getMe = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
 
   res.status(200).json({
-    content: {
-      user,
-    },
+    content: user,
     status: 'success',
   });
 });
@@ -95,9 +93,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     .status(statusCode)
     .cookie('token', token, options)
     .json({
-      content: {
-        token,
-      },
+      content: token,
       status: 'success',
     });
 };

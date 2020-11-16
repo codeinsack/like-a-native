@@ -10,5 +10,4 @@ export interface User {
   email: string;
   role: UserRole;
   createdAt: string;
-  attachedWords: Array<string>;
 }

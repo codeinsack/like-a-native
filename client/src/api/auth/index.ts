@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import { PaginatedResult } from '@/types/paginatedResult';
+import axios from 'axios';
+import { AxiosResponse } from '@/types/response';
 import { User } from '@/types/user';
 import { logError } from '@/utils/logger';
 
@@ -11,10 +11,10 @@ export const login = async ({
 }: {
   email: string;
   password: string;
-}): Promise<AxiosResponse<PaginatedResult<string>>> => {
+}): Promise<AxiosResponse<null>> => {
   const url = `${baseUrl}/login`;
   try {
-    return axios.post(url, {
+    return await axios.post(url, {
       email,
       password,
     });
@@ -24,12 +24,12 @@ export const login = async ({
   }
 };
 
-export const logout = async (): Promise<AxiosResponse<PaginatedResult<string>>> => {
+export const logout = async (): Promise<AxiosResponse<null>> => {
   const url = `${baseUrl}/logout`;
   try {
     return await axios.get(url);
   } catch (error) {
-    logError(error);
+    logError(error.messages);
     return error;
   }
 };
@@ -39,7 +39,7 @@ export const fetchMe = async (): Promise<AxiosResponse<User>> => {
   try {
     return axios.get(url);
   } catch (error) {
-    logError(error);
+    logError(error.messages);
     return error;
   }
 };

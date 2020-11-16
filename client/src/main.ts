@@ -28,7 +28,7 @@ axios.interceptors.response.use(
   (response) => response,
   async (error) => {
     showSnackbar({
-      message: error.response.data,
+      message: error.response.data.message,
       variant: Variant.ERROR,
     });
     if (error.response.status === 401) {
