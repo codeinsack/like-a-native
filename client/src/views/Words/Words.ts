@@ -71,6 +71,7 @@ export function useWords(router: VueRouter) {
   const addNewWord = async () => {
     const { data } = await createNewWord({
       word: search.value,
+      partOfSpeech: partOfSpeech.value,
     } as Word);
     if (data) {
       await router.push(`/words/update/${data._id}`);

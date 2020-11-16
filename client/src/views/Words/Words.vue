@@ -31,7 +31,7 @@
               </VCol>
               <VCol cols="2">
                 <VBtn
-                  :disabled="!search || (search && words.length > 0)"
+                  :disabled="!(search && partOfSpeech)"
                   color="primary"
                   outlined
                   @click="addNewWord"
