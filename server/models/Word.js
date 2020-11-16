@@ -30,11 +30,6 @@ const WordSchema = new mongoose.Schema({
     trim: true,
     default: [''],
   },
-  topics: {
-    type: [String],
-    trim: true,
-    default: [''],
-  },
   partOfSpeech: {
     type: String,
     enum: [
