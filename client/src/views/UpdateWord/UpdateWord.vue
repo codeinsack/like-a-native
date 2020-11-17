@@ -1,20 +1,14 @@
 <template>
   <VContainer class="mt-12">
-    <VRow>
-      <VCol cols="6">
-        <div class="subtitle-1 mb-4">Main info</div>
+    <VRow class="d-flex justify-center">
+      <VCol cols="5">
+        <div class="title text-decoration-underline mb-4 blue--text text-center">Main info</div>
         <VTextField v-model="word.word" label="Word" outlined dense />
         <VTextField v-model="word.translation" label="Translation" outlined dense />
-        <VSelect
-          v-model="word.partOfSpeech"
-          :items="partsOfSpeech"
-          label="Part of speech"
-          outlined
-          dense
-        />
-        <AddRow :items="word.definitions" label="Definition" @itemsUpdated="changeDefinitions" />
-        <AddRow :items="word.examples" label="Example" @itemsUpdated="changeExamples" />
+        <AddRow :items="word.definitions" label="Definitions" @itemsUpdated="changeDefinitions" />
+        <AddRow :items="word.examples" label="Examples" @itemsUpdated="changeExamples" />
         <VFileInput
+          v-if="false"
           v-model="uploadedImage"
           accept="image/jpeg, image/png"
           label="Image"
@@ -22,9 +16,9 @@
           dense
         />
       </VCol>
-      <VCol cols="6">
+      <VCol cols="5">
         <template v-if="word.partOfSpeech === PartOfSpeech.verb">
-          <div class="subtitle-1 mb-4">Verb</div>
+          <div class="title text-decoration-underline mb-4 blue--text text-center">Verb</div>
           <VTextField
             v-model="word.verbForm.thirdPerson"
             label="Third person singular"
@@ -40,9 +34,32 @@
           />
         </template>
         <template v-else-if="word.partOfSpeech === PartOfSpeech.noun">
-          <div class="subtitle-1 mb-4">Noun</div>
+          <div class="title text-decoration-underline mb-4 blue--text text-center">Noun</div>
           <VSelect v-model="word.article" :items="articles" label="Article" outlined dense />
+          <VTextField v-model="word.genitiveForm" label="Genetive form" outlined dense />
           <VTextField v-model="word.pluralForm" label="Plural form" outlined dense />
+        </template>
+        <template
+          v-if="
+            word.partOfSpeech === PartOfSpeech.adjective ||
+            word.partOfSpeech === PartOfSpeech.adverb
+          "
+        >
+          <div class="title text-decoration-underline mb-4 blue--text text-center">
+            <span>{{ word.partOfSpeech === PartOfSpeech.adverb ? 'Adverb' : 'Adjective' }}</span>
+          </div>
+          <VTextField
+            v-model="word.comparativeForm.comparative"
+            label="Comparative form"
+            outlined
+            dense
+          />
+          <VTextField
+            v-model="word.comparativeForm.superlative"
+            label="Superlative form"
+            outlined
+            dense
+          />
         </template>
       </VCol>
       <VBtn color="primary" fab bottom right fixed @click="saveWord">

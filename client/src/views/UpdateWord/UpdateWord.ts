@@ -16,8 +16,13 @@ const initialWord = {
     pastSimple: '',
     pastParticiple: '',
   },
+  comparativeForm: {
+    comparative: '',
+    superlative: '',
+  },
   article: '',
   pluralForm: '',
+  genitiveForm: '',
 };
 
 const { capitalizeUnderscore } = useFormatter();

@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-3 mb-6 mt-7">
+  <div class="mb-6 mt-7">
     <Row
       v-for="(item, index) in items"
       :key="index"
