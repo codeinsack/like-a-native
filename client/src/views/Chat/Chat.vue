@@ -36,7 +36,14 @@
     </VRow>
     <VRow justify="center">
       <VCol class="d-flex align-center mb-0" cols="12">
-        <VTextField v-model="message" placeholder="Enter a message" outlined dense hide-details />
+        <VTextField
+          v-model="message"
+          placeholder="Enter a message"
+          outlined
+          dense
+          hide-details
+          @keypress.enter="sendMessage"
+        />
         <VBtn class="ml-2" color="primary" outlined @click="sendMessage">
           <VIcon class="mr-2"> mdi-cloud-upload </VIcon>
           Send
