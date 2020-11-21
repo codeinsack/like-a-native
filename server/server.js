@@ -74,6 +74,8 @@ io.on('connection', async (socket) => {
   redisClient.hset('users', String(user._id), JSON.stringify({
     name: user.name,
     role: user.role,
+    avatar: user.avatar,
+    email: user.email,
   }));
   io.emit('ADD_USER', user);
 

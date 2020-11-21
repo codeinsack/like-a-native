@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { Ref, ref, onUnmounted, onMounted } from '@vue/composition-api';
+import { Ref, ref, onUnmounted, onMounted, watch } from '@vue/composition-api';
 import { useStore } from '@/uses/useStore';
 import { Modules } from '@/store/types';
 import { States as MessagesStates } from '@/store/modules/chat/types';

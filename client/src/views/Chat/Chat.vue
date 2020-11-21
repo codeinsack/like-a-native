@@ -6,7 +6,9 @@
           <VSubheader inset>Users</VSubheader>
           <VListItem v-for="user in users" :key="user._id">
             <VListItemAvatar>
-              <VIcon class="grey lighten-1" dark> mdi-account </VIcon>
+              <VAvatar size="36">
+                <img :src="user.avatar" />
+              </VAvatar>
             </VListItemAvatar>
             <VListItemContent>
               <VListItemTitle>{{ user.name }}</VListItemTitle>
