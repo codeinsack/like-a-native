@@ -7,7 +7,9 @@
     <template v-else>
       <VAppBar app clipped-right>
         <div v-if="user" class="d-flex">
-          <VIcon class="mr-3" large>mdi-account-circle</VIcon>
+          <VAvatar>
+            <img :src="user.avatar" />
+          </VAvatar>
           <div>{{ user.name }}</div>
         </div>
         <Tabs />

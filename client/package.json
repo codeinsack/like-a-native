@@ -18,6 +18,7 @@
     "uuid": "^8.3.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.6",
+    "vue-google-oauth2": "^1.5.5",
     "vue-router": "^3.4.7",
     "vue-socket.io-extended": "^4.0.5",
     "vuetify": "^2.2.11",

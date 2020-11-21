@@ -11,8 +11,16 @@ import { useStore } from '@/uses/useStore';
 import { Modules } from '@/store/types';
 import { useSnackbar } from '@/uses/useSnackbar';
 import { Variant } from '@/types/notification';
+import GAuth from 'vue-google-oauth2';
 import vuetify from './plugins/vuetify';
 import App from './App.vue';
+
+const gauthOption = {
+  clientId: '766859198689-0jjn5g33vto6gbbvlnbhsqat62c4s88g.apps.googleusercontent.com',
+  scope: 'profile email',
+  prompt: 'select_account',
+};
+Vue.use(GAuth, gauthOption);
 
 const { useActions } = useStore(Modules.USER);
 const { LOGOUT } = useActions([Actions.LOGOUT]);

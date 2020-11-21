@@ -5,18 +5,11 @@ import { logError } from '@/utils/logger';
 
 const baseUrl = `/api/v1/auth`;
 
-export const login = async ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}): Promise<AxiosResponse<null>> => {
+export const login = async (token: string): Promise<AxiosResponse<null>> => {
   const url = `${baseUrl}/login`;
   try {
     return await axios.post(url, {
-      email,
-      password,
+      token,
     });
   } catch (error) {
     logError(error);

@@ -1,4 +1,4 @@
-const ErrorResponse = require('../utils/errorResponse');
+const { OAuth2Client } = require('google-auth-library');
 const asyncHandler = require('../middleware/async');
 const User = require('../models/User');
 
@@ -21,32 +21,35 @@ exports.register = asyncHandler(async (req, res) => {
   sendTokenResponse(user, 200, res);
 });
 
+const client = new OAuth2Client('766859198689-0jjn5g33vto6gbbvlnbhsqat62c4s88g.apps.googleusercontent.com');
+
 // @desc   Login user
 // @route  POST /api/v1/auth/login
 // @access Public
-exports.login = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
-
-  // Validate email & password
-  if (!email || !password) {
-    return next(new ErrorResponse('Please provide an email and password', 400));
+exports.login = asyncHandler(async (req, res) => {
+  const response = await client.verifyIdToken({
+    idToken: req.body.token,
+    audience: '766859198689-0jjn5g33vto6gbbvlnbhsqat62c4s88g.apps.googleusercontent.com',
+  });
+  const {
+    email_verified, name, email, picture,
+  } = response.payload;
+  if (email_verified) {
+    User.findOne({ email })
+      .exec(async (error, user) => {
+        if (user) {
+          sendTokenResponse(user, 200, res);
+        } else {
+          const newUser = await User.create({
+            name,
+            email,
+            avatar: picture,
+            role: 'user',
+          });
+          sendTokenResponse(newUser, 200, res);
+        }
+      });
   }
-
-  // Check for user
-  const user = await User.findOne({ email }).select('+password');
-
-  if (!user) {
-    return next(new ErrorResponse('Invalid credentials', 401));
-  }
-
-  // Check if password matches
-  const isMatch = await user.matchPassword(password);
-
-  if (!isMatch) {
-    return next(new ErrorResponse('Invalid credentials', 401));
-  }
-
-  sendTokenResponse(user, 200, res);
 });
 
 // @desc   Get current logged in user
@@ -93,7 +96,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     .status(statusCode)
     .cookie('token', token, options)
     .json({
-      content: token,
+      content: user,
       status: 'success',
     });
 };

@@ -2,20 +2,19 @@ import { ActionTree } from 'vuex';
 import Cookies from 'js-cookie';
 
 import { RootState } from '@/store/types';
-import { fetchMe, login, logout } from '@/api/auth';
+import { login, logout } from '@/api/auth';
 import router from '@/router/routes';
 import { Status } from '@/types/response';
 import { Actions, Mutations, State } from './types';
 
 const actions: ActionTree<State, RootState> = {
-  [Actions.LOGIN]: async ({ commit }, payload) => {
+  [Actions.LOGIN]: async ({ commit }, token) => {
     const {
-      data: { status },
-    } = await login(payload);
+      data: { status, content },
+    } = await login(token);
     if (status === Status.success) {
-      const { data } = await fetchMe();
-      commit(Mutations.SET_USER_DETAILS, data.content);
-      Cookies.set('user', data.content);
+      commit(Mutations.SET_USER_DETAILS, content);
+      Cookies.set('user', content);
       await router.push('/words');
     }
   },

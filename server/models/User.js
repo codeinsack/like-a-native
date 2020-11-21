@@ -16,16 +16,13 @@ const UserSchema = new mongoose.Schema({
       'Please add a valid email',
     ],
   },
+  avatar: {
+    type: String,
+  },
   role: {
     type: String,
     enum: ['user', 'moderator', 'admin'],
     default: 'user',
-  },
-  password: {
-    type: String,
-    required: [true, 'Please add a password'],
-    minlength: 6,
-    select: false,
   },
   createdAt: {
     type: Date,

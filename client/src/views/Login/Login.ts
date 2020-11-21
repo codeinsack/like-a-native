@@ -7,12 +7,13 @@ const { useActions } = useStore(Modules.USER);
 
 const { LOGIN } = useActions([Actions.LOGIN]);
 
-export function useLogin() {
+export function useLogin(root: any) {
   const email: Ref<string> = ref('');
   const password: Ref<string> = ref('');
 
   const login = async () => {
-    LOGIN({ email: email.value, password: password.value });
+    const response = await root.$gAuth.signIn();
+    LOGIN(response.xc.id_token);
   };
 
   return {

@@ -14,6 +14,7 @@
     "no-use-before-define": "off",
     "consistent-return": "off",
     "no-underscore-dangle": "off",
-    "no-useless-escape": "off"
+    "no-useless-escape": "off",
+    "camelcase": "off"
   }
 }
