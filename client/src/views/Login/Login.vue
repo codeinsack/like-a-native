@@ -2,17 +2,12 @@
   <VContainer fill-height fluid>
     <VRow justify="center">
       <VCol cols="4">
-        <form>
-          <VTextField v-model="email" label="Please enter email" outlined dense />
-          <VTextField
-            v-model="password"
-            type="password"
-            label="Please enter password"
-            outlined
-            dense
-          />
-          <VBtn color="primary" outlined @click="login">Login</VBtn>
-        </form>
+        <VBtn class="pl-0" color="primary" outlined @click="login">
+          <VAvatar width="30" height="30">
+            <img :src="require('@/assets/google.png')" />
+          </VAvatar>
+          Sign in with Google
+        </VBtn>
       </VCol>
     </VRow>
   </VContainer>
@@ -24,10 +19,8 @@ import { useLogin } from './Login';
 
 export default defineComponent({
   setup(props, { root }) {
-    const { email, password, login } = useLogin(root);
+    const { login } = useLogin(root);
     return {
-      email,
-      password,
       login,
     };
   },
