@@ -6,11 +6,11 @@
     </template>
     <template v-else>
       <VAppBar app clipped-right>
-        <div v-if="user" class="d-flex">
-          <VAvatar>
+        <div v-if="user" class="d-flex ml-4">
+          <VAvatar size="48">
             <img :src="user.avatar" />
           </VAvatar>
-          <div>{{ user.name }}</div>
+          <div class="ml-4">{{ user.name }}</div>
         </div>
         <Tabs />
         <VIcon @click="logout"> mdi-logout </VIcon>
