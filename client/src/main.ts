@@ -16,7 +16,7 @@ import vuetify from './plugins/vuetify';
 import App from './App.vue';
 
 const gauthOption = {
-  clientId: '766859198689-0jjn5g33vto6gbbvlnbhsqat62c4s88g.apps.googleusercontent.com',
+  clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
   scope: 'profile email',
   prompt: 'select_account',
 };
