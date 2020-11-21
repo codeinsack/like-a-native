@@ -30,6 +30,7 @@ services:
       - JWT_COOKIE_EXPIRE=30
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - GOOGLE_CLIENT_ID=766859198689-0jjn5g33vto6gbbvlnbhsqat62c4s88g.apps.googleusercontent.com
     command: /app/entrypoint.sh
   db:
     container_name: native-db

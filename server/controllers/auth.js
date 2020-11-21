@@ -2,26 +2,7 @@ const { OAuth2Client } = require('google-auth-library');
 const asyncHandler = require('../middleware/async');
 const User = require('../models/User');
 
-// @desc   Register user
-// @route  POST /api/v1/auth/register
-// @access Public
-exports.register = asyncHandler(async (req, res) => {
-  const {
-    name, email, password, role,
-  } = req.body;
-
-  // Create user
-  const user = await User.create({
-    name,
-    email,
-    password,
-    role,
-  });
-
-  sendTokenResponse(user, 200, res);
-});
-
-const client = new OAuth2Client('766859198689-0jjn5g33vto6gbbvlnbhsqat62c4s88g.apps.googleusercontent.com');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // @desc   Login user
 // @route  POST /api/v1/auth/login
@@ -29,7 +10,7 @@ const client = new OAuth2Client('766859198689-0jjn5g33vto6gbbvlnbhsqat62c4s88g.a
 exports.login = asyncHandler(async (req, res) => {
   const response = await client.verifyIdToken({
     idToken: req.body.token,
-    audience: '766859198689-0jjn5g33vto6gbbvlnbhsqat62c4s88g.apps.googleusercontent.com',
+    audience: process.env.GOOGLE_CLIENT_ID,
   });
   const {
     email_verified, name, email, picture,
@@ -50,18 +31,6 @@ exports.login = asyncHandler(async (req, res) => {
         }
       });
   }
-});
-
-// @desc   Get current logged in user
-// @route  POST /api/v1/auth/me
-// @access Private
-exports.getMe = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id);
-
-  res.status(200).json({
-    content: user,
-    status: 'success',
-  });
 });
 
 // @desc   Log user out / clear cookie
