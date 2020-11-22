@@ -14,6 +14,12 @@
           outlined
           dense
         />
+        <img
+          v-for="image in word.images"
+          :key="image.name"
+          :src="`/api/v1/words/image/${image.name}`"
+          alt=""
+        />
       </VCol>
       <VCol cols="5">
         <template v-if="word.partOfSpeech === PartOfSpeech.verb">

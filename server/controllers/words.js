@@ -67,7 +67,7 @@ exports.updateWord = asyncHandler(async (req, res, next) => {
 // @desc   Upload image for word
 // @route  PUT /api/v1/words/:id/image
 // @access Private
-exports.wordImageUpload = asyncHandler(async (req, res, next) => {
+exports.uploadWordImage = asyncHandler(async (req, res, next) => {
   const word = await Word.findById(req.params.id);
 
   if (!word) {
@@ -91,7 +91,7 @@ exports.wordImageUpload = asyncHandler(async (req, res, next) => {
   }
 
   const name = `${uuid()}${path.extname(file.name)}`;
-  const bucketFile = bucket.file(`${word._id}/${name}`);
+  const bucketFile = bucket.file(name);
   await bucketFile.save(file.data);
 
   const image = {
@@ -104,4 +104,16 @@ exports.wordImageUpload = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
   });
+});
+
+// @desc   Get word image
+// @route  GET /api/v1/words/image/:id
+// @access Private
+exports.getWordImage = asyncHandler(async (req, res) => {
+  const bucketFile = bucket.file(req.params.id);
+
+  const readStream = bucketFile.createReadStream();
+
+  res.setHeader('Content-Type', 'image/*');
+  readStream.pipe(res);
 });
