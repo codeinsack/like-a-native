@@ -1,4 +1,6 @@
 const path = require('path');
+const { v4: uuid } = require('uuid');
+
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const Word = require('../models/Word');
@@ -88,7 +90,9 @@ exports.wordImageUpload = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Please upload an image less than ${process.env.MAX_FILE_UPLOAD}`, 400));
   }
 
-  const fileName = `${word._id}.${/[^.]+$/.exec(file.name)}`;
+  const imageId = uuid();
+
+  const fileName = `${word._id}/${imageId}.${path.extname(file.name)}`;
   const bucketFile = bucket.file(fileName);
   await bucketFile.save(file.data);
 
