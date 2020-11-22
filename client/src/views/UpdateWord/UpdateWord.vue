@@ -8,7 +8,6 @@
         <AddRow :items="word.definitions" label="Definitions" @itemsUpdated="changeDefinitions" />
         <AddRow :items="word.examples" label="Examples" @itemsUpdated="changeExamples" />
         <VFileInput
-          v-if="false"
           v-model="uploadedImage"
           accept="image/jpeg, image/png"
           label="Image"

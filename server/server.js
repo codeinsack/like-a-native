@@ -8,9 +8,18 @@ const cookieParser = require('cookie-parser');
 const cookieSocketParser = require('socket.io-cookie-parser');
 const http = require('http');
 const redis = require('redis');
+const { Storage } = require('@google-cloud/storage');
+
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
 const User = require('./models/User');
+
+const gc = new Storage({
+  keyFilename: path.join(__dirname, 'google-keys.json'),
+  projectId: 'like-a-native-speaker',
+});
+
+exports.bucket = gc.bucket('like-a-native-speaker');
 
 // Redis Client Setup
 const redisClient = redis.createClient({

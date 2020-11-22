@@ -2,6 +2,7 @@ const path = require('path');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const Word = require('../models/Word');
+const { bucket } = require('../server');
 
 // @desc   Get all words
 // @route  GET /api/v1/words
@@ -87,19 +88,11 @@ exports.wordImageUpload = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Please upload an image less than ${process.env.MAX_FILE_UPLOAD}`, 400));
   }
 
-  // Create custom filename
-  file.name = `image_${word._id}${path.parse(file.name).ext}`;
+  const fileName = `${word._id}.${/[^.]+$/.exec(file.name)}`;
+  const bucketFile = bucket.file(fileName);
+  await bucketFile.save(file.data);
 
-  file.mv(`${process.env.IMAGE_UPLOAD_PATH}/${file.name}`, async (error) => {
-    if (error) {
-      return next(new ErrorResponse('Problem with file upload', 500));
-    }
-
-    await Word.findByIdAndUpdate(req.params.id, { image: file.name });
-
-    res.status(200).json({
-      content: file.name,
-      status: 'success',
-    });
+  res.status(200).json({
+    status: 'success',
   });
 });

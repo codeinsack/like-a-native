@@ -47,7 +47,7 @@
           <template #item.image="{ item }">
             <VAvatar class="rounded-lg ma-1" width="80" height="60" tile>
               <img
-                :src="item.image ? `/images/${item.image}` : require('@/assets/no-image.png')"
+                :src="`https://storage.cloud.google.com/like-a-native-speaker/${item._id}.jpg`"
                 alt=""
               />
             </VAvatar>

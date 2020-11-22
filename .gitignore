@@ -1,4 +1,5 @@
 .idea
 server/node_modules
+server/google-keys.json
 client/node_modules
 db
