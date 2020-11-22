@@ -45,7 +45,7 @@
             <PartOfSpeechChip :type="item.partOfSpeech" />
           </template>
           <template #item.image="{ item }">
-            <VAvatar class="rounded-lg ma-1" width="80" height="60" tile>
+            <VAvatar class="rounded-lg ma-1" width="100" height="60" tile>
               <img
                 v-if="head(item.images)"
                 :src="`/api/v1/words/image/${head(item.images).name}`"

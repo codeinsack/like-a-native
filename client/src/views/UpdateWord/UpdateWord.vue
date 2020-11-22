@@ -8,77 +8,97 @@
         <AddRow :items="word.definitions" label="Definitions" @itemsUpdated="changeDefinitions" />
         <AddRow :items="word.examples" label="Examples" @itemsUpdated="changeExamples" />
       </VCol>
-      <VCol cols="5">
-        <template v-if="word.partOfSpeech === PartOfSpeech.verb">
-          <div class="title text-decoration-underline mb-4 blue--text text-center">Verb</div>
-          <VTextField
-            v-model="word.verbForm.thirdPerson"
-            label="Third person singular"
-            outlined
-            dense
-          />
-          <VTextField v-model="word.verbForm.pastSimple" label="Simple past tense" outlined dense />
-          <VTextField
-            v-model="word.verbForm.pastParticiple"
-            label="Helping verb plus Past participle"
-            outlined
-            dense
-          />
-        </template>
-        <template v-else-if="word.partOfSpeech === PartOfSpeech.noun">
-          <div class="title text-decoration-underline mb-4 blue--text text-center">Noun</div>
-          <VSelect v-model="word.article" :items="articles" label="Article" outlined dense />
-          <VTextField v-model="word.genitiveForm" label="Genetive form" outlined dense />
-          <VTextField v-model="word.pluralForm" label="Plural form" outlined dense />
-        </template>
-        <template
-          v-if="
-            word.partOfSpeech === PartOfSpeech.adjective ||
-            word.partOfSpeech === PartOfSpeech.adverb
-          "
-        >
-          <div class="title text-decoration-underline mb-4 blue--text text-center">
-            <span>{{ word.partOfSpeech === PartOfSpeech.adverb ? 'Adverb' : 'Adjective' }}</span>
-          </div>
-          <VTextField
-            v-model="word.comparativeForm.comparative"
-            label="Comparative form"
-            outlined
-            dense
-          />
-          <VTextField
-            v-model="word.comparativeForm.superlative"
-            label="Superlative form"
-            outlined
-            dense
-          />
-        </template>
+      <VCol class="d-flex flex-column justify-space-between" cols="5">
+        <div>
+          <template v-if="word.partOfSpeech === PartOfSpeech.verb">
+            <div class="title text-decoration-underline mb-4 blue--text text-center">Verb</div>
+            <VTextField
+              v-model="word.verbForm.thirdPerson"
+              label="Third person singular"
+              outlined
+              dense
+            />
+            <VTextField
+              v-model="word.verbForm.pastSimple"
+              label="Simple past tense"
+              outlined
+              dense
+            />
+            <VTextField
+              v-model="word.verbForm.pastParticiple"
+              label="Helping verb plus Past participle"
+              outlined
+              dense
+            />
+          </template>
+          <template v-else-if="word.partOfSpeech === PartOfSpeech.noun">
+            <div class="title text-decoration-underline mb-4 blue--text text-center">Noun</div>
+            <VSelect v-model="word.article" :items="articles" label="Article" outlined dense />
+            <VTextField v-model="word.genitiveForm" label="Genetive form" outlined dense />
+            <VTextField v-model="word.pluralForm" label="Plural form" outlined dense />
+          </template>
+          <template
+            v-if="
+              word.partOfSpeech === PartOfSpeech.adjective ||
+              word.partOfSpeech === PartOfSpeech.adverb
+            "
+          >
+            <div class="title text-decoration-underline mb-4 blue--text text-center">
+              <span>{{ word.partOfSpeech === PartOfSpeech.adverb ? 'Adverb' : 'Adjective' }}</span>
+            </div>
+            <VTextField
+              v-model="word.comparativeForm.comparative"
+              label="Comparative form"
+              outlined
+              dense
+            />
+            <VTextField
+              v-model="word.comparativeForm.superlative"
+              label="Superlative form"
+              outlined
+              dense
+            />
+          </template>
+        </div>
+        <div class="d-flex justify-end mb-6">
+          <VBtn color="green" outlined @click="saveWord">
+            <VIcon class="mr-2">mdi-panda</VIcon>
+            Save
+          </VBtn>
+        </div>
       </VCol>
-      <VBtn color="primary" fab bottom right fixed @click="saveWord">
-        <VIcon>mdi-content-save</VIcon>
-      </VBtn>
     </VRow>
     <div class="title text-decoration-underline mb-4 blue--text text-center">
       Associative pictures
     </div>
     <VRow>
-      <VCol v-for="image in word.images" :key="image.name" class="d-flex child-flex" cols="3">
-        <img
-          :src="`/api/v1/words/image/${image.name}`"
-          alt=""
-          @click="deleteImage(word._id, image.name)"
-        />
-      </VCol>
-    </VRow>
-    <VRow>
-      <VCol cols="6">
+      <VCol cols="8">
+        <VRow>
+          <VCol v-for="image in word.images" :key="image.name" class="d-flex child-flex" cols="4">
+            <img
+              class="rounded-lg"
+              :src="`/api/v1/words/image/${image.name}`"
+              alt=""
+              @click="deleteImage(word._id, image.name)"
+            />
+          </VCol>
+        </VRow>
         <VFileInput
+          ref="refImage"
           v-model="uploadedImage"
+          class="d-none"
           accept="image/jpeg, image/png"
           label="Image"
           outlined
           dense
+          @change="uploadImage"
         />
+      </VCol>
+      <VCol class="d-flex justify-end" cols="2">
+        <VBtn color="green" outlined @click="openFilesDialog">
+          <VIcon class="mr-2">mdi-image</VIcon>
+          Upload
+        </VBtn>
       </VCol>
     </VRow>
   </VContainer>
@@ -104,6 +124,9 @@ export default defineComponent({
       PartOfSpeech,
       articles,
       deleteImage,
+      uploadImage,
+      openFilesDialog,
+      refImage,
     } = useUpdateWord(root.$route, root.$router);
     return {
       word,
@@ -115,6 +138,9 @@ export default defineComponent({
       PartOfSpeech,
       articles,
       deleteImage,
+      uploadImage,
+      openFilesDialog,
+      refImage,
     };
   },
 });

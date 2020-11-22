@@ -39,6 +39,7 @@ const articles = map(Article, (article) => article);
 export function useUpdateWord(route: Route, router: VueRouter) {
   const word: Word = reactive({ ...(initialWord as any) });
   const uploadedImage: Ref<File | null> = ref(null);
+  const refImage: Ref<any> = ref(null);
 
   onMounted(async () => {
     await loadWordDetails();
@@ -56,9 +57,6 @@ export function useUpdateWord(route: Route, router: VueRouter) {
 
   const saveWord = async (): Promise<void> => {
     await updateWord({ ...word });
-    if (uploadedImage.value) {
-      await uploadWordImage({ wordId: word._id, image: uploadedImage.value });
-    }
     await router.push('/words');
   };
 
@@ -78,6 +76,15 @@ export function useUpdateWord(route: Route, router: VueRouter) {
     await loadWordDetails();
   };
 
+  const uploadImage = async (image: File) => {
+    await uploadWordImage({ wordId: word._id, image });
+    await loadWordDetails();
+  };
+
+  const openFilesDialog = async () => {
+    refImage.value?.$refs.input.click();
+  };
+
   return {
     word,
     saveWord,
@@ -88,5 +95,8 @@ export function useUpdateWord(route: Route, router: VueRouter) {
     PartOfSpeech,
     articles,
     deleteImage,
+    uploadImage,
+    openFilesDialog,
+    refImage,
   };
 }
