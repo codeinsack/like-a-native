@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router';
-import { debounce, map } from 'lodash';
+import { debounce, map, head } from 'lodash';
 import { Ref, ref, watch } from '@vue/composition-api';
 import { createNewWord, fetchWords } from '@/api/words';
 import { attachWord } from '@/api/attachedWords';
@@ -108,5 +108,6 @@ export function useWords(router: VueRouter) {
     editWord,
     deleteWord,
     trainWord,
+    head,
   };
 }

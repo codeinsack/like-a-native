@@ -1,25 +1,12 @@
 <template>
   <VContainer class="mt-12">
-    <VRow class="d-flex justify-center">
+    <VRow>
       <VCol cols="5">
         <div class="title text-decoration-underline mb-4 blue--text text-center">Main info</div>
         <VTextField v-model="word.word" label="Word" outlined dense />
         <VTextField v-model="word.translation" label="Translation" outlined dense />
         <AddRow :items="word.definitions" label="Definitions" @itemsUpdated="changeDefinitions" />
         <AddRow :items="word.examples" label="Examples" @itemsUpdated="changeExamples" />
-        <VFileInput
-          v-model="uploadedImage"
-          accept="image/jpeg, image/png"
-          label="Image"
-          outlined
-          dense
-        />
-        <img
-          v-for="image in word.images"
-          :key="image.name"
-          :src="`/api/v1/words/image/${image.name}`"
-          alt=""
-        />
       </VCol>
       <VCol cols="5">
         <template v-if="word.partOfSpeech === PartOfSpeech.verb">
@@ -70,6 +57,25 @@
       <VBtn color="primary" fab bottom right fixed @click="saveWord">
         <VIcon>mdi-content-save</VIcon>
       </VBtn>
+    </VRow>
+    <div class="title text-decoration-underline mb-4 blue--text text-center">
+      Associative pictures
+    </div>
+    <VRow>
+      <VCol v-for="image in word.images" :key="image.name" class="d-flex child-flex" cols="3">
+        <img :src="`/api/v1/words/image/${image.name}`" alt="" />
+      </VCol>
+    </VRow>
+    <VRow>
+      <VCol cols="6">
+        <VFileInput
+          v-model="uploadedImage"
+          accept="image/jpeg, image/png"
+          label="Image"
+          outlined
+          dense
+        />
+      </VCol>
     </VRow>
   </VContainer>
 </template>

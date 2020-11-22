@@ -47,7 +47,8 @@
           <template #item.image="{ item }">
             <VAvatar class="rounded-lg ma-1" width="80" height="60" tile>
               <img
-                :src="`https://storage.cloud.google.com/like-a-native-speaker/${item._id}.jpg`"
+                v-if="head(item.images)"
+                :src="`/api/v1/words/image/${head(item.images).name}`"
                 alt=""
               />
             </VAvatar>
@@ -92,6 +93,7 @@ export default defineComponent({
       editWord,
       deleteWord,
       trainWord,
+      head,
     } = useWords(root.$router);
     return {
       headers,
@@ -107,6 +109,7 @@ export default defineComponent({
       editWord,
       deleteWord,
       trainWord,
+      head,
     };
   },
 });
