@@ -75,12 +75,22 @@
       <VCol cols="8">
         <VRow>
           <VCol v-for="image in word.images" :key="image.name" class="d-flex child-flex" cols="4">
-            <img
-              class="rounded-lg"
-              :src="`/api/v1/words/image/${image.name}`"
-              alt=""
-              @click="deleteImage(word._id, image.name)"
-            />
+            <VHover v-slot:default="{ hover }">
+              <VCard flat tile class="d-flex rounded-lg">
+                <VImg
+                  class="rounded-lg"
+                  :src="`/api/v1/words/image/${image.name}`"
+                  alt=""
+                  @click="deleteImage(word._id, image.name)"
+                >
+                  <VFadeTransition>
+                    <VOverlay v-if="hover" absolute color="#036358">
+                      <VIcon large>mdi-delete-forever</VIcon>
+                    </VOverlay>
+                  </VFadeTransition>
+                </VImg>
+              </VCard>
+            </VHover>
           </VCol>
         </VRow>
         <VFileInput
