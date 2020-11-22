@@ -104,7 +104,7 @@
           @change="uploadImage"
         />
       </VCol>
-      <VCol class="d-flex justify-end" cols="2">
+      <VCol class="d-flex justify-end pt-5" cols="2">
         <VBtn color="green" outlined @click="openFilesDialog">
           <VIcon class="mr-2">mdi-image</VIcon>
           Upload
