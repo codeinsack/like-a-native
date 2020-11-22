@@ -16,10 +16,10 @@ const User = require('./models/User');
 
 const gc = new Storage({
   keyFilename: path.join(__dirname, 'google-keys.json'),
-  projectId: 'like-a-native-speaker',
+  projectId: process.env.GOOGLE_PROJECT_ID,
 });
 
-exports.bucket = gc.bucket('like-a-native-speaker');
+exports.bucket = gc.bucket(process.env.GOOGLE_BUCKET_ID);
 
 // Redis Client Setup
 const redisClient = redis.createClient({
