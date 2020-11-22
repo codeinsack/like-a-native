@@ -1,6 +1,10 @@
+const path = require('path');
+const { v4: uuid } = require('uuid');
+
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const Word = require('../models/Word');
+const { bucket } = require('../server');
 
 // @desc   Get all words
 // @route  GET /api/v1/words
@@ -56,6 +60,48 @@ exports.updateWord = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     content: word,
+    status: 'success',
+  });
+});
+
+// @desc   Upload image for word
+// @route  PUT /api/v1/words/:id/image
+// @access Private
+exports.wordImageUpload = asyncHandler(async (req, res, next) => {
+  const word = await Word.findById(req.params.id);
+
+  if (!word) {
+    return next(new ErrorResponse(`Word not found with id of ${req.params.id}`, 400));
+  }
+
+  if (!req.files) {
+    return next(new ErrorResponse('Please upload a file', 400));
+  }
+
+  const { file } = req.files;
+
+  // Make sure the image is a photo
+  if (!file.mimetype.startsWith('image')) {
+    return next(new ErrorResponse('Please upload an image file', 400));
+  }
+
+  // Check filesize
+  if (file.size > process.env.MAX_FILE_UPLOAD) {
+    return next(new ErrorResponse(`Please upload an image less than ${process.env.MAX_FILE_UPLOAD}`, 400));
+  }
+
+  const name = `${uuid()}${path.extname(file.name)}`;
+  const bucketFile = bucket.file(`${word._id}/${name}`);
+  await bucketFile.save(file.data);
+
+  const image = {
+    name,
+    size: file.size,
+  };
+
+  await Word.findByIdAndUpdate(req.params.id, { images: word.images.concat(image) });
+
+  res.status(200).json({
     status: 'success',
   });
 });

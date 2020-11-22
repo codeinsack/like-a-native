@@ -1,8 +1,7 @@
 import VueRouter, { Route } from 'vue-router';
 import { reactive, onMounted, Ref, ref } from '@vue/composition-api';
 import { Word, PartOfSpeech, Article } from '@/types/word';
-import { updateWord, fetchWordDetails } from '@/api/words';
-import { uploadWordImage } from '@/api/wordImage';
+import { updateWord, fetchWordDetails, uploadWordImage } from '@/api/words';
 import { useFormatter } from '@/uses/useFormatter';
 import { map } from 'lodash';
 
