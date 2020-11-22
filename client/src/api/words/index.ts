@@ -67,3 +67,19 @@ export const uploadWordImage = async ({
     return error;
   }
 };
+
+export const deleteWordImage = async ({
+  wordId,
+  imageName,
+}: {
+  wordId: string;
+  imageName: string;
+}): Promise<AxiosResponse<Word>> => {
+  const url = `${baseUrl}/${wordId}/image/${imageName}`;
+  try {
+    return await axios.delete(url);
+  } catch (error) {
+    logError(error);
+    return error;
+  }
+};

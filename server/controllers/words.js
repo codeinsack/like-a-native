@@ -117,3 +117,19 @@ exports.getWordImage = asyncHandler(async (req, res) => {
   res.setHeader('Content-Type', 'image/*');
   readStream.pipe(res);
 });
+
+// @desc   Get word image
+// @route  DELETE /api/v1/words/:wordId/image/:imageName
+// @access Private
+exports.deleteWordImage = asyncHandler(async (req, res) => {
+  const word = await Word.findById(req.params.wordId);
+  await Word.findByIdAndUpdate(req.params.wordId, {
+    images: word.images.filter((image) => image.name !== req.params.imageName),
+  });
+  const bucketFile = bucket.file(req.params.imageName);
+  await bucketFile.delete();
+
+  res.status(200).json({
+    status: 'success',
+  });
+});

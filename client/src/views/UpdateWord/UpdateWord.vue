@@ -63,7 +63,11 @@
     </div>
     <VRow>
       <VCol v-for="image in word.images" :key="image.name" class="d-flex child-flex" cols="3">
-        <img :src="`/api/v1/words/image/${image.name}`" alt="" />
+        <img
+          :src="`/api/v1/words/image/${image.name}`"
+          alt=""
+          @click="deleteImage(word._id, image.name)"
+        />
       </VCol>
     </VRow>
     <VRow>
@@ -99,6 +103,7 @@ export default defineComponent({
       changeExamples,
       PartOfSpeech,
       articles,
+      deleteImage,
     } = useUpdateWord(root.$route, root.$router);
     return {
       word,
@@ -109,6 +114,7 @@ export default defineComponent({
       changeExamples,
       PartOfSpeech,
       articles,
+      deleteImage,
     };
   },
 });

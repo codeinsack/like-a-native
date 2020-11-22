@@ -6,6 +6,7 @@ const {
   updateWord,
   uploadWordImage,
   getWordImage,
+  deleteWordImage,
 } = require('../controllers/words');
 const { protect, authorize } = require('../middleware/auth');
 
@@ -25,5 +26,6 @@ router.route('/:id')
 
 router.route('/:id/image').put(protect, uploadWordImage);
 router.route('/image/:id').get(protect, getWordImage);
+router.route('/:wordId/image/:imageName').delete(protect, deleteWordImage);
 
 module.exports = router;

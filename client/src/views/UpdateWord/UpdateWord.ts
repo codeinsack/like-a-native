@@ -1,7 +1,7 @@
 import VueRouter, { Route } from 'vue-router';
 import { reactive, onMounted, Ref, ref } from '@vue/composition-api';
 import { Word, PartOfSpeech, Article } from '@/types/word';
-import { updateWord, fetchWordDetails, uploadWordImage } from '@/api/words';
+import { updateWord, fetchWordDetails, uploadWordImage, deleteWordImage } from '@/api/words';
 import { useFormatter } from '@/uses/useFormatter';
 import { map } from 'lodash';
 
@@ -41,6 +41,10 @@ export function useUpdateWord(route: Route, router: VueRouter) {
   const uploadedImage: Ref<File | null> = ref(null);
 
   onMounted(async () => {
+    await loadWordDetails();
+  });
+
+  const loadWordDetails = async () => {
     const {
       params: { id },
     } = route;
@@ -48,7 +52,7 @@ export function useUpdateWord(route: Route, router: VueRouter) {
     if (data.content) {
       Object.assign(word, data.content);
     }
-  });
+  };
 
   const saveWord = async (): Promise<void> => {
     await updateWord({ ...word });
@@ -66,6 +70,14 @@ export function useUpdateWord(route: Route, router: VueRouter) {
     word.examples = updatedExamples;
   };
 
+  const deleteImage = async (wordId, imageName) => {
+    await deleteWordImage({
+      wordId,
+      imageName,
+    });
+    await loadWordDetails();
+  };
+
   return {
     word,
     saveWord,
@@ -75,5 +87,6 @@ export function useUpdateWord(route: Route, router: VueRouter) {
     changeExamples,
     PartOfSpeech,
     articles,
+    deleteImage,
   };
 }
