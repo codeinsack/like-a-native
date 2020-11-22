@@ -4,7 +4,6 @@ const {
   getWordDetails,
   addWord,
   updateWord,
-  wordImageUpload,
 } = require('../controllers/words');
 const { protect, authorize } = require('../middleware/auth');
 
@@ -21,7 +20,5 @@ router.route('/')
 
 router.route('/:id')
   .get(getWordDetails);
-
-router.route('/:id/image').put(wordImageUpload);
 
 module.exports = router;

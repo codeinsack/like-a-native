@@ -16,6 +16,10 @@ const AttachedWords = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 AttachedWords.index({ user: 1, word: 1 }, { unique: true });

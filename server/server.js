@@ -35,6 +35,7 @@ connectDB();
 const words = require('./routes/words');
 const auth = require('./routes/auth');
 const attachedWords = require('./routes/attachedWords');
+const wordImage = require('./routes/wordImage');
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/words', words);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/attachedwords', attachedWords);
+app.use('/api/v1/wordimage', wordImage);
 
 app.use(errorHandler);
 

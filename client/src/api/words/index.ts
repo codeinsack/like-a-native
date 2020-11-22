@@ -45,25 +45,3 @@ export const updateWord = async (body: Word): Promise<AxiosResponse<Word>> => {
     return error;
   }
 };
-
-export const uploadWordImage = async ({
-  wordId,
-  image,
-}: {
-  wordId: string;
-  image: File;
-}): Promise<AxiosResponse<Word>> => {
-  const url = `${baseUrl}/${wordId}/image`;
-  const formData = new FormData();
-  formData.append('file', image);
-  try {
-    return await axios.put(url, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  } catch (error) {
-    logError(error);
-    return error;
-  }
-};
