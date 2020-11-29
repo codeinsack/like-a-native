@@ -6,11 +6,13 @@
           <div class="display-1">{{ word.word }}</div>
           <div class="headline grey--text text--darken-2">{{ word.translation }}</div>
         </div>
-        <VAvatar class="rounded-lg ma-1" width="600" height="400" tile>
+        <VAvatar class="rounded-lg ma-1" width="400" height="300" tile>
           <img
-            :src="word.image ? `/images/${word.image}` : require('@/assets/no-image.png')"
+            v-if="head(word.images)"
+            :src="`/api/v1/words/image/${head(word.images).name}`"
             alt=""
           />
+          <img v-else :src="require('@/assets/no-image.png')" alt="" />
         </VAvatar>
       </VCol>
     </VRow>
@@ -23,9 +25,10 @@ import { useWordDetails } from './WordDetails';
 
 export default defineComponent({
   setup(props, { root }) {
-    const { word } = useWordDetails(root.$route);
+    const { word, head } = useWordDetails(root.$route);
     return {
       word,
+      head,
     };
   },
 });

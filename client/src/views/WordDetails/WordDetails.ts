@@ -2,6 +2,7 @@ import { Route } from 'vue-router';
 import { onMounted, Ref, ref } from '@vue/composition-api';
 import { Word } from '@/types/word';
 import { fetchWordDetails } from '@/api/words';
+import { head } from 'lodash';
 
 export function useWordDetails(route: Route) {
   const word: Ref<Word | null> = ref(null);
@@ -18,5 +19,6 @@ export function useWordDetails(route: Route) {
 
   return {
     word,
+    head,
   };
 }

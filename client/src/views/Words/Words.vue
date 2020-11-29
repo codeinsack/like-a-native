@@ -1,7 +1,7 @@
 <template>
-  <VContainer>
+  <VContainer class="pt-0">
     <VRow>
-      <VCol>
+      <VCol class="pt-0">
         <VDataTable
           :headers="headers"
           :items="words"
@@ -45,12 +45,13 @@
             <PartOfSpeechChip :type="item.partOfSpeech" />
           </template>
           <template #item.image="{ item }">
-            <VAvatar class="rounded-lg ma-1" width="100" height="60" tile>
+            <VAvatar class="rounded-lg ma-1" width="70" height="52.50" tile>
               <img
                 v-if="head(item.images)"
                 :src="`/api/v1/words/image/${head(item.images).name}`"
                 alt=""
               />
+              <img v-else :src="require('@/assets/no-image.png')" alt="" />
             </VAvatar>
           </template>
           <template #item.training="{ item }">
