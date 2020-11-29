@@ -3,6 +3,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client';
+import VueYouTubeEmbed from 'vue-youtube-embed';
 
 import router from '@/router/routes';
 import { store } from '@/store/store';
@@ -14,6 +15,11 @@ import { Variant } from '@/types/notification';
 import GAuth from 'vue-google-oauth2';
 import vuetify from './plugins/vuetify';
 import App from './App.vue';
+
+Vue.use(VueYouTubeEmbed, {
+  global: true,
+  componentId: 'YoutubeMedia',
+});
 
 const gauthOption = {
   clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
