@@ -1,5 +1,5 @@
 import VueRouter, { Route } from 'vue-router';
-import { reactive, onMounted, Ref, ref } from '@vue/composition-api';
+import { reactive, onMounted, Ref, ref, onUnmounted } from '@vue/composition-api';
 import { Word, PartOfSpeech, Article } from '@/types/word';
 import { updateWord, fetchWordDetails, uploadWordImage, deleteWordImage } from '@/api/words';
 import { useFormatter } from '@/uses/useFormatter';
@@ -11,6 +11,8 @@ const initialWord = {
   partOfSpeech: '',
   definitions: [],
   examples: [],
+  synonyms: [],
+  antonyms: [],
   verbForm: {
     thirdPerson: '',
     pastSimple: '',
@@ -37,12 +39,16 @@ const partsOfSpeech = (Object.keys(PartOfSpeech) as Array<keyof typeof PartOfSpe
 const articles = map(Article, (article) => article);
 
 export function useUpdateWord(route: Route, router: VueRouter) {
-  const word: Word = reactive({ ...(initialWord as any) });
+  let word: Word = reactive({ ...initialWord });
   const uploadedImage: Ref<File | null> = ref(null);
   const refImage: Ref<any> = ref(null);
 
   onMounted(async () => {
     await loadWordDetails();
+  });
+
+  onUnmounted(() => {
+    word = { ...initialWord };
   });
 
   const loadWordDetails = async () => {
@@ -77,8 +83,10 @@ export function useUpdateWord(route: Route, router: VueRouter) {
   };
 
   const uploadImage = async (image: File) => {
-    await uploadWordImage({ wordId: word._id, image });
-    await loadWordDetails();
+    if (word._id) {
+      await uploadWordImage({ wordId: word._id, image });
+      await loadWordDetails();
+    }
   };
 
   const openFilesDialog = async () => {

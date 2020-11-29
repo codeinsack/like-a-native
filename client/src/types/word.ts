@@ -23,16 +23,16 @@ export enum Article {
 }
 
 export interface Word {
-  _id: string;
+  _id?: string;
   word: string;
   translation: string;
   definitions: Array<string>;
   examples: Array<string>;
   synonyms: Array<string>;
   antonyms: Array<string>;
-  partOfSpeech: PartOfSpeech;
-  form: VerbForm;
-  article: Article;
+  partOfSpeech: PartOfSpeech | string;
+  verbForm: VerbForm;
+  article: Article | string;
   pluralForm: string;
   genitiveForm: string;
   comparativeForm: ComparativeForm;
