@@ -1,6 +1,6 @@
 import VueRouter, { Route } from 'vue-router';
 import { reactive, onMounted, Ref, ref, onUnmounted } from '@vue/composition-api';
-import { Word, PartOfSpeech, Article } from '@/types/word';
+import { Word, PartOfSpeech, Article, WordImage } from '@/types/word';
 import { updateWord, fetchWordDetails, uploadWordImage, deleteWordImage } from '@/api/words';
 import { useFormatter } from '@/uses/useFormatter';
 import { map } from 'lodash';
@@ -13,6 +13,7 @@ const initialWord = {
   examples: [],
   synonyms: [],
   antonyms: [],
+  images: [],
   verbForm: {
     thirdPerson: '',
     pastSimple: '',
@@ -79,13 +80,15 @@ export function useUpdateWord(route: Route, router: VueRouter) {
       wordId,
       imageName,
     });
-    await loadWordDetails();
+    word.images = word.images.filter((image) => image.name !== imageName);
   };
 
   const uploadImage = async (image: File) => {
     if (word._id) {
-      await uploadWordImage({ wordId: word._id, image });
-      await loadWordDetails();
+      const { data } = await uploadWordImage({ wordId: word._id, image });
+      if (data?.content) {
+        word.images = word.images.concat(data.content);
+      }
     }
   };
 

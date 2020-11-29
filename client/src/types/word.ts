@@ -22,6 +22,11 @@ export enum Article {
   das = 'das',
 }
 
+export interface WordImage {
+  name: string;
+  size: number;
+}
+
 export interface Word {
   _id?: string;
   word: string;
@@ -30,6 +35,7 @@ export interface Word {
   examples: Array<string>;
   synonyms: Array<string>;
   antonyms: Array<string>;
+  images: Array<WordImage>;
   partOfSpeech: PartOfSpeech | string;
   verbForm: VerbForm;
   article: Article | string;

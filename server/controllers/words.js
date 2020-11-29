@@ -102,6 +102,7 @@ exports.uploadWordImage = asyncHandler(async (req, res, next) => {
   await Word.findByIdAndUpdate(req.params.id, { images: word.images.concat(image) });
 
   res.status(200).json({
+    content: image,
     status: 'success',
   });
 });

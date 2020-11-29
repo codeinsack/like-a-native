@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { PaginatedResult } from '@/types/paginatedResult';
-import { Word } from '@/types/word';
+import { Word, WordImage } from '@/types/word';
 import { logError } from '@/utils/logger';
 import { Params } from '@/types/params';
 import { AxiosResponse } from '@/types/response';
@@ -52,7 +52,7 @@ export const uploadWordImage = async ({
 }: {
   wordId: string;
   image: File;
-}): Promise<AxiosResponse<Word>> => {
+}): Promise<AxiosResponse<WordImage>> => {
   const url = `${baseUrl}/${wordId}/image`;
   const formData = new FormData();
   formData.append('file', image);
