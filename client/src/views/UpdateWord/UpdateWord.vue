@@ -37,14 +37,9 @@
             <VTextField v-model="word.genitiveForm" label="Genetive form" outlined dense />
             <VTextField v-model="word.pluralForm" label="Plural form" outlined dense />
           </template>
-          <template
-            v-if="
-              word.partOfSpeech === PartOfSpeech.adjective ||
-              word.partOfSpeech === PartOfSpeech.adverb
-            "
-          >
+          <template v-if="word.partOfSpeech === PartOfSpeech.adjective">
             <div class="title text-decoration-underline mb-4 blue--text text-center">
-              <span>{{ word.partOfSpeech === PartOfSpeech.adverb ? 'Adverb' : 'Adjective' }}</span>
+              <span>Adjective</span>
             </div>
             <VTextField
               v-model="word.comparativeForm.comparative"
