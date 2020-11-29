@@ -21,7 +21,6 @@
     "vue-google-oauth2": "^1.5.5",
     "vue-router": "^3.4.7",
     "vue-socket.io-extended": "^4.0.5",
-    "vue-youtube-embed": "^2.2.2",
     "vuetify": "^2.2.11",
     "vuex": "^3.5.1"
   },

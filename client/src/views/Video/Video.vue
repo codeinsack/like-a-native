@@ -3,24 +3,52 @@
     <VRow>
       <VCol class="d-flex child-flex" cols="6">
         <VCard flat tile class="d-flex rounded-lg">
-          <YoutubeMedia player-width="500" player-height="300" video-id="ylzYfoisiAg" />
+          <iframe
+            frameborder="0"
+            height="300"
+            width="100%"
+            :src="`https://www.youtube.com/embed/ylzYfoisiAg`"
+            allowfullscreen
+          >
+          </iframe>
         </VCard>
       </VCol>
       <VCol class="d-flex child-flex" cols="6">
         <VCard flat tile class="d-flex rounded-lg">
-          <YoutubeMedia player-width="500" player-height="300" video-id="_JBzbQCgXwQ" />
+          <iframe
+            frameborder="0"
+            height="300"
+            width="100%"
+            :src="`https://www.youtube.com/embed/_JBzbQCgXwQ`"
+            allowfullscreen
+          >
+          </iframe>
         </VCard>
       </VCol>
     </VRow>
     <VRow>
       <VCol class="d-flex child-flex" cols="6">
         <VCard flat tile class="d-flex rounded-lg">
-          <YoutubeMedia player-width="500" player-height="300" video-id="V8XybEzd9qQ" />
+          <iframe
+            frameborder="0"
+            height="300"
+            width="100%"
+            :src="`https://www.youtube.com/embed/V8XybEzd9qQ`"
+            allowfullscreen
+          >
+          </iframe>
         </VCard>
       </VCol>
       <VCol class="d-flex child-flex" cols="6">
         <VCard flat tile class="d-flex rounded-lg">
-          <YoutubeMedia player-width="500" player-height="300" video-id="dEraG4YhtFc" />
+          <iframe
+            frameborder="0"
+            height="300"
+            width="100%"
+            :src="`https://www.youtube.com/embed/dEraG4YhtFc`"
+            allowfullscreen
+          >
+          </iframe>
         </VCard>
       </VCol>
     </VRow>
