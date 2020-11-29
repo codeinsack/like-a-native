@@ -9,6 +9,7 @@ import Training from '@/views/Training/Training.vue';
 import MyWords from '@/views/Training/MyWords/MyWords.vue';
 import GuessByDescription from '@/views/Training/GuessByDescription/GuessByDescription.vue';
 import CollectWord from '@/views/Training/CollectWord/CollectWord.vue';
+import Video from '@/views/Video/Video.vue';
 import Login from '@/views/Login/Login.vue';
 import Chat from '@/views/Chat/Chat.vue';
 
@@ -64,6 +65,13 @@ const routes = [
   {
     path: '/chat',
     component: Chat,
+    meta: {
+      protected: true,
+    },
+  },
+  {
+    path: '/video',
+    component: Video,
     meta: {
       protected: true,
     },

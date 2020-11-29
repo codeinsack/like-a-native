@@ -14,6 +14,7 @@ export default {
         { tab: 'Words', link: '/words' },
         { tab: 'Training', link: '/training/my-words' },
         { tab: 'Chat', link: '/chat' },
+        { tab: 'Video', link: '/video' },
       ],
     };
   },
