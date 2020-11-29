@@ -1,8 +1,8 @@
 <template>
   <VContainer class="mt-12">
     <VRow>
-      <VCol v-if="word" cols="6">
-        <div class="d-flex align-center flex-column">
+      <VCol v-if="word" class="d-flex flex-column align-center" cols="6">
+        <div class="d-flex align-center flex-column mb-4">
           <div class="display-1">{{ word.word }}</div>
           <div class="headline grey--text text--darken-2">{{ word.translation }}</div>
         </div>
