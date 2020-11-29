@@ -1,7 +1,7 @@
 <template>
-  <VContainer class="pt-0">
+  <VContainer class="py-0">
     <VRow>
-      <VCol class="pt-0">
+      <VCol class="py-0">
         <VDataTable
           :headers="headers"
           :items="words"
